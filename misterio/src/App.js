@@ -1,11 +1,10 @@
 import './App.css';
+import RollDice from './components/js/RollDice';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-     
-      </header>
+         <RollDice/>
     </div>
   );
 }
