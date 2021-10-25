@@ -7,12 +7,21 @@ class CreateForm extends React.Component {
     super(props)
     this.cancelClick = this.cancelClick.bind(this)
     this.state = {
-      name: ""
+      gameName: "",
+      hostName: ""
     }
   }
 
   cancelClick(){
     this.props.history.push("../");
+  }
+
+  saveGN = event => { 
+    this.setState({gameName: event.target.value});
+  }
+  
+  saveHN = event => { 
+    this.setState({hostName: event.target.value});
   }
 
   render () {
@@ -22,9 +31,12 @@ class CreateForm extends React.Component {
         <form>
           <div className = "field1">
             <label> Escriba un nombre para su partida </label>
-            <input className = "input" placeholder="Nombre partida"/>
+            <input className = "input" placeholder="Nombre partida"
+            value = {this.state.gameName} onChange = {this.saveGN}/>
+
             <label> Inserte su nombre de jugador </label>
-            <input className = "input" placeholder="Nickname"/>
+            <input className = "input" placeholder="Nickname"
+            value = {this.state.hostName} onChange = {this.saveHN}/>
           </div> 
         </form>
   

@@ -9,34 +9,42 @@
   }
   
   .form-box{
-    min-width: 100%;
-    height: 100vh;
-    /* border: 1px solid red; */
+    min-width: 40%;
+    height: 70vh;
     margin: 0vw;
-    padding: 5vw ;
     position:relative; 
-    /* position:relative for .Cancelar and .Continuar position:absolute; */
+    box-shadow: 1px 2px 5px rgba(0,0,0,.20); 
+    background: rgb(0, 0, 0, 0.3);
+    padding: 10px 0;
+    margin: auto;
+    border-radius: 5px; 
+    border: solid 1px #ccc
   }
-  
+  @import url('http://fonts.cdnfonts.com/css/bloody');
   .form-box h3{
-    font-size: 50px ;
+    font-size: 40px ;
     text-align: center;
-    color: #59225e;
-    margin: 5vh 0 10vh 0;
+    color: #5e222c;
+    margin: 0vh 0 0vh 0;
+    font-family: 'Bloody', sans-serif;
   }
   
   .form-box label{
     display: block;
     text-align: center;
-    font-size: 30px;
+    font-size: 25px;
     margin: 3vh 0 2vh 0;
+    color: navajowhite;
+    text-shadow: #5e222c 2px -2px;
+    font-family: 'Bloody', sans-serif;
+
   }
   
   .form-box input{
     display: block;
-    width: 600px;
-      margin: 2em auto;
-    padding: .5rem .8rem .5rem .8rem;
+    width: 400px;
+    margin: 1em auto;
+    padding: .10rem .8rem;
     text-align: center;
     display:flex;
     justify-content: center;
@@ -47,15 +55,14 @@
   
   .Cancelar, .Continuar{
     display: inline-block;
-    width: 30%;
-    height: 5rem;
+    width: 25%;
+    height: 3rem;
     color: rgb(0, 0, 0);
     border: 0;
     bottom: 0;
     cursor: pointer;
     font-size: 20px;
-    /* position:absolute; */
-  
+    background-color:rgba(230, 107, 144, 0.445);
   }
   
   .Cancelar{
@@ -64,8 +71,8 @@
   }
   
   .Continuar{
-    margin: 0 0 1rem rem;
-    margin-left: 10%;   
+    margin: 10rem 0 1rem rem;
+    margin-left: 30%;   
     border-radius: 30px; 
   }
   

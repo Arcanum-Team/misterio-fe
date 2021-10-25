@@ -15,12 +15,6 @@ export default class JoinForm extends React.Component {
 	    }
 	}
 
-
-	showName() { 
-        console.log(this.state.name)
-        console.log("yay")
-    }
-
 	render() {
 		return ( 
 			<div className = "form-box">
@@ -29,7 +23,7 @@ export default class JoinForm extends React.Component {
 				    <input type="text" placeholder="Inserte su nombre de jugador"
 				    value = {this.state.name} onChange = {this.saveName}/>
 				</form>
-				<button className = "continue" onClick = {() => this.showName()}> Aceptar </button>
+				<button className = "continue"> Aceptar </button>
 
 			</div>
 		);
