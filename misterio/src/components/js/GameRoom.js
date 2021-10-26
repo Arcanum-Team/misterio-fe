@@ -2,6 +2,7 @@ import React from "react";
 import '../css/HomePage.css';
 import ListOfPlayers from './ListOfPlayers.js';
 import RollDice from './RollDice.js';
+import FinishTurn from './FinishTurn.js';
 
 function HomePage() {
   return (
@@ -9,6 +10,7 @@ function HomePage() {
         <div  className="HP-text">
             <RollDice/>
             <ListOfPlayers/>
+            <FinishTurn/>
         </div>
     </div>
   );
