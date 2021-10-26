@@ -16,6 +16,10 @@ class CreateForm extends React.Component {
     this.props.history.push("../");
   }
 
+  createClick(){
+    this.props.history.push("../LobbyRoom");
+  }
+
   saveGN = event => { 
     this.setState({gameName: event.target.value});
   }
@@ -41,7 +45,7 @@ class CreateForm extends React.Component {
         </form>
   
         <button className = "Cancelar" type = "submit" onClick = {() => this.cancelClick()}> Cancelar </button>
-        <button className = "Continuar" type = "submit"> Crear </button>
+        <button className = "Continuar" type = "submit" onClick = {() => this.createClick()}> Crear </button>
       </div>
     );
   }

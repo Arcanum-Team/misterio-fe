@@ -1,21 +1,21 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import '../css/Button.css';
+import '../css/StartGame.css';
 
-function ListGames() {
+function StartGame() {
   let history = useHistory();
 
   const handleClick = () =>{
-    history.push("/ListOfGames");
+    history.push("/GameRoom");
   }
 
   return (                                                                                                                
     <div>
-      <button className="boton" onClick= {handleClick}>
-        Listar Partidas
+      <button className="sboton" onClick= {handleClick}>
+        Iniciar Partida
       </button>
     </div>
   );
 }
 
-export default ListGames;
+export default StartGame;

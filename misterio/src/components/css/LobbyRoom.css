@@ -1,0 +1,17 @@
+.lcontainer {
+    text-align: center;
+  }
+  @import url('http://fonts.cdnfonts.com/css/bloody');
+  .gameName{
+      font-size: 50px ;
+      color: #5e222c;
+      margin: 0;
+      font-family: 'Bloody', sans-serif;
+  }
+  
+  .lobby{
+      font-size: 25px ;
+      font-family: 'Bloody', sans-serif;
+      color: #5e222c;
+      margin: 0 0 5vh 0;
+  }
