@@ -2,7 +2,7 @@
     display: flex;
     flex-flow: column nowrap;
     min-height: 10vh;
-    bottom: 10px;
+    bottom: 30px;
     left: 10px;
     position: absolute;
 }
@@ -23,7 +23,7 @@
     color: white;
     margin-top: -1.5em; 
     color: rgb(0, 0, 0);
-    background-color: rgba(240, 107, 123, 0.589);
+    background-color: rgba(230, 107, 144, 0.445);
 }
 
 .roll-dice button:hover{

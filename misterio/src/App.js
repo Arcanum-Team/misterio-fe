@@ -6,6 +6,7 @@ import JoinGame from './components/js/JoinGame';
 import CreateForm from './components/js/CreateForm';
 import ListofGames from './components/js/ListOfGames';
 import ListOfPlayers from './components/js/ListOfPlayers';
+import LobbyRoom from './components/js/LobbyRoom';
 import GameRoom from './components/js/GameRoom';
 //import RollDice from './components/js/RollDice';
 /*{
@@ -18,14 +19,13 @@ function App() {
       <div className="background">
         <Router>
           <Switch>
-            <Route exact path="/JoinGame" component= {() => <JoinGame/>} />
-            <Route exact path="/JoinForm" component= {() => <JoinForm gameName = "Nombre de Partida"/>} />
             <Route exact path="/" component={HomePage}/>
+            <Route exact path="/JoinForm" component= {JoinForm} />
             <Route exact path="/CreateForm" component= {CreateForm} />
             <Route exact path="/ListOfGames" component= {ListofGames} />
             <Route exact path="/ListOfPlayers" component= {ListOfPlayers} />
+            <Route exact path="/LobbyRoom" component= {LobbyRoom} />
             <Route exact path="/GameRoom" component= {GameRoom} />
-
           </Switch>
         </Router>
       </div>

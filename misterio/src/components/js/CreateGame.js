@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import '../css/CreateGame.css';
+import '../css/Button.css';
 
 function CreateGame() {
   let history = useHistory();
