@@ -1,6 +1,8 @@
 import React from "react";
 import logo from '../../logo.png';
 import '../css/HomePage.css';
+import CreateGame from './CreateGame.js';
+import ListGames from './ListGames.js';
 
 function HomePage() {
   return (
@@ -9,12 +11,8 @@ function HomePage() {
             <img src={logo} className="HP-logo" alt="logo" />
         </p>
         <div  className="HP-text">
-            <b className="boton">
-                Crear Partida
-            </b>
-            <b className="boton">
-                Listar Partidas
-            </b>
+            <CreateGame/>
+            <ListGames/>
         </div>
     </div>
   );
