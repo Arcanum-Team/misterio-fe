@@ -1,7 +1,10 @@
 .roll-dice {
     display: flex;
     flex-flow: column nowrap;
-    min-height: 100vh;
+    min-height: 10vh;
+    bottom: 10px;
+    left: 10px;
+    position: absolute;
 }
 
 .rolldice-container {
@@ -12,19 +15,26 @@
 
 .roll-dice button{
     align-self: center;
-    width: 10em;
-    padding: 1.5em;
-    font-size: 1em;
+    width: 7em;
+    padding: 0.5em;
+    font-size: 0.8em;
     border: 0pc;
     border-radius: 10px;
     color: white;
-    background-color: green;
+    margin-top: -1.5em; 
+    color: rgb(0, 0, 0);
+    background-color: rgba(240, 107, 123, 0.589);
 }
 
 .roll-dice button:hover{
     cursor: pointer;
+    background-color: #5e222c;
+    transition: 1s background ease;
+    color: #ffffff;
+    transition: 1s color ease;
 }
 
 .totalMoves{
-    margin-top: 1em; 
+    font-size: 0.8em;
+    margin-top: 0.5em; 
 }

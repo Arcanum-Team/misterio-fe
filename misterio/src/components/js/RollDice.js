@@ -32,9 +32,9 @@ const RollDice = ({sides}) =>{
                 <Dice number={String(dice)} rolling={rolling}/>
             </div>
             <button onClick={roll} disabled={rolling}>
-                {rolling ? "Rolling.." : "Roll Dice"}
+                {rolling ? "Tirando..." : "Tirar dado"}
             </button>
-            <h2 className="totalMoves">Total moves: {totalMoves}</h2>
+            <h2 className="totalMoves"> Numero: {totalMoves}</h2>
         </div>
         </>
     );

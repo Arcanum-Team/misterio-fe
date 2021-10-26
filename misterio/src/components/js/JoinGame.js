@@ -1,5 +1,6 @@
 import React from 'react'
 import "../css/Button.css";
+import JoinForm from './JoinForm';
 
 import {useHistory} from "react-router-dom";
 

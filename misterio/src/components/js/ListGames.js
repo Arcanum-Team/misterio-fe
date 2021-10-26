@@ -1,12 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import '../css/CreateGame.css';
+import GameRoom from './GameRoom.js';
 
 function ListGames() {
   let history = useHistory();
 
   const handleClick = () =>{
-    history.push("/ListOfGames");
+    // history.push("/ListOfGames");
+    history.push("/GameRoom");
   }
 
   return (                                                                                                                
