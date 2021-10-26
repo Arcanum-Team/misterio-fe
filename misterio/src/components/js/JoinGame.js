@@ -1,6 +1,5 @@
 import React from 'react'
 import "../css/Button.css";
-import JoinForm from './JoinForm';
 
 import {useHistory} from "react-router-dom";
 
@@ -13,7 +12,7 @@ export default function JoinGame() {
 
 	return (
 		<div>
-			<button className = "continue" onClick= {handleClick}> Unirse a Partida </button>
+			<button className = "btn btn-dark" onClick= {handleClick}> Unirse a Partida </button>
 		</div>
 	);
 }

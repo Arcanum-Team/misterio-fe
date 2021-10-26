@@ -1,5 +1,6 @@
 import React from "react";
 import "../css/ListOfGames.css";
+import JoinGame from "./JoinGame"
 
 class ListOfGames extends React.Component {
    
@@ -40,7 +41,7 @@ class ListOfGames extends React.Component {
         const { items } = this.state;
       
         return (
-        <div className="container tableFixHead">
+        <div className="container tableGames">
             <table className="table">
                 <thead>
                     <tr>
@@ -55,7 +56,7 @@ class ListOfGames extends React.Component {
                             <td>{ item.name }</td>
                             <td>{ item.cantPlayers }</td>   
                             <td>
-                               <button className="btn btn-dark" onClick={() => this.joinGame(item.name)}>Unirse</button>
+                               <JoinGame/>
                             </td>
                         </tr>
                     ))}

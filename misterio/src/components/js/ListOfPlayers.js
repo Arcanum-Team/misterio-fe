@@ -33,7 +33,7 @@ class ListOfPlayers extends React.Component {
         const { order } = this.state;
       
         return (
-        <div className="tableFixHead">
+        <div className="tablePlayers">
             <table className="table">
                 <thead>
                     <tr>
