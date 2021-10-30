@@ -7,17 +7,37 @@ class CreateForm extends React.Component {
     super(props)
     this.cancelClick = this.cancelClick.bind(this)
     this.state = {
-      gameName: "",
-      hostName: ""
+      gameName: '',
+      hostName: ''
     }
   }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    
+    const data = {'game_name': this.state.gameName, 'nickname': this.state.hostName}
+    const requestOptions = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify(data)
+    };
+
+    fetch(
+        "http://127.0.0.1:8000/api/v1/games", requestOptions)
+        .then((res) => res.json())
+        .then((json) => {
+          this.props.history.push("../LobbyRoom/" + json.game.id);
+        })
+
+  };
 
   cancelClick(){
     this.props.history.push("../");
   }
 
   createClick(){
-    this.props.history.push("../LobbyRoom");
+    
   }
 
   saveGN = event => { 
@@ -45,7 +65,7 @@ class CreateForm extends React.Component {
         </form>
   
         <button className = "Cancelar" type = "submit" onClick = {() => this.cancelClick()}> Cancelar </button>
-        <button className = "Continuar" type = "submit" onClick = {() => this.createClick()}> Crear </button>
+        <button className = "Continuar" type = "submit" onClick = {this.handleSubmit.bind(this)}> Crear </button>
       </div>
     );
   }

@@ -1,8 +1,7 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import HomePage from './components/js/HomePage';
 import JoinForm from './components/js/JoinForm';
-import JoinGame from './components/js/JoinGame';
 import CreateForm from './components/js/CreateForm';
 import ListofGames from './components/js/ListOfGames';
 import ListOfPlayers from './components/js/ListOfPlayers';
@@ -20,11 +19,13 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/" component={HomePage}/>
-            <Route exact path="/JoinForm" component= {JoinForm} />
+
+            <Redirect from="/JoinForm" component= {JoinForm} to="/LobbyRoom/:id"/>
+            <Route exact path="/LobbyRoom/:id" component= {LobbyRoom}/>
+
             <Route exact path="/CreateForm" component= {CreateForm} />
             <Route exact path="/ListOfGames" component= {ListofGames} />
             <Route exact path="/ListOfPlayers" component= {ListOfPlayers} />
-            <Route exact path="/LobbyRoom" component= {LobbyRoom} />
             <Route exact path="/GameRoom" component= {GameRoom} />
           </Switch>
         </Router>

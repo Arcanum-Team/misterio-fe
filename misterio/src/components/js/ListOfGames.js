@@ -24,7 +24,7 @@ class ListOfGames extends React.Component {
         };
 
         fetch(
-            "http://127.0.0.1:8000/games", requestOptions)
+            "http://127.0.0.1:8000/api/v1/games", requestOptions)
             .then((res) => res.json())
             .then((json) => {
                 this.setState({

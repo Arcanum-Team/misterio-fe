@@ -8,7 +8,7 @@ class Card extends React.Component {
             <div class="image-area">
         <div class="img-wrapper">
             <img src={detective} alt="detective" />
-            <h2>Nickname</h2>
+            <h2> {this.props.playerName} </h2>
         </div>
     </div>
     );

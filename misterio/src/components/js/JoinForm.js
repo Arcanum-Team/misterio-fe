@@ -13,7 +13,7 @@ class JoinForm extends React.Component {
 	}
 
 	joinClick(){
-		this.props.history.push("../LobbyRoom");
+		this.props.history.push("../LobbyRoom/:id");
 	}
 
 	saveName = event => { 
