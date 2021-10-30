@@ -39,32 +39,39 @@ class ListOfGames extends React.Component {
 
     render() {
         const { items } = this.state;
-      
-        return (
-        <div className="container tableGames">
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Nombre de la partida</th>
-                        <th>Cantidad de jugadores</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map((item) => ( 
-                        <tr>
-                            <td>{ item.name }</td>
-                            <td>{ item.cantPlayers }</td>   
-                            <td>
-                               <JoinGame/>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
-}
+        if(items && items.length){
+            return (
+                <div className="container tableGames">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre de la partida</th>
+                                <th>Cantidad de jugadores</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items.map((item) => ( 
+                                <tr>
+                                    <td>{ item.name }</td>
+                                    <td>{ item.player_count }</td>   
+                                    <td>
+                                       <JoinGame/>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }else{
+            return(
+                <div className="container tableGames">
+                    <button>No hay partidas</button>
+                </div>
+            )
+        }
+    }
 }
    
 export default ListOfGames;
