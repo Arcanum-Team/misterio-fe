@@ -56,7 +56,7 @@ class ListOfGames extends React.Component {
                                     <td>{ item.name }</td>
                                     <td>{ item.player_count }</td>   
                                     <td>
-                                       <JoinGame/>
+                                       <JoinGame gameName= {item.name}/>
                                     </td>
                                 </tr>
                             ))}

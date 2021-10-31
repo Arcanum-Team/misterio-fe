@@ -8,16 +8,35 @@ class JoinForm extends React.Component {
 		super(props)
 		this.joinClick = this.joinClick.bind(this)
 		this.state = {
-			name: ""
+			nickname: "",
 		}
 	}
 
-	joinClick(){
-		this.props.history.push("../LobbyRoom/:id");
-	}
+	handleSubmit = event => {
+		event.preventDefault();
+		
+		const data = {'game_name': this.props.match.params.id, 'nickname': this.state.nickname}
+		console.log(data);
+
+		const requestOptions = {
+			method: 'PUT',
+			mode: 'cors',
+			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+			body: JSON.stringify(data)
+		};
+	
+		fetch(
+			"http://127.0.0.1:8000/api/v1/games/join", requestOptions)
+			.then((res) => res.json())
+			.then((json) => {
+				console.log(json);
+			  this.props.history.push("../LobbyRoom/" + json.game.id);
+			})
+	
+	  };
 
 	saveName = event => { 
-		this.setState({name: event.target.value});
+		this.setState({nickname: event.target.value});
 	}
 
 	render() {
@@ -31,7 +50,7 @@ class JoinForm extends React.Component {
 						value = {this.state.name} onChange = {this.saveName}/>
 					</div>
 				</form>
-				<button className = "continue" type = "submit" onClick = {() => this.joinClick()}> Aceptar </button>
+				<button className = "continue" type = "submit" onClick = {this.handleSubmit.bind(this)}> Aceptar </button>
 			</div>
 		);
 	}

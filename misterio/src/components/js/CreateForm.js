@@ -27,6 +27,7 @@ class CreateForm extends React.Component {
         "http://127.0.0.1:8000/api/v1/games", requestOptions)
         .then((res) => res.json())
         .then((json) => {
+          console.log(json);
           this.props.history.push("../LobbyRoom/" + json.game.id);
         })
 
