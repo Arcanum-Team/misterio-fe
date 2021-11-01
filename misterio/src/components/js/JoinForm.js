@@ -6,7 +6,6 @@ class JoinForm extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this.joinClick = this.joinClick.bind(this)
 		this.state = {
 			nickname: "",
 		}
@@ -42,7 +41,7 @@ class JoinForm extends React.Component {
 	render() {
 		return ( 
 			<div className = "jform-box">
-				<h3 className = "jform-step"> Nombre de partida </h3>
+				<h3 className = "jform-step"> {this.props.match.params.id} </h3>
 				<form>
 					<div className = "field1">
 						<label> Inserte su nombre de jugador </label>
@@ -50,7 +49,9 @@ class JoinForm extends React.Component {
 						value = {this.state.name} onChange = {this.saveName}/>
 					</div>
 				</form>
-				<button className = "continue" type = "submit" onClick = {this.handleSubmit.bind(this)}> Aceptar </button>
+				<button className = "continue" type = "submit" onClick = {this.handleSubmit.bind(this)}>
+					Aceptar
+				</button>
 			</div>
 		);
 	}

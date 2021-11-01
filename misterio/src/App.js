@@ -25,10 +25,10 @@ function App() {
             <Route exact path="/LobbyRoom/:id" component= {LobbyRoom}/>
             <Route exact path="/JoinForm/:id" component= {JoinForm}/>
 
-            <Route exact path="/CreateForm" component= {CreateForm} />
-            <Route exact path="/ListOfGames" component= {ListofGames} />
-            <Route exact path="/ListOfPlayers" component= {ListOfPlayers} />
-            <Route exact path="/GameRoom" component= {GameRoom} />
+            <Route exact path="/CreateForm" component= {CreateForm}/>
+            <Route exact path="/ListOfGames" component= {ListofGames}/>
+            <Route exact path="/ListOfPlayers" component= {ListOfPlayers}/>
+            <Route exact path="/GameRoom/:id" component= {GameRoom}/>
           </Switch>
         </Router>
       </div>

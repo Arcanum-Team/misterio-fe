@@ -6,32 +6,9 @@ class ListOfPlayers extends React.Component {
     // Constructor 
     constructor(props) {
         super(props);
-   
-        this.state = {
-            order: [],
-        };
-    }
-   
-    componentDidMount() {
-
-        const requestOptions = {
-            method: 'GET',
-            headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-        };
-
-        fetch(
-            "https://jsonplaceholder.typicode.com/users", requestOptions)
-            .then((res) => res.json())
-            .then((json) => {
-                this.setState({
-                    order: json,
-                });
-            })
     }
 
-    render() {
-        const { order } = this.state;
-      
+    render() {    
         return (
         <div className="tablePlayers">
             <table className="table">
@@ -41,9 +18,9 @@ class ListOfPlayers extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {order.map((player) => ( 
+                    {this.props.players.map((player) => ( 
                         <tr>
-                            <td>{ player.name }</td>
+                            <td>{ player.nickname }</td>
                         </tr>
                     ))}
                 </tbody>

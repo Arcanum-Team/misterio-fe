@@ -8,6 +8,7 @@ class LobbyRoom extends React.Component {
       super(props);
  
       this.state = {
+          host: '',
           gameName:'',
           players: [],
           playerNum: 0,
@@ -47,10 +48,10 @@ class LobbyRoom extends React.Component {
           </p>
           <div>
             {this.state.players.map((player) => ( 
-                    <Card playerName = { player.nickname } />
+              <Card playerName = { player.nickname } />
             ))}
           </div>
-          <StartGame/>
+          <StartGame GameId={this.props.match.params.id}/>
       </div>
     );
   }
