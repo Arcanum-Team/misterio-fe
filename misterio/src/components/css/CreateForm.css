@@ -10,22 +10,21 @@
   
   .form-box{
     min-width: 40%;
-    height: 70vh;
-    margin: 0vw;
     position:relative; 
     box-shadow: 1px 2px 5px rgba(0,0,0,.20); 
     background: rgb(0, 0, 0, 0.3);
-    padding: 10px 0;
+    padding: 0.5%;
     margin: auto;
     border-radius: 5px; 
     border: solid 1px #ccc
   }
+  
   @import url('http://fonts.cdnfonts.com/css/bloody');
   .form-box h3{
     font-size: 40px ;
     text-align: center;
     color: #5e222c;
-    margin: 0vh 0 0vh 0;
+    margin: 10% 0 0 0;
     font-family: 'Bloody', sans-serif;
   }
   
@@ -33,7 +32,7 @@
     display: block;
     text-align: center;
     font-size: 25px;
-    margin: 3vh 0 2vh 0;
+    margin: 5% 0 0 0;
     color: navajowhite;
     text-shadow: #5e222c 2px -2px;
     font-family: 'Bloody', sans-serif;
@@ -58,19 +57,18 @@
     width: 25%;
     height: 3rem;
     color: rgb(0, 0, 0);
-    bottom: 0;
     cursor: pointer;
     font-size: 20px;
     background-color:rgba(230, 107, 144, 0.445);
   }
   
   .Cancelar{
-    margin: 2rem 0 1rem 0; 
+    margin: 5% 0 7% 0; 
     border-radius: 30px; 
   }
   
   .Continuar{
-    margin: 10rem 0 1rem rem;
+    margin: 5% 0 5% 0; 
     margin-left: 30%;   
     border-radius: 30px; 
   }

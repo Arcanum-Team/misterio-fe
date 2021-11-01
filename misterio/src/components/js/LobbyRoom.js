@@ -46,12 +46,12 @@ class LobbyRoom extends React.Component {
           <p className = "lobby">
             Lobby
           </p>
-          <div>
+          <div className="playersContainer">
             {this.state.players.map((player) => ( 
               <Card playerName = { player.nickname } />
             ))}
           </div>
-          <StartGame GameId={this.props.match.params.id}/>
+          <StartGame className="startGameButton" GameId={this.props.match.params.id}/>
       </div>
     );
   }
