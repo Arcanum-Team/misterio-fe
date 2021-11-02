@@ -6,6 +6,7 @@ import RollDice from './RollDice.js';
 import FinishTurn from './FinishTurn.js';
 import Accuse from './Accuse.js';
 import Suspect from './Suspect.js';
+import Board from './Board.js';
 
 class GameRoom extends React.Component{
   constructor(props) {
@@ -60,6 +61,7 @@ class GameRoom extends React.Component{
               <Accuse/>
               <FinishTurn parentCallback = {this.handleCallback} gameId={this.props.match.params.id}/>
             </div>
+            <Board/>
         </div>
     </div>
     );
