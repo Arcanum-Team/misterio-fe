@@ -6,7 +6,11 @@ import '../css/Board.css';
 
 export default class Board extends React.Component {
 	render() {
-		const pos = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+		// const pos_a = ["E","","","","a","","P","","","","a","","","P","","a","","","","E"];
+		const pos_a = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
+		const pos_b = ["E","","a","","","","P","","","","a","","","P","","a","","","","E"];
+		const pos_c = ["E","","","","a","","P","","","","a","","","P","","","a","","","E"];
+		const pos_d = ["E","","","a","","","P","","","","a","","","P","","","a","","","E"];
 		return (
 			<div className= "game-board">
 				<div className = "cochera">
@@ -20,14 +24,16 @@ export default class Board extends React.Component {
 				</div>
 
 				<div className = "board-a">
-					{pos.map((x) => <Box value = {pos[x-1]}> </Box>)}
+					{/*{pos_a.map((x) => <Box value = {pos_a[x-1]}> </Box>)}*/}
+					{pos_a.map((x) => <Box value = {pos_a[x]}> </Box>)}
 				</div>
+				{console.log(pos_a[2])}
 				<div className = "board-b">
 
-					{pos.map((x) => <Box value = {pos[x-1]}> </Box>)}
+					{pos_a.map((x) => <Box value = {pos_a[x]}> </Box>)}
 				</div>
 				<div className = "board-c">
-					{pos.map((x) => <Box value = {pos[x-1]}> </Box>)}
+					{pos_c.map((x) => <Box value = {pos_c[x-1]}> </Box>)}
 				</div>
 
 				<div className = "vestibulo">
@@ -38,7 +44,7 @@ export default class Board extends React.Component {
 				</div>
 
 				<div className = "board-d">
-					{pos.map((x) => <Box value = {pos[x-1]}> </Box>)}
+					{pos_d.map((x) => <Box value = {pos_d[x-1]}> </Box>)}
 				</div>
 
 				<div className = "bodega">

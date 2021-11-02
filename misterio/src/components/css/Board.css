@@ -1,81 +1,85 @@
 .game-board {
-	justify-content: space-around;
+	justify-content: center;
 	display: flex;
-	flex-wrap: wrap;
-	margin: auto;
+	padding: 13rem 25rem;
+	align-items: center;
+	align-content: center;
+	position: relative;
+	margin-top: 15%;
+
 }
 
 .board-a {
 	position: absolute;
-	margin-top: -9.65%;
+	margin-top: -50.9%;
 
 }
 
 .board-b {
-	margin-left: -15.45%;
-	margin-top: -2%;
+	margin-left: -25.55%;
+	margin-top: -25.85%;
 	position: absolute;
 	transform: rotate(90deg);
 
 }
 
 .board-c {
-	margin-top: -2%;
-	margin-left: 15.45%;
+	margin-top: -25.85%;
+	margin-right: -25.45%;
 	position: absolute;
 	transform: rotate(90deg);
 }
 
 
 .board-d {
-	margin-top: 5.75%;
+	margin-top: -0.2%;
 	position: absolute;
 }
 
 .cochera {
 	position: absolute;
-	margin-left: -30.7%;
-	margin-top: -22.87%;
+	margin-left: -50.75%;
+	margin-top: -76.55%;
 }
 
 .alcoba {
 	position: absolute;
 	margin-left: 0.1%;
-	margin-top: -22.87%;
+	margin-top: -76.55%;
 }
 
 .biblioteca {
 	position: absolute;
-	margin-left: 31%;
-	margin-top: -22.87%;
+	margin-left: 50.75%;
+	margin-top: -76.55%;
 }
 
 .vestibulo {
 	position: absolute;
-	margin-left: -30.7%;
-	margin-top: -7.55%;
+	margin-left: -50.75%;
+	margin-top: -25.85%;
 }
 
 .panteon {
 	position: absolute;
-	margin-left: 31%;
-	margin-top: -7.55%;
+	margin-left: 50.75%;
+	margin-top: -25.85%;
 }
 
 .bodega {
 	position: absolute;
-	margin-left: -30.7%;
-	margin-top: 7.85%;
+	margin-left: -50.75%;
+	margin-top: 25.25%;
 }
 
 .salon {
 	position: absolute;
 	margin-left: 0.1%;
-	margin-top: 7.85%;
+	margin-top: 25.25%;
 }
 
 .laboratorio {
 	position: absolute;
-	margin-left: 31%;
-	margin-top: 7.85%;
+	margin-left: 50.75%;
+	margin-top: 25.25%;
 }

@@ -1,13 +1,13 @@
 .box {
 	background-color: #fff;
-	border: 1px solid;
+	border:  1px solid #999;
 	float:  left;
-	font-weight: bold;
-	line-height: 30px;
+	line-height: 20%;
 	height: 30px;
 	margin-right: -1px;
 	margin-top: -1px;
-	padding: 1;
+	padding: 0;
+	text-align: center;
 	width: 30px;
 }
 
