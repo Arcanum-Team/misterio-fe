@@ -29,6 +29,7 @@ class CreateForm extends React.Component {
         .then((json) => {
           console.log(json);
           this.props.history.push("../LobbyRoom/" + json.game.id);
+          localStorage.setItem("host_id", json.id);
         })
 
   };

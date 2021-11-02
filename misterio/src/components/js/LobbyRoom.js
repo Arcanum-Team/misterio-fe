@@ -16,7 +16,6 @@ class LobbyRoom extends React.Component {
   }
 
   componentDidMount() {
-
     const requestOptions = {
         method: 'GET',
         mode: 'cors',
@@ -27,17 +26,16 @@ class LobbyRoom extends React.Component {
         "http://127.0.0.1:8000/api/v1/games/" + this.props.match.params.id , requestOptions)
         .then((res) => res.json())
         .then((json) => {
+
           this.setState({
             gameName: json.name,  
             players: json.players,
-            playerNum: json.player_count,
+            playerNum: json.player_count
           })
         })
   }
-
-
+  
   render(){
-    const { players } = this.state.players;
     return (
       <div className="lcontainer">
           <h3 className = "gameName">
@@ -51,7 +49,7 @@ class LobbyRoom extends React.Component {
               <Card playerName = { player.nickname } />
             ))}
           </div>
-          <StartGame className="startGameButton" GameId={this.props.match.params.id}/>
+          {localStorage.getItem("host_id")!= null && <StartGame className="startGameButton" GameId={this.props.match.params.id}/>}
       </div>
     );
   }

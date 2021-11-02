@@ -10,7 +10,7 @@ class StartGame extends React.Component {
 	}
 
 	handleClick(name) {
-    const data = {'game_id': this.props.match.params.id}
+    const data = {'game_id': this.props.match.params.id, 'player_id': localStorage.getItem("host_id")}
 
 		const requestOptions = {
 			method: 'PUT',

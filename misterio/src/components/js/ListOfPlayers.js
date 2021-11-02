@@ -20,7 +20,10 @@ class ListOfPlayers extends React.Component {
                 <tbody>
                     {this.props.players.map((player) => ( 
                         <tr>
-                            <td>{ player.nickname }</td>
+                            
+                            <td>
+                                { player.nickname }
+                            </td>
                         </tr>
                     ))}
                 </tbody>
