@@ -9,8 +9,13 @@ class GameRoom extends React.Component{
     super(props);
     this.state = {
         players: [],
+        turn: 0
     };
-}
+  }
+
+  handleCallback = (childData) =>{
+    this.setState({turn: childData})
+  }
 
   componentDidMount() {
     const requestOptions = {
@@ -24,7 +29,8 @@ class GameRoom extends React.Component{
       .then((res) => res.json())
       .then((json) => {
           this.setState({
-              players: json.players
+              players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
+              turn: 1
           });
       })
   }
@@ -32,10 +38,10 @@ class GameRoom extends React.Component{
   render(){
     return (
       <div className= "HP">
-        <div  className="HP-text">
+        <div className="HP-text">
             <RollDice/>
-            <ListOfPlayers players={this.state.players}/>
-            <FinishTurn/>
+            <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
+            <FinishTurn parentCallback = {this.handleCallback} gameId={this.props.match.params.id}/>
         </div>
     </div>
     );
