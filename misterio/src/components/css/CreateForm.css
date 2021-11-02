@@ -80,3 +80,38 @@
     transition: 1s color ease;
   }
   
+
+  @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
+.frame {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  width: 400px;
+  height: 300px;
+  margin-top: -200px;
+  margin-left: -200px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background: black;
+  color: white;
+
+	font-family: 'Open Sans', Helvetica, sans-serif;
+}
+
+.exceptionMessage{
+  margin-top: 7rem;
+  margin-left:2rem;
+}
+
+.closeModal{
+  position: absolute;
+  width: 400px;
+  border-radius: 5px;
+  height: 40px;
+  color: white;
+
+  background-color: #5e222c;
+  bottom:0rem;
+}
+
