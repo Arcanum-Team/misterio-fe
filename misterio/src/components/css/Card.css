@@ -6,8 +6,9 @@
 
 .img-wrapper
 {
-    border-radius: 100px;
-    margin-left: 0.85em;
+    border-radius: 46%;
+    margin-left: 0.4em;
+	margin-right: 0.4em;
 	height: 256px;
 	width: 192px;
 	position: relative;

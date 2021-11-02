@@ -34,7 +34,6 @@ const RollDice = ({sides}) =>{
             <button onClick={roll} disabled={rolling}>
                 {rolling ? "Tirando..." : "Tirar dado"}
             </button>
-            <h2 className="totalMoves"> Numero: {totalMoves}</h2>
         </div>
         </>
     );
