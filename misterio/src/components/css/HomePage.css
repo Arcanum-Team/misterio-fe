@@ -61,3 +61,16 @@
     position: absolute;
     transition: background 0.25s;
   }
+
+  .scene {
+    align-items: left;
+    flex-direction: column;
+    align-content: left;
+    display: flex;
+    top: 1%;
+    left: 1%;
+    font-size: 10px;
+    justify-content:left;
+    position: absolute;
+    transition: background 0.25s;
+  }

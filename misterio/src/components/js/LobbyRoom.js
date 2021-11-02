@@ -1,5 +1,5 @@
 import React from "react";
-import Card from './Card'
+import LobbyPlayer from './LobbyPlayer'
 import StartGame from './StartGame';
 import '../css/LobbyRoom.css';
 
@@ -46,7 +46,7 @@ class LobbyRoom extends React.Component {
           </p>
           <div className="playersContainer">
             {this.state.players.map((player) => ( 
-              <Card playerName = { player.nickname } />
+              <LobbyPlayer playerName = { player.nickname } />
             ))}
           </div>
           {localStorage.getItem("host_id")!= null && <StartGame className="startGameButton" GameId={this.props.match.params.id}/>}

@@ -1,68 +1,116 @@
-.image-area
-{   top: 50%;
+.cscene {
+	align-items: left;
+	align-content: left;
+	display: flex;
+	font-size: 10px;
+	justify-content:left;
+	padding: 1rem 0.2rem;
 	position: relative;
-    float:left;
+	transition: background 0.25s;
 }
 
-.img-wrapper
-{
-    border-radius: 46%;
-    margin-left: 0.4em;
-	margin-right: 0.4em;
-	height: 256px;
-	width: 192px;
-	position: relative;
-	overflow: hidden;
-}
-
-.img-wrapper:before
-{
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 180%;
-	height: 100%;
-	width: 100%;
-	background: rgba(255,255,255,.3);
-	z-index: 1;
-	transform: skew(45deg);
-	transition: .5s;
-}
-
-.img-wrapper:hover:before
-{
-	left: -180%;
-}
-
-.img-wrapper img
-{
-	height: 256px;
-	width: 192px;
-	filter: grayscale(100%);
-	transition: 2s;
-}
-.img-wrapper:hover img
-{
-	filter: grayscale(0%);
-}
-
-.img-wrapper h2
-{
-	background: #5e222c;
-	font-family: Poppins;
-    font-size: 15px;
+.card{
+	background-color:black;
+  	border-radius: 10px;
+  	box-shadow: -10px -10px 20px #1b1c1b;
 	color: #fff;
-	text-align: center;
-	text-transform: uppercase;
-	padding: 10px 0;
+	flex-shrink: 0;
+	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+	font-size: 0.8rem;
+	font-weight: bolder;
+	text-shadow: 2px 2px 2px black;
+	top: -100%;
 	position: absolute;
-	bottom: 0;
-	width: 100%;
-	transform-origin: right;
-	transition: 1s;
+	transition: transform 0.25s ease-out;
+	z-index: 0;
 }
 
-.img-wrapper:hover h2
-{
-	transform: perspective(400px) rotateY(0deg);
+.card__container {
+	background-color:black;
+	display: grid;
+	width: 90%;
+	height: 90%;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-items: center;
+	justify-items: center;
 }
+.card__content {
+	background-color:black;
+	filter: grayscale(100%);
+	width: 95%;
+	height: 90%;
+	background-size: cover;
+	border-radius: 5px;
+	padding-top: 2.5rem;
+	padding-bottom: 2.5rem;
+	padding-left: 3rem;
+	padding-right: 2rem;
+	box-shadow: -8px -8px 17px #0a0a0a;
+	transition: 0.3s all ease-in-out;
+}
+
+.card:first-child{
+	margin-bottom: -120px;
+}
+
+.card:not(:first-child) {
+    margin-bottom: -120px;
+}
+
+.card__container:hover{
+	padding-left: 15rem;
+	margin-right: -200px;
+}
+.card__content:hover{
+	background-color: #5e222c;
+	filter: grayscale(0%);
+	transition: 1s background ease;
+	transition: 1s color ease;
+	padding-left: 15rem;
+}
+
+.card:hover{
+	background-color: #5e222c;
+	filter: grayscale(0%);
+	transition: 1s background ease;
+	transition: 1s color ease;
+	z-index:4;
+}
+
+
+.card__content.c1{
+	background-image: url(http://www.solofondos.com/wp-content/uploads/2016/03/outrun-vaporwave-hd-wallpaper-preview.jpg);
+}
+
+.card__content.c2{
+	background-image: url(https://i.blogs.es/cfa482/illusion_1440x900/450_1000.jpg);
+}
+
+.card__content.c3{
+	background-image: url(https://i.pinimg.com/originals/a7/fc/aa/a7fcaa43650adc892c401956a08dc32a.jpg);
+}
+
+.card__content.c4{
+	background-image: url(https://p4.wallpaperbetter.com/wallpaper/39/346/426/sci-fi-city-hd-wallpaper-thumb.jpg);
+}
+
+.card__content.c5{
+	background-image: url(https://i.blogs.es/d24b49/studio-muti-wallpapers/450_1000.jpg);
+}
+
+.card__content.c6{
+	background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG23lCavM0ZkX_u3bOtE1fNbXTiu2NutoZEg&usqp=CAU);
+}
+
+.card__content.c7{
+	background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPWthObRdgCvYd-THVFWIGkWUuILJ9AHXNiw&usqp=CAU);
+}
+
+.card__content.c8{
+	background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2UM7_vOR_ghAvYRIYhvpTMNsbOV6lFNxDjQ&usqp=CAU);
+}
+
+.card__content.c9{
+	background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn480TNOQlLIb6Dk9IWiHQGJBUcqBApYunbA&usqp=CAU);
+}
+
