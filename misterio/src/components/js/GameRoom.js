@@ -4,6 +4,7 @@ import ListOfPlayers from './ListOfPlayers.js';
 import RollDice from './RollDice.js';
 import FinishTurn from './FinishTurn.js';
 import Accuse from './Accuse.js';
+import Suspect from './Suspect.js';
 
 class GameRoom extends React.Component{
   constructor(props) {
@@ -43,6 +44,7 @@ class GameRoom extends React.Component{
             <RollDice/>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <div className="playerOptions">
+              <Suspect/>
               <Accuse/>
               <FinishTurn parentCallback = {this.handleCallback} gameId={this.props.match.params.id}/>
             </div>
