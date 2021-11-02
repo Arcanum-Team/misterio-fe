@@ -4,12 +4,9 @@
 	line-height: 60px;
 	height: 175px;
 	width: 175px;
-}
-
-.enclosure:focus {
-	outline:  none;
-}
-
-.kbd-navigation .enclosure:focus {
-	background: #ddd;
+	background-color: transparent;
+	color: darkred;
+	text-align: bottom;
+	text-shadow: white;
+	border: 1px solid #999;
 }

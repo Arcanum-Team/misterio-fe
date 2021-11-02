@@ -10,8 +10,7 @@ export default class Box extends React.Component {
 		return (
 			/*<button className= "box" onClick={this.props.onClick}>
 				{this.props.value}*/
-			<button className= "box">
-				{this.props.value}
+			<button className= {this.props.styling}>
 			</button>
 		)
 	}

@@ -6,11 +6,10 @@ import '../css/Board.css';
 
 export default class Board extends React.Component {
 	render() {
-		// const pos_a = ["E","","","","a","","P","","","","a","","","P","","a","","","","E"];
-		const pos_a = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
-		const pos_b = ["E","","a","","","","P","","","","a","","","P","","a","","","","E"];
-		const pos_c = ["E","","","","a","","P","","","","a","","","P","","","a","","","E"];
-		const pos_d = ["E","","","a","","","P","","","","a","","","P","","","a","","","E"];
+		const pos_a = ["e","n","n","n","d","n","t","n","n","n","u","n","n","t","n","d","n","n","n","e"];
+		const pos_b = ["e","n","l","n","n","n","t","n","n","n","lw","n","n","t","n","l","n","n","n","e"];
+		const pos_c = ["e","n","n","n","r","n","t","n","n","n","rw","n","n","t","n","n","r","n","n","e"];
+		const pos_d = ["e","n","n","u","n","n","trd","n","n","n","d","n","n","trd","n","n","u","n","n","e"];
 		return (
 			<div className= "game-board">
 				<div className = "cochera">
@@ -24,27 +23,28 @@ export default class Board extends React.Component {
 				</div>
 
 				<div className = "board-a">
-					{/*{pos_a.map((x) => <Box value = {pos_a[x-1]}> </Box>)}*/}
-					{pos_a.map((x) => <Box value = {pos_a[x]}> </Box>)}
+					{pos_a.map((x) => <Box styling = {x}> </Box>)}
 				</div>
-				{console.log(pos_a[2])}
 				<div className = "board-b">
 
-					{pos_a.map((x) => <Box value = {pos_a[x]}> </Box>)}
+					{pos_b.map((x) => <Box styling = {x} value = {x}> </Box>)}
 				</div>
 				<div className = "board-c">
-					{pos_c.map((x) => <Box value = {pos_c[x-1]}> </Box>)}
+					{pos_c.map((x) => <Box styling = {x} value = {x}> </Box>)}
 				</div>
 
 				<div className = "vestibulo">
 					<Enclosure value = "vestibulo"> </Enclosure>
+				</div>
+				<div className = "centro">
+					<Enclosure value =""> </Enclosure>
 				</div>
 				<div className = "panteon">
 					<Enclosure value = "panteon"> </Enclosure>
 				</div>
 
 				<div className = "board-d">
-					{pos_d.map((x) => <Box value = {pos_d[x-1]}> </Box>)}
+					{pos_d.map((x) => <Box styling = {x} value = {x}> </Box>)}
 				</div>
 
 				<div className = "bodega">
