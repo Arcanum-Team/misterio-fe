@@ -6,44 +6,26 @@ class ListOfPlayers extends React.Component {
     // Constructor 
     constructor(props) {
         super(props);
-   
-        this.state = {
-            order: [],
-        };
-    }
-   
-    componentDidMount() {
 
-        const requestOptions = {
-            method: 'GET',
-            headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-        };
-
-        fetch(
-            "https://jsonplaceholder.typicode.com/users", requestOptions)
-            .then((res) => res.json())
-            .then((json) => {
-                this.setState({
-                    order: json,
-                });
-            })
     }
 
-    render() {
-        const { order } = this.state;
-      
+    render() {    
         return (
         <div className="tablePlayers">
             <table className="table">
                 <thead>
                     <tr>
+                        <th className="th-image"></th>
                         <th>Jugadores</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {order.map((player) => ( 
+                    {this.props.players.map((player) => (                         
                         <tr>
-                            <td>{ player.name }</td>
+                            <td className="td-image">
+                                {player.order == this.props.turn && <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pinclipart.com%2Fpicdir%2Fbig%2F1-16415_download-red-arrow-right-png-clipart-arrow-clip.png&f=1&nofb=1"/>}
+                            </td>
+                            <td>{ player.nickname }</td>                  
                         </tr>
                     ))}
                 </tbody>
