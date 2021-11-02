@@ -3,6 +3,7 @@ import '../css/HomePage.css';
 import ListOfPlayers from './ListOfPlayers.js';
 import RollDice from './RollDice.js';
 import FinishTurn from './FinishTurn.js';
+import Accuse from './Accuse.js';
 
 class GameRoom extends React.Component{
   constructor(props) {
@@ -41,7 +42,10 @@ class GameRoom extends React.Component{
         <div className="HP-text">
             <RollDice/>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
-            <FinishTurn parentCallback = {this.handleCallback} gameId={this.props.match.params.id}/>
+            <div className="playerOptions">
+              <Accuse/>
+              <FinishTurn parentCallback = {this.handleCallback} gameId={this.props.match.params.id}/>
+            </div>
         </div>
     </div>
     );
