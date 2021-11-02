@@ -1,17 +1,17 @@
 .turnContinue{
   font-size: 20px;
   color: rgb(0, 0, 0);
+  display:flex;
   cursor: pointer;
   padding-top:15px;
   padding-bottom:15px;
   padding-left:40px;
   padding-right:40px;
   border-radius: 30px; 
-  margin: 2em;
   background-color: rgba(230, 107, 144, 0.445);
-  bottom: 20px;
+  margin-bottom: 20px;
   right: 0px;
-  position: absolute;
+  position: relative;
 }
 
 .turnContinue:hover{
