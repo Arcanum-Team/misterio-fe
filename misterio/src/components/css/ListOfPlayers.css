@@ -1,0 +1,44 @@
+thead tr{
+    background-color: #5e222c;
+    color: white;
+}
+
+tbody tr{
+    background-color: rgb(31, 30, 30);
+    color: white;
+}
+
+td{
+    background-color: #5e222c;
+    color: white;
+    font-size: 12px;
+}
+
+.tablePlayers {
+    height: 90%;
+    width: 10%;
+    top: 10px;
+    right: 20px;
+    position: absolute;
+}
+
+.tablePlayers thead {
+    top: 10px;
+}
+
+table {
+    width: 90%;
+}
+
+th, td {
+    border: 1px solid white;
+    padding: 8px 40px;
+}
+
+img{
+    width: 260%;
+}
+
+.td-image{
+    width: 150%;
+}

@@ -1,0 +1,68 @@
+.container{
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+}
+
+thead tr{
+    background-color: #5e222c;
+    color: white;
+}
+
+tbody tr{
+    background-color: rgb(31, 30, 30);
+    color: white;
+    font-size: 20px;
+}
+
+td{
+    background-color: #5e222c;
+    color: white;
+}
+
+.tableGames {
+    overflow-y: auto;
+    height: 500px;
+
+  }
+  .tableGames thead {
+    position: sticky;
+    top: 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th,
+  td {
+    border: 1px solid white;
+    padding: 8px 16px;
+  }
+
+/* width */
+::-webkit-scrollbar {
+    scroll-behavior: smooth !important;
+    width: 10px;
+    }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        border: 1px solid white;
+        border-radius: 10px !important;
+        background: black;
+    }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #5e222c;
+    outline: 1px solid slategrey !important;
+    border-radius: 20px !important;
+    }
+
+.btn:hover{
+    background-color: #5e222c !important;
+    transition: 1s color ease !important;
+}

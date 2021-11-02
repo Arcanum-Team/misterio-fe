@@ -1,0 +1,28 @@
+.lcontainer {
+    min-width: 40%;
+    position:relative; 
+    padding: 0.5%;
+    margin: auto;
+    border-radius: 5px; 
+  }
+
+  @import url('http://fonts.cdnfonts.com/css/bloody');
+  .gameName{
+      font-size: 50px ;
+      color: #5e222c;
+      margin: 0;
+      font-family: 'Bloody', sans-serif;
+  }
+  
+  .lobby{
+      font-size: 25px ;
+      font-family: 'Bloody', sans-serif;
+      color: #5e222c;
+      margin: 0 0 5vh 0;
+  }
+
+  .playersContainer{
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+  }
