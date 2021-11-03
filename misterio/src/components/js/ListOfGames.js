@@ -1,6 +1,10 @@
 import React from "react";
 import "../css/ListOfGames.css";
 import JoinGame from "./JoinGame"
+import CreateGame from './CreateGame.js';
+import '../css/Button.css';
+
+
 
 class ListOfGames extends React.Component {
    
@@ -12,7 +16,7 @@ class ListOfGames extends React.Component {
             items: [],
         };
 
-        this.joinGame = this.joinGame.bind(this);
+        this.cancelClick = this.cancelClick.bind(this);
     }
    
     componentDidMount() {
@@ -33,9 +37,10 @@ class ListOfGames extends React.Component {
             })
     }
 
-    joinGame(name) {
-        console.log(name);
+    cancelClick(){
+        this.props.history.push("../"); 
     }
+
 
     render() {
         const { items } = this.state;
@@ -66,8 +71,10 @@ class ListOfGames extends React.Component {
             );
         }else{
             return(
-                <div className="container tableGames">
-                    <button>No hay partidas</button>
+                <div className="">
+                    <h3 className = "hdr"> No hay partidas</h3>
+                    <CreateGame/>
+                    <button className = "boton" type = "submit" onClick = {() => this.cancelClick()}> Cancelar </button>
                 </div>
             )
         }
