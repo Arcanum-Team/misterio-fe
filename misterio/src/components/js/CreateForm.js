@@ -1,6 +1,7 @@
 import React from "react";
 import '../css/CreateForm.css';
 import Modal from '../js/Modal'
+import '../css/ValidationModal.css';
 
 class CreateForm extends React.Component {
 
@@ -78,7 +79,7 @@ class CreateForm extends React.Component {
   render () {
     return (
       <div className = "form-box">
-   				<Modal active={this.state.modalActive} toggle={this.toggle.bind(this)}>
+   				<Modal active={this.state.modalActive}>
             <div>
               <div className="modal-dialog modal-confirm">
                 <div className="modal-content">
