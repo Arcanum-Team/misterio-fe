@@ -2,7 +2,7 @@ import React from 'react'
 import "../css/JoinForm.css";
 import "../css/Button.css";
 import Modal from '../js/Modal'
-
+import '../css/ValidationModal.css';
 
 class JoinForm extends React.Component {
 
@@ -67,7 +67,7 @@ class JoinForm extends React.Component {
 	render() {
 		return ( 
 			<div className = "jform-box">
-				<Modal active={this.state.modalActive} toggle={this.toggle.bind(this)}>
+				<Modal active={this.state.modalActive}>
 					<div>
 						<div className="modal-dialog modal-confirm">
 							<div className="modal-content">
