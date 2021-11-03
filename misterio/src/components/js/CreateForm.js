@@ -78,12 +78,24 @@ class CreateForm extends React.Component {
   render () {
     return (
       <div className = "form-box">
-        <Modal active={this.state.modalActive} toggle={this.toggle.bind(this)}>
-          <div class="frame">
-            <h1 className="exceptionMessage">{this.state.exceptionMessage}</h1>
-            <button className="closeModal" onClick={this.toggle.bind(this)}>Entendido</button>
-          </div>
-        </Modal>
+   				<Modal active={this.state.modalActive} toggle={this.toggle.bind(this)}>
+            <div>
+              <div className="modal-dialog modal-confirm">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <div className="icon-box">
+                      <i className="bi bi-x-lg"></i>
+                    </div>
+                  </div>
+                  <div className="modal-body text-center">
+                    <h4>Ooops!</h4>	
+                    <p>{this.state.exceptionMessage}</p>
+                    <button className="btn btn-success" onClick={this.toggle} >Entiendo</button>
+                  </div>
+                </div>
+              </div>
+            </div>     
+				</Modal>
         <h3 className = "form-step"> Creando Partida </h3>
         <form>
           <div className = "field1">
