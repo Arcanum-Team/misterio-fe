@@ -1,5 +1,6 @@
 import React from "react";
 import '../css/CreateForm.css';
+import Modal from '../js/Modal'
 
 class CreateForm extends React.Component {
 
@@ -8,8 +9,16 @@ class CreateForm extends React.Component {
     this.cancelClick = this.cancelClick.bind(this)
     this.state = {
       gameName: '',
-      hostName: ''
+      hostName: '',
+      modalActive: false,
+      exceptionMessage:""
     }
+  }
+
+  toggle = () => {
+    this.setState({
+      modalActive: !this.state.modalActive
+    })
   }
 
   handleSubmit = event => {
@@ -22,16 +31,32 @@ class CreateForm extends React.Component {
         headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
         body: JSON.stringify(data)
     };
-
+  
     fetch(
-        "http://127.0.0.1:8000/api/v1/games", requestOptions)
-        .then((res) => res.json())
-        .then((json) => {
-          console.log(json);
-          this.props.history.push("../LobbyRoom/" + json.game.id);
-          localStorage.setItem("host_id", json.id);
+			"http://127.0.0.1:8000/api/v1/games", requestOptions)
+    .then((response) => {
+      if(response.ok){
+        response.json()
+          .then((json) => {
+            console.log(json);
+            this.props.history.push("../LobbyRoom/" + json.game.id);
+            localStorage.setItem("host_id", json.id);
         })
-
+      }else if(response.status === 422){ 
+        this.setState({
+          modalActive: true,
+          exceptionMessage: 'Los campos no pueden ser vacios'
+        })
+      }else{
+        response.json()
+        .then((json) => {
+          this.setState({
+            modalActive: true,
+            exceptionMessage: json.message
+          })
+        })
+      }
+    })
   };
 
   cancelClick(){
@@ -53,6 +78,24 @@ class CreateForm extends React.Component {
   render () {
     return (
       <div className = "form-box">
+   				<Modal active={this.state.modalActive} toggle={this.toggle.bind(this)}>
+            <div>
+              <div className="modal-dialog modal-confirm">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <div className="icon-box">
+                      <i className="bi bi-x-lg"></i>
+                    </div>
+                  </div>
+                  <div className="modal-body text-center">
+                    <h4>Ooops!</h4>	
+                    <p>{this.state.exceptionMessage}</p>
+                    <button className="btn btn-success" onClick={this.toggle} >Entiendo</button>
+                  </div>
+                </div>
+              </div>
+            </div>     
+				</Modal>
         <h3 className = "form-step"> Creando Partida </h3>
         <form>
           <div className = "field1">
