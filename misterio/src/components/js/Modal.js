@@ -24,13 +24,16 @@ export default class Modal extends Component {
 const styles = {
     wrapper:{
         position: 'absolute',
-        top: 0,
+        top: '-10%',
         left: 0,
         width: '100%',
         height: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        alignContent: 'center',
+        textAlign: 'center',
+
     },
     window:{
         position: 'relative',
@@ -44,7 +47,7 @@ const styles = {
     background:{
         position: 'absolute',
         width: '100%',
-        height: '100%',
+        height: '110%',
         top: 0,
         left: 0,
         background: '#000',

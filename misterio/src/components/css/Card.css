@@ -28,8 +28,8 @@
 .card__container {
 	background-color:black;
 	display: grid;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 	grid-template-columns: 1fr 1fr 1fr;
 	align-items: center;
 	justify-items: center;
@@ -37,12 +37,12 @@
 .card__content {
 	background-color:black;
 	filter: grayscale(100%);
-	width: 95%;
+	width: 100%;
 	height: 90%;
 	background-size: cover;
 	border-radius: 5px;
-	padding-top: 2.5rem;
-	padding-bottom: 2.5rem;
+	padding-top: 2.5%;
+	padding-bottom: 2.5%;
 	padding-left: 3rem;
 	padding-right: 2rem;
 	box-shadow: -8px -8px 17px #0a0a0a;
@@ -50,6 +50,8 @@
 }
 
 .card:first-child{
+	border-radius: 10px;
+	background-color:black;
 	margin-bottom: -120px;
 }
 
@@ -67,6 +69,7 @@
 	transition: 1s background ease;
 	transition: 1s color ease;
 	padding-left: 15rem;
+	width: 100%;
 }
 
 .card:hover{
@@ -75,6 +78,7 @@
 	transition: 1s background ease;
 	transition: 1s color ease;
 	z-index:4;
+	width: 90%;
 }
 
 

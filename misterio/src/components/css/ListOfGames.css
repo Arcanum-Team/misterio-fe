@@ -66,3 +66,14 @@ td{
     background-color: #5e222c !important;
     transition: 1s color ease !important;
 }
+
+  
+  @import url('http://fonts.cdnfonts.com/css/bloody');
+  .hdr{
+    font-size: 40px ;
+    text-align: center;
+    color: #5e222c;
+    margin: -8% 40% 0;
+    font-family: 'Bloody', sans-serif;
+    position: absolute;
+  }

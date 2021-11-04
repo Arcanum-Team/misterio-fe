@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+@import url('http://fonts.cdnfonts.com/css/bloody');
 
 .modal-confirm {		
     color: #434e65;
@@ -26,6 +26,7 @@
     text-align: center;
     font-size: 36px;
     margin: 10px 0;
+    font-family: 'Bloody', sans-serif;
   }
   .modal-confirm .form-control, .modal-confirm .btn {
     min-height: 40px;

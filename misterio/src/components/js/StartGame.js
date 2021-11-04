@@ -74,8 +74,8 @@ class StartGame extends React.Component {
 					</div>     
 				</Modal>
 				<button className = "sboton" onClick= {() =>this.handleClick(this.props.GameId)}>
-          Iniciar Partida
-        </button>
+          			Iniciar Partida
+        		</button>
 			</div>
 		);
 	}
