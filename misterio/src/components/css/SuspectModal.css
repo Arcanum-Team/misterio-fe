@@ -1,0 +1,53 @@
+@import url('http://fonts.cdnfonts.com/css/bloody');
+
+.cont {
+  min-width: 30%;
+  position: relative; 
+  box-shadow: 1px 2px 5px rgba(0,0,0,.20); 
+  background: rgb(0, 0, 0, 0.3);
+  padding: 0.5%;
+  margin: auto;
+  border-radius: 5px; 
+  border: solid 1px #ccc;
+}
+
+.mod-confirm {		
+  color: darkred;
+  width: 525px;
+  margin: -1% auto;
+  font-family: 'Bloody', sans-serif;
+
+}
+
+.dropdown {
+  margin-bottom: 4%;
+  margin-top: 2%;
+  text-align: center;
+}
+
+.aceptar {
+  margin-top: 10%;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  padding-top:15px;
+  padding-bottom:15px;
+  padding-left:40px;
+  padding-right:40px;
+  border-radius: 30px; 
+  background-color: rgba(230, 107, 144, 0.445);
+}
+
+.cancelar {
+  margin-top: 10%;
+  margin-left: 35%;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  padding-top:15px;
+  padding-bottom:15px;
+  padding-left:40px;
+  padding-right:40px;
+  border-radius: 30px; 
+  background-color: rgba(230, 107, 144, 0.445);
+}

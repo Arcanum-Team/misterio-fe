@@ -62,11 +62,7 @@ class CreateForm extends React.Component {
   cancelClick(){
     this.props.history.push("../");
   }
-
-  createClick(){
-    
-  }
-
+  
   saveGN = event => { 
     this.setState({gameName: event.target.value});
   }
