@@ -3,7 +3,6 @@ import Box from './Box.js';
 import Enclosure from './Enclosure.js';
 import '../css/Board.css';
 
-
 export default class Board extends React.Component {
 	render() {
 		const pos_a = ["e","n","n","n","d","n","t","n","n","n","u","n","n","t","n","d","n","n","n","e"];
@@ -12,6 +11,7 @@ export default class Board extends React.Component {
 		const pos_d = ["e","n","n","u","n","n","trd","n","n","n","d","n","n","trd","n","n","u","n","n","e"];
 		return (
 			<div className= "game-board">
+
 				<div className = "cochera">
 					<Enclosure value = "cochera"> </Enclosure>
 				</div>
@@ -20,17 +20,6 @@ export default class Board extends React.Component {
 				</div>
 				<div className = "biblioteca">
 					<Enclosure value = "biblioteca"> </Enclosure>
-				</div>
-
-				<div className = "board-a">
-					{pos_a.map((x) => <Box styling = {x}> </Box>)}
-				</div>
-				<div className = "board-b">
-
-					{pos_b.map((x) => <Box styling = {x} value = {x}> </Box>)}
-				</div>
-				<div className = "board-c">
-					{pos_c.map((x) => <Box styling = {x} value = {x}> </Box>)}
 				</div>
 
 				<div className = "vestibulo">
@@ -43,10 +32,6 @@ export default class Board extends React.Component {
 					<Enclosure value = "panteon"> </Enclosure>
 				</div>
 
-				<div className = "board-d">
-					{pos_d.map((x) => <Box styling = {x} value = {x}> </Box>)}
-				</div>
-
 				<div className = "bodega">
 					<Enclosure value = "bodega"> </Enclosure>
 				</div>
@@ -56,6 +41,22 @@ export default class Board extends React.Component {
 				<div className = "laboratorio">
 					<Enclosure value = "laboratorio"> </Enclosure>
 				</div>
+
+				<div className = "board-a">
+					{pos_a.map((x) => <Box styling = {x}> </Box>)}
+				</div>
+				<div className = "board-b">
+
+					{pos_b.map((x) => <Box styling = {x} value = {x}> </Box>)}
+				</div>
+				<div className = "board-c">
+					{pos_c.map((x) => <Box  styling = {x} value = {x}> </Box>)}
+				</div>
+
+				<div className = "board-d">
+					{pos_d.map((x) => <Box styling = {x} value = {x}> </Box>)}
+				</div>
+
 			</div>
 		)
 	}
