@@ -6,6 +6,8 @@
 	align-content: center;
 	position: relative;
 	margin-top: 15%;
+	z-index: 1;
+
 }
 
 .board-a {

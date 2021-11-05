@@ -111,8 +111,8 @@ class GameRoom extends React.Component{
         <Modal active={this.state.modalSusActive} toggle={this.toggleSus.bind(this)}>
           <div className="dropdown">
               <div className="mod-confirm"> Elija el monstruo 
-                  <select className="form-select" value = {this.state.monstrup} onChange = {this.saveMonster}>
-                    <option selected disabled hidden>Monstruo...</option>
+                  <select className="form-select" onChange = {this.saveMonster}>
+                    <option disabled hidden selected >Monstruo...</option>
                     {monstruos.map((monster) => 
                     <option>{monster.name}</option>)}
                   </select>
@@ -120,8 +120,8 @@ class GameRoom extends React.Component{
           </div>
           <div class="dropdown">
               <div className="mod-confirm"> Elija la victima 
-                  <select className="form-select" value = {this.state.victima} onChange = {this.saveVictim}>
-                    <option selected disabled hidden>Victima...</option>
+                  <select className="form-select" onChange = {this.saveVictim}>
+                    <option disabled hidden selected >Victima...</option>
                     {victimas.map((victim) => 
                     <option>{victim.name}</option>)}
                   </select>
@@ -134,8 +134,8 @@ class GameRoom extends React.Component{
         <Modal active={this.state.modalAccActive} toggle={this.toggleAcc.bind(this)}>
           <div className="dropdown">
             <div className="mod-confirm"> Elija el recinto definitivo
-                <select className="form-select" value = {this.state.recinto} onChange = {this.saveEnclosure}>
-                  <option selected disabled hidden>Recinto...</option>
+                <select className="form-select" onChange = {this.saveEnclosure}>
+                  <option disabled hidden selected >Recinto...</option>
                   {recintos.map((recinto) => 
                   <option>{recinto.name}</option>)}
                 </select>
@@ -143,8 +143,8 @@ class GameRoom extends React.Component{
           </div>
           <div className="dropdown">
               <div className="mod-confirm"> Elija el monstruo definitivo
-                  <select className="form-select" value = {this.state.monstruo} onChange = {this.saveMonster}>
-                    <option selected disabled hidden>Monstruo...</option>
+                  <select className="form-select" onChange = {this.saveMonster}>
+                    <option disabled hidden selected >Monstruo...</option>
                     {monstruos.map((monster) => 
                     <option>{monster.name}</option>)}
                   </select>
@@ -152,8 +152,8 @@ class GameRoom extends React.Component{
           </div>
           <div class="dropdown">
               <div className="mod-confirm"> Elija la victima definitiva
-                  <select className="form-select" value = {this.state.victima} onChange = {this.saveVictim}>
-                    <option selected disabled hidden>Victima...</option>
+                  <select className="form-select" onChange = {this.saveVictim}>
+                    <option disabled hidden selected  >Victima...</option>
                     {victimas.map((victim) => 
                     <option>{victim.name}</option>)}
                   </select>

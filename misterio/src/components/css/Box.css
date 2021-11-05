@@ -26,23 +26,6 @@
 	width: 30px;
 }
 
-.trd {	/*trap_d*/
-	background-color: transparent;
-	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905180249657049158/unknown.png');
-	transform: rotate(180deg);
-	background-size: cover;
-	border:  1px solid #999;
-	float:  left;
-	font-size: 80%;
-	line-height: 10%;
-	height: 30px;
-	margin-right: -1px;
-	margin-top: -1px;
-	padding: 0;
-	text-align: center;
-	width: 30px;
-}
-
 .d {	/*dowm*/
 	background-color: transparent;
 	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905179406094463016/unknown.png');
@@ -61,8 +44,7 @@
 
 .u {	/*up*/
 	background-color: transparent;
-	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905179406094463016/unknown.png');
-	transform: rotate(180deg);
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/906013996157644830/arrow.png');
 	background-size: cover;
 	border:  1px solid #999;
 	float:  left;
@@ -93,23 +75,6 @@
 	width: 30px;
 }
 
-.lw {	/*left_wood*/
-	background-color: transparent;
-	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905179406094463016/unknown.png');
-	background-size: cover;
-	border:  1px solid #999;
-	float:  left;
-	font-size: 80%;
-	line-height: 10%;
-	height: 30px;
-	margin-right: -1px;
-	margin-top: -1px;
-	padding: 0;
-	text-align: center;
-	width: 30px;
-}
-
-
 .r {	/*right*/
 	background-color: transparent;
 	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905191507055743016/unknown.png');
@@ -126,24 +91,6 @@
 	text-align: center;
 	width: 30px;
 }
-
-.rw {	/*right_wood*/
-	background-color: transparent;
-	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905179406094463016/unknown.png');
-	transform: rotate(180deg);
-	background-size: cover;
-	border:  1px solid #999;
-	float:  left;
-	font-size: 80%;
-	line-height: 10%;
-	height: 30px;
-	margin-right: -1px;
-	margin-top: -1px;
-	padding: 0;
-	text-align: center;
-	width: 30px;
-}
-
 
 .b {	/*bat*/
 	background-color: transparent;
@@ -181,8 +128,7 @@
 
 .t {	/*trap*/
 	background-color: transparent;
-	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905180249657049158/unknown.png');
-	transform: rotate(90deg);
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/906016609322299402/unknown.png');
 	background-size: cover;
 	border:  1px solid #999;
 	float:  left;
@@ -194,4 +140,21 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+}
+
+.trd {	/*trap_d*/
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/906016150251515945/unknown.png');
+	background-color: transparent;
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	z-index: 2;
 }
