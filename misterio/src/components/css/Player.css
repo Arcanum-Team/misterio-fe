@@ -1,0 +1,66 @@
+.player-red{
+	background: url(../player_red.png);
+	padding: 1%;
+	position: absolute;
+	margin-top: 15%;
+	left: 29.4%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 2;
+}
+
+.player-orange{
+	background-image: url(../player_orange.png);
+	padding: 1%;
+	position: absolute;
+	margin-top: 15%;
+	left: 29.4%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 2;
+}
+
+.player-green{
+	background-image: url(../player_green.png);
+	padding: 1%;
+	position: absolute;
+	margin-top: 15%;
+	left: 29.4%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 2;
+}
+
+.player-blue{
+	background-image: url(../player_blue.png);
+	padding: 1%;
+	position: absolute;
+	margin-top: 15%;
+	left: 29.4%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 2;
+}
+
+.player-white{
+	background-image: url(../player_white.png);
+	padding: 1%;
+	position: absolute;
+	margin-top: 15%;
+	left: 29.4%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 2;
+}
+
+.player-yellow{
+	background-image: url(../player_yellow.png);
+	padding: 1%;
+	position: absolute;
+	margin-top: 15%;
+	left: 29.4%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 2;
+}
+
