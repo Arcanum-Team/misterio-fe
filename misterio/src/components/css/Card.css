@@ -22,7 +22,6 @@
 	transition: transform 0.25s ease-out;
 	z-index: 0;
 	width: 100%;
-
 }
 
 .card__content {
@@ -89,7 +88,7 @@
 	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058131262124062/unknown.png);
 }
 
-.card__content.FRRANKENSTEIN{
+.card__content.FRANKENSTEIN{
 	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/905274348615630848/unknown.png);
 }
 
