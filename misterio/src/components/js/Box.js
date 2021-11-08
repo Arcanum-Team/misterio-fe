@@ -1,33 +1,32 @@
 import React from 'react';
 import '../css/Box.css';
 import Player from './Player.js';
+import ReactDOM from 'react-dom';
 
 export default class Box extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            index: 0,
-            player: ["", <Player color = "red"/>]
-        }
         this.handleClick = this.handleClick.bind(this)
     }
 
 
     handleClick(){
-        let lastBox = document.getElementById(""+this.props.lastMovement)
+        let lastBox = document.getElementById(this.props.lastMovement)
         if(lastBox !== null){
-            lastBox.removeChild(lastBox.firstChild)
+            if(lastBox.firstChild != null){
+                ReactDOM.unmountComponentAtNode(lastBox)
+            }
         }
-        this.setState({
-            index: this.state.index === 0 ? 1 : 0
-        })
+        let currentBox = document.getElementById(this.props.id)
+        const player = <Player color = "red"/>
+        ReactDOM.render(player, currentBox)
+
         this.props.parentCallback(this.props.id);
     }
 
     render() {
         return (
             <button id = {this.props.id} className= {this.props.styling} onClick={this.handleClick}>
-                {this.state.player[this.state.index]}
             </button>
         )
     }
