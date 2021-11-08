@@ -14,15 +14,14 @@ export default class Box extends React.Component {
 
 
     handleClick(){
-        if(this.state.index === 0) {
-            this.setState({
-                index: 1
-            })
-        } else {
-            this.setState({
-                index: 0
-            })
+        let lastBox = document.getElementById(""+this.props.lastMovement)
+        if(lastBox !== null){
+            lastBox.removeChild(lastBox.firstChild)
         }
+        this.setState({
+            index: this.state.index === 0 ? 1 : 0
+        })
+        this.props.parentCallback(this.props.id);
     }
 
     render() {

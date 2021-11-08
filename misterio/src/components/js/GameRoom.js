@@ -82,16 +82,16 @@ class GameRoom extends React.Component{
               turn: 1
           });
       })
-      fetch(
-      "http://127.0.0.1:8000/api/v1/cards", requestOptions)
-      .then((res) => res.json())
-      .then((json) => {
-          this.setState({
-            monstruos: json.filter(x => x.type == "MONSTER"),
-            victimas: json.filter(x => x.type == "VICTIM"),
-            recintos: json.filter(x => x.type == "ENCLOSURE"),
-          });
-      })
+      // fetch(
+      // "http://127.0.0.1:8000/api/v1/cards", requestOptions)
+      // .then((res) => res.json())
+      // .then((json) => {
+      //     this.setState({
+      //       monstruos: json.filter(x => x.type == "MONSTER"),
+      //       victimas: json.filter(x => x.type == "VICTIM"),
+      //       recintos: json.filter(x => x.type == "ENCLOSURE"),
+      //     });
+      // })
   }
 
   render(){
