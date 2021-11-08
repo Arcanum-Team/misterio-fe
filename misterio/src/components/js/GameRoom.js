@@ -1,7 +1,7 @@
 import React from "react";
 import '../css/HomePage.css';
 import ListOfPlayers from './ListOfPlayers.js';
-import Card from './Card.js';
+import ShowCards from './ShowCards.js';
 import RollDice from './RollDice.js';
 import FinishTurn from './FinishTurn.js';
 import Board from './Board.js';
@@ -86,19 +86,12 @@ class GameRoom extends React.Component{
     return (
       <div className= "HP">
         <div className="HP-text">
+            <div className="scene">
+              {/* poner el id del jugador "dueño" del ws */}
+              <ShowCards playerId = {localStorage.getItem("host_id")}/>
+            </div>
             <RollDice/>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
-            <div className="scene">
-              <Card C="c1"/>
-              <Card C="c2"/>
-              <Card C="c3"/>
-              <Card C="c4"/>
-              <Card C="c5"/>
-              <Card C="c6"/>
-              <Card C="c7"/>
-              <Card C="c8"/>
-              <Card C="c9"/>
-            </div>
             <div className="playerOptions">
               <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
               <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>

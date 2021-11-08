@@ -6,7 +6,7 @@ class GCard extends React.Component {
         return (
             <div class="cscene">
                 <button class="card">
-                    <div class={"card__content " + this.props.C}>Frankenstein</div>
+                    <div class={"card__content " + this.props.cardName}>{this.props.cardName}</div>
                 </button>
             </div>
         )
