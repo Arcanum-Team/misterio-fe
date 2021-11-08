@@ -51,3 +51,153 @@
   border-radius: 30px; 
   background-color: rgba(230, 107, 144, 0.445);
 }
+
+.scscene {
+  background-color: white;
+  width:150%;
+	align-items: center;
+	align-name: center;
+	display: flex;
+  padding: 100% 10%;
+	font-size: 10px;
+	justify-name:center;
+	position: relative;
+}
+
+.scard{
+  background-size: cover;
+  color:darkred;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: -10% -10% 20% #1b1c1b;
+	flex-shrink: 0;
+	font-family: 'Bloody', sans-serif;
+	font-size: 20px;
+	font-weight: bolder;
+	text-shadow: -2px 2px 2px white;
+	position: relative;
+	width: 30%;
+  margin-top: 20px;
+  margin-right: 10px;
+  transform-style: preserve-3d;
+  animation: flip 4s ease forwards;
+}
+
+.scard__name, .scard__type{
+  position:relative;
+  background-position: 100% 75%;
+	width: 100%;
+	height: 90%;
+	background-size: cover;
+	border-radius: 10px;
+	padding-top: 150px;
+	padding-bottom: 150px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.scard__type {
+  background-position: 50% 50%;
+  position:absolute;
+  transform: rotateY(180deg);
+  background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907125710387306496/unknown.png);
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateY(180deg)
+  }
+  30% {
+    transform: rotateY(180deg)
+  }
+  60% {
+    transform: rotateY(90deg)
+  }
+  100% {
+    transform: rotateY(0deg)
+  }
+}
+
+
+/*Monsters*/
+.scard__name.MOMIA{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058191072899162/unknown.png);
+}
+
+.scard__name.DR.JEKYLL{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058235725463552/unknown.png);
+}
+
+.scard__name.DRACULA{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/905269197372788746/unknown.png);
+}
+
+.scard__name.LOBO{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/905275396751257620/unknown.png);
+}
+
+.scard__name.FANTASMA{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058131262124062/unknown.png);
+}
+
+.scard__name.FRANKENSTEIN{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/905274348615630848/unknown.png);
+}
+
+/*Victims*/
+.scard__name.CONDE{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058290008141874/unknown.png);
+}
+
+.scard__name.CONDESA{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058332081217566/unknown.png);
+}
+
+.scard__name.AMA{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058370966593637/unknown.png);
+}
+
+.scard__name.MAYORDOMO{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/905274719757037618/unknown.png);
+}
+
+.scard__name.DONCELLA{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058435344990208/unknown.png);
+}
+
+.scard__name.JARDINERO{
+	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058480689598515/unknown.png);
+}
+
+/*Enclosure*/
+.scard__name.ALCOBA{
+	background-image: url(https://cdn.discordapp.com/attachments/897995023860252682/905154996348289074/unknown.png);
+}
+
+.scard__name.COCHERA{
+	background-image: url(https://cdn.discordapp.com/attachments/897995023860252682/905154616797331536/unknown.png);
+}
+
+.scard__name.BIBLIOTECA{
+	background-image: url(https://cdn.discordapp.com/attachments/897995023860252682/905157683232014366/unknown.png);
+}
+
+.scard__name.BODEGA{
+	background-image: url(https://cdn.discordapp.com/attachments/897995023860252682/905156132924969030/unknown.png);
+}
+
+.scard__name.LABORATORIO{
+	background-image: url(https://cdn.discordapp.com/attachments/897995023860252682/905156253226008576/unknown.png);
+}
+
+.scard__name.PANTEON{
+	background-image: url(https://cdn.discordapp.com/attachments/897995023860252682/905156068018122862/unknown.png);
+}
+
+.scard__name.SALON{
+	background-image: url(https://cdn.discordapp.com/attachments/897995023860252682/905156181776007208/unknown.png);
+}
+
+.scard__name.VESTIBULO{
+	background-image: url(https://cdn.discordapp.com/attachments/897995023860252682/905155991291703306/unknown.png);
+}

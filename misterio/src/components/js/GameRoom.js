@@ -15,6 +15,7 @@ class GameRoom extends React.Component{
         players: [],
         turn: 0,
         modalSusActive: false,
+        modalShowSusActive: false,
         modalAccActive: false,
         exceptionMessage:"",
         monstruos: [],
@@ -25,21 +26,35 @@ class GameRoom extends React.Component{
         recinto: '',
     };
   }
-
+  
   handleCallback = (childData) =>{
     this.setState({turn: childData})
   }
-
+  
   toggleSus = () => {
     this.setState({
-        modalSusActive: !this.state.modalSusActive
+      modalSusActive: !this.state.modalSusActive
     })
   }
+
+  toggleShowSus = () => {
+    this.setState({
+      modalShowSusActive: !this.state.modalShowSusActive,
+      modalSusActive: !this.state.modalSusActive
+    })
+    setTimeout(() => {
+      this.setState({
+        modalShowSusActive: !this.state.modalShowSusActive
+      })
+    }, 6000)
+  }
+
   toggleAcc = () => {
     this.setState({
       modalAccActive: !this.state.modalAccActive
     })
   }
+
   saveMonster = event => { 
       this.setState({monstruo: event.target.value});
   }
@@ -119,10 +134,32 @@ class GameRoom extends React.Component{
                     <option>{victim.name}</option>)}
                   </select>
               </div>
-              <button className = "aceptar" type = "submit" onClick={this.toggleSus}> Aceptar </button>
+              <button className = "aceptar" type = "submit" onClick={this.toggleShowSus}> Aceptar </button>
               <button className = "cancelar" type = "submit" onClick={this.toggleSus}> Cancelar </button>
           </div>
         </Modal>
+        {/*MOSTRAR SOSPECHA*/}
+        {this.state.modalShowSusActive ?
+          <Modal active={this.state.modalShowSusActive} toggle={this.toggleShowSus.bind(this)}>
+            <div class="dropdown">
+                <div className="mod-confirm"> La sospecha realizada es:
+                </div>
+                  <button class="scard">
+                    <div className="scard__type">Monstruo</div>
+                    <div class={"scard__name " + this.state.monstruo}>{this.state.monstruo}</div>
+                  </button>
+                  <button class="scard">
+                    <div className="scard__type">victima</div>
+                    <div class={"scard__name " + this.state.victima}>{this.state.victima}</div>
+                  </button>
+                  <button class="scard">
+                    <div className="scard__type">recinto</div>
+                    <div class={"scard__name " + this.state.recinto}>{this.state.victima}</div>
+                  </button>
+            </div>
+          </Modal>:
+            null
+        }
         {/*ACUSAR*/}
         <Modal active={this.state.modalAccActive} toggle={this.toggleAcc.bind(this)}>
           <div className="dropdown">
