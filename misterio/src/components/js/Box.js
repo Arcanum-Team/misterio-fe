@@ -27,7 +27,7 @@ export default class Box extends React.Component {
 
     render() {
         return (
-            <button className= {this.props.styling} onClick={this.handleClick}>
+            <button id = {this.props.id} className= {this.props.styling} onClick={this.handleClick}>
                 {this.state.player[this.state.index]}
             </button>
         )
