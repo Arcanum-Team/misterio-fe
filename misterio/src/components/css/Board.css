@@ -37,7 +37,7 @@
 }
 
 @import url('http://fonts.cdnfonts.com/css/bloody');
-.cochera {
+.GARAGE {
 	position: absolute;
 	margin-left: -50.75%;
 	margin-top: -76.55%;
@@ -46,7 +46,7 @@
 	font-family: 'Bloody', sans-serif;
 }
 
-.alcoba {
+.BEDROOM {
 	position: absolute;
 	margin-left: 0.1%;
 	margin-top: -76.55%;
@@ -55,7 +55,7 @@
 	font-family: 'Bloody', sans-serif;
 }
 
-.biblioteca {
+.LIBRARY {
 	position: absolute;
 	margin-left: 50.75%;
 	margin-top: -76.55%;
@@ -64,7 +64,7 @@
 	font-family: 'Bloody', sans-serif;
 }
 
-.vestibulo {
+.LOBBY {
 	position: absolute;
 	margin-left: -50.75%;
 	margin-top: -25.85%;
@@ -83,7 +83,7 @@
 	font-family: 'Bloody', sans-serif;
 }
 
-.panteon {
+.PANTHEON {
 	position: absolute;
 	margin-left: 50.75%;
 	margin-top: -25.85%;
@@ -92,7 +92,7 @@
 	font-family: 'Bloody', sans-serif;
 }
 
-.bodega {
+.CELLAR {
 	position: absolute;
 	margin-left: -50.75%;
 	margin-top: 25.25%;
@@ -101,7 +101,7 @@
 	font-family: 'Bloody', sans-serif;
 }
 
-.salon {
+.LIVING_ROOM {
 	position: absolute;
 	margin-left: 0.1%;
 	margin-top: 25.25%;
@@ -110,7 +110,7 @@
 	font-family: 'Bloody', sans-serif;
 }
 
-.laboratorio {
+.LABORATORY {
 	position: absolute;
 	margin-left: 50.75%;
 	margin-top: 25.25%;

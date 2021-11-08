@@ -4,57 +4,71 @@ import Enclosure from './Enclosure.js';
 import '../css/Board.css';
 
 export default class Board extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            pos_a: [],
+            pos_b: [],
+            pos_c: [],
+            pos_d: [],
+            enclosures: [],
+            enc_name: ['COCHERA','ALCOBA','BIBLIOTECA','VESTIBULO','PANTEON','BODEGA','SALON','LABORATORIO'],
+        }
+    }
+
+	componentDidMount() {
+	    const requestOptions = {
+	      method: 'GET',
+	      mode: 'cors',
+	      headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+	    };
+
+	    fetch(
+	        "https://arcanum.free.beeceptor.com/board" , requestOptions)
+	        .then((res) => res.json())
+	        .then((json) => {
+	            this.setState({
+	                pos_a: json[0].boxes,
+	                pos_b: json[1].boxes,
+	                pos_c: json[2].boxes,
+	                pos_d: json[3].boxes,
+	                enclosures: json[0].boxes.filter((x)=> x.enclosure !== null).concat(
+	                			json[1].boxes.filter((x)=> x.enclosure !== null)).concat(
+	                			json[2].boxes.filter((x)=> x.enclosure !== null)).concat(
+	                			json[3].boxes.filter((x)=> x.enclosure !== null)),
+	        	});
+	      	})
+  	}
+
 	render() {
-		const pos_a = ["e","n","n","n","d","n","t","n","n","n","u","n","n","t","n","d","n","n","n","e"];
-		const pos_b = ["e","n","l","n","n","n","t","n","n","n","d","n","n","t","n","l","n","n","n","e"];
-		const pos_c = ["e","n","n","n","r","n","t","n","n","n","u","n","n","t","n","n","r","n","n","e"];
-		const pos_d = ["e","n","n","u","n","n","trd","n","n","n","d","n","n","trd","n","n","u","n","n","e"];
+		const pos_a = this.state.pos_a;
+		const pos_b = this.state.pos_b;
+		const pos_c = this.state.pos_c;
+		const pos_d = this.state.pos_d;
+		const enclosures = this.state.enclosures;
 		return (
 			<div className= "game-board">
-
-				<div className = "cochera">
-					<Enclosure value = "cochera"> </Enclosure>
-				</div>
-				<div className = "alcoba">
-					<Enclosure value = "alcoba"> </Enclosure>
-				</div>
-				<div className = "biblioteca">
-					<Enclosure value = "biblioteca"> </Enclosure>
-				</div>
-
-				<div className = "vestibulo">
-					<Enclosure value = "vestibulo"> </Enclosure>
-				</div>
+				{enclosures.map((x) =>
+					<div className = {x.enclosure.name}>
+						{console.log(x)}
+						<Enclosure value = {this.state.enc_name[x.enclosure.id-1]}> </Enclosure>
+					</div>
+				)}
 				<div className = "centro">
 					<Enclosure value =""> </Enclosure>
 				</div>
-				<div className = "panteon">
-					<Enclosure value = "panteon"> </Enclosure>
-				</div>
-
-				<div className = "bodega">
-					<Enclosure value = "bodega"> </Enclosure>
-				</div>
-				<div className = "salon">
-					<Enclosure value = "salon"> </Enclosure>
-				</div>
-				<div className = "laboratorio">
-					<Enclosure value = "laboratorio"> </Enclosure>
-				</div>
-
+				
 				<div className = "board-a">
-					{pos_a.map((x) => <Box styling = {x}> </Box>)}
+					{pos_a.map((x) => <Box styling = {x.attribute} id = {x.id} > </Box>)}
+				</div>
+				<div className = "board-d">
+					{pos_d.map((x) => <Box styling = {x.attribute} id = {x.id}> </Box>)}
 				</div>
 				<div className = "board-b">
-
-					{pos_b.map((x) => <Box styling = {x} value = {x}> </Box>)}
+					{pos_b.map((x) => <Box styling = {x.attribute} id = {x.id}> </Box>)}
 				</div>
 				<div className = "board-c">
-					{pos_c.map((x) => <Box  styling = {x} value = {x}> </Box>)}
-				</div>
-
-				<div className = "board-d">
-					{pos_d.map((x) => <Box styling = {x} value = {x}> </Box>)}
+					{pos_c.map((x) => <Box styling = {x.attribute} id = {x.id}> </Box>)}
 				</div>
 
 			</div>
