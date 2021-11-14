@@ -107,10 +107,25 @@
 }
 
 
-.b {	/*bat*/
+.BAT {	/*bat*/
 	background-color: transparent;
-	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905195384991785000/unknown.png');
-	transform: rotate(270deg);
+	background: url('https://cdn.discordapp.com/attachments/905257129294856252/909563395987111996/unknown.png');
+	background-size: contain;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+}
+
+.COBRA {	/*cobra*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/909562176031817748/unknown.png');
 	background-size: cover;
 	border:  1px solid #999;
 	float:  left;
@@ -124,10 +139,25 @@
 	width: 30px;
 }
 
-.c {	/*cobra*/
+.SCORPION {	/*escorpion*/
 	background-color: transparent;
-	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905179867837005885/unknown.png');
-	transform: rotate(180deg);
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/909565443424014416/unknown.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+}
+
+.SPIDER {	/*araña*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/909565583056597032/unknown.png');
 	background-size: cover;
 	border:  1px solid #999;
 	float:  left;
