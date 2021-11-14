@@ -1,10 +1,12 @@
+@import url('http://fonts.cdnfonts.com/css/bloody');
+
 .cscene {
 	align-items: left;
 	align-content: left;
 	display: flex;
 	font-size: 10px;
 	justify-content:left;
-	padding: 1rem 0.2rem;
+	padding: 1.15rem 0.2rem;
 	position: relative;
 	transition: background 0.25s;
 }
@@ -12,12 +14,12 @@
 .card{
   	border-radius: 10px;
   	box-shadow: -10% -10% 20% #1b1c1b;
-	color: #fff;
+	color: darkred;
 	flex-shrink: 0;
-	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
-	font-size: 0.8rem;
+	font-family: 'Bloody', sans-serif;
+	font-size: 1rem;
 	font-weight: bolder;
-	text-shadow: 2px 2px 2px black;
+	text-shadow: 2px 2px 2px navajowhite;
 	position: absolute;
 	transition: transform 0.25s ease-out;
 	z-index: 0;
@@ -27,13 +29,13 @@
 .card__content {
 	filter: grayscale(100%);
 	width: 100%;
-	height: 90%;
+	height: 95%;
 	background-size: cover;
 	border-radius: 10px;
 	padding-top: 7%;
-	padding-bottom: 2.5%;
-	padding-left: 2rem;
-	padding-right: 4rem;
+	padding-bottom: 30%;
+	padding-left: 1rem;
+	padding-right: 3rem;
 	box-shadow: -8% -8% 17% #0a0a0a;
 	transition: 0.3s all ease-in-out;
 }
@@ -54,7 +56,8 @@
 	transition: 1s background ease;
 	transition: 1s color ease;
 	width: 100%;
-
+	height: 95%;
+	text-align: center;
 }
 
 .card:hover{
@@ -72,7 +75,7 @@
 	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058191072899162/unknown.png);
 }
 
-.card__content.DR.JEKYLL{
+.card__content.JEKYLL{
 	background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907058235725463552/unknown.png);
 }
 

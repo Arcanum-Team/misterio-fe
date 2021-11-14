@@ -31,7 +31,7 @@ export default class Board extends React.Component {
 	    };
 
 	    fetch(
-	        "https://arcanum.free.mockoapp.net/board" , requestOptions)
+	        "http://127.0.0.1:8000/api/v1/board" , requestOptions)
 	        .then((res) => res.json())
 	        .then((json) => {
 	            this.setState({
@@ -56,7 +56,7 @@ export default class Board extends React.Component {
 		return (
 			<div className= "game-board">
 				{enclosures.map((x) =>
-					<div className = {x.enclosure.name}>
+					<div className = {'e' + x.enclosure.name}>
 						<Enclosure value = {this.state.enc_name[x.enclosure.id-1]}> </Enclosure>
 					</div>
 				)}

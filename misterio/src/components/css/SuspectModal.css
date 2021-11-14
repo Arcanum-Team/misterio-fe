@@ -16,7 +16,14 @@
   width: 525px;
   margin: -1% auto;
   font-family: 'Bloody', sans-serif;
+}
 
+.modal-confirm h4 {
+  text-align: center;
+  font-size: 36px;
+  margin: 10px 0;
+  font-family: 'Bloody', sans-serif;
+  color: darkred;
 }
 
 .dropdown {
