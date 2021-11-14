@@ -15,6 +15,7 @@ class GameRoom extends React.Component{
         players: [],
         turn: 0,
         modalSusActive: false,
+        modalSorting: true,
         modalShowSusActive: false,
         modalAccActive: false,
         exceptionMessage:"",
@@ -82,16 +83,21 @@ class GameRoom extends React.Component{
               turn: 1
           });
       })
-      // fetch(
-      // "http://127.0.0.1:8000/api/v1/cards", requestOptions)
-      // .then((res) => res.json())
-      // .then((json) => {
-      //     this.setState({
-      //       monstruos: json.filter(x => x.type == "MONSTER"),
-      //       victimas: json.filter(x => x.type == "VICTIM"),
-      //       recintos: json.filter(x => x.type == "ENCLOSURE"),
-      //     });
-      // })
+    fetch(
+      "http://127.0.0.1:8000/api/v1/cards", requestOptions)
+      .then((res) => res.json())
+      .then((json) => {
+          this.setState({
+            monstruos: json.filter(x => x.type === "MONSTER"),
+            victimas: json.filter(x => x.type === "VICTIM"),
+            recintos: json.filter(x => x.type === "ENCLOSURE"),
+          });
+      })
+    setTimeout(() => {
+      this.setState({
+        modalSorting: false
+      })
+    }, 1300)
   }
 
   render(){
@@ -116,7 +122,7 @@ class GameRoom extends React.Component{
         </div>
 
         {/*SOSPECHAR*/}
-        <Modal active={this.state.modalSusActive} toggle={this.toggleSus.bind(this)}>
+        <Modal active={this.state.modalSusActive}>
           <div className="dropdown">
               <div className="mod-confirm"> Elija el monstruo 
                   <select className="form-select" onChange = {this.saveMonster}>
@@ -140,7 +146,7 @@ class GameRoom extends React.Component{
         </Modal>
         {/*MOSTRAR SOSPECHA*/}
         {this.state.modalShowSusActive ?
-          <Modal active={this.state.modalShowSusActive} toggle={this.toggleShowSus.bind(this)}>
+          <Modal active={this.state.modalShowSusActive}>
             <div class="dropdown">
                 <div className="mod-confirm"> La sospecha realizada es:
                 </div>
@@ -154,14 +160,14 @@ class GameRoom extends React.Component{
                   </button>
                   <button class="scard">
                     <div className="scard__type">recinto</div>
-                    <div class={"scard__name " + this.state.recinto}>{this.state.victima}</div>
+                    <div class={"scard__name " + this.state.recinto}> RECINTO </div>
                   </button>
             </div>
           </Modal>:
             null
         }
         {/*ACUSAR*/}
-        <Modal active={this.state.modalAccActive} toggle={this.toggleAcc.bind(this)}>
+        <Modal active={this.state.modalAccActive}>
           <div className="dropdown">
             <div className="mod-confirm"> Elija el recinto definitivo
                 <select className="form-select" onChange = {this.saveEnclosure}>
@@ -190,6 +196,16 @@ class GameRoom extends React.Component{
               </div>
               <button className = "aceptar" type = "submit" onClick={this.toggleAcc}> Aceptar </button>
               <button className = "cancelar" type = "submit" onClick={this.toggleAcc}> Cancelar </button>
+          </div>
+        </Modal>
+      {/*REPARTIR*/}
+        <Modal active={this.state.modalSorting}>
+          <div className="modal-dialog modal-confirm">
+            <div className="modal-content">
+              <div className="modal-body text-center">
+                <h4> Repartiendo Cartas!</h4>
+              </div>
+            </div>
           </div>
         </Modal>
       </div>

@@ -1,5 +1,6 @@
 .NONE {		/*normal*/
-	background-color: #e9d9c8;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/907388673522274384/unknown.png');
+	background-size: cover;
 	border:  1px solid #999;
 	float:  left;
 	font-size: 80%;
@@ -27,7 +28,6 @@
 }
 
 .ENCLOSURE_DOWN {	/*dowm*/
-	background-color: transparent;
 	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905179406094463016/unknown.png');
 	background-size: cover;
 	border:  1px solid #999;

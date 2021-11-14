@@ -22,6 +22,12 @@ export default class Box extends React.Component {
         ReactDOM.render(player, currentBox)
 
         this.props.parentCallback(this.props.id);
+        // currentBox.style.opacity = "0.6"
+        // currentBox.disabled = true
+    }
+
+    newMoves(){
+        let currentBox = document.getElementById(this.props.id)
     }
 
     render() {
