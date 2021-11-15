@@ -183,9 +183,10 @@
 
 .dis{
 	opacity: 1;
-	box-shadow: 0 0 2px 2px #00ec00, 0.2rem 0.2rem 10px #13092d;
+	box-shadow: 0 0 10px 3px darkred, 0.2rem 0.2rem 100px #13092d;
+	z-index: -1;
 }
 
 .dis:hover{
-	box-shadow: 0 0 2px 2px #006800, 0.2rem 0.2rem 10px #13092d;
+	box-shadow: 0 0 2px 2px limegreen, 0.2rem 0.2rem 10px #13092d;
 }

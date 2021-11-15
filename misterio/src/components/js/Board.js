@@ -14,7 +14,7 @@ export default class Board extends React.Component {
             enclosures: [],
             enc_name: ['COCHERA','ALCOBA','BIBLIOTECA','VESTIBULO','PANTEON','BODEGA','SALON','LABORATORIO'],
            	dice: 0,
-        	moves: [1, 2, 3, 4,15,24,31,57,61,49]
+        	moves: []
         }
     }
 
@@ -48,16 +48,23 @@ export default class Board extends React.Component {
 	      	})
   	}
 
-   	// displayPosibleMoves(){
-   	// 	this.state.pos_a.map((x) => {
-	//    		if (this.state.moves.some(item => item !== x.id )) {
-	//            	x.disabled = true;
-	//    		}
-	//         x.setOpacity = "0.6";
-	//         x.style.setColor = "green";
-	//         console.log(x)
-   	// 	})
-  	// }
+  	componentWillUpdate(nextProps, nextState) {
+	    const requestOptions = {
+	      method: 'GET',
+	      mode: 'cors',
+	      headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+	    };
+	    fetch(
+		    "http://127.0.0.1:8000/api/v1/board/box/adj/6/" + this.props.diceNum, requestOptions)
+		    .then((res) => res.json())
+		    .then((json) => {
+		        this.setState({
+		            moves: json,
+		        });
+		    })
+		console.log(this.state.moves)
+
+  	}
 
 	render() {
 		const pos_a = this.state.pos_a;
@@ -87,7 +94,6 @@ export default class Board extends React.Component {
 				<div className = "board-c">
 					{pos_c.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} dis = {this.state.moves.some(item => item === x.id )} > </Box>)}
 				</div>
-				{/* {this.displayPosibleMoves()} */}
 			</div>
 		)
 	}
