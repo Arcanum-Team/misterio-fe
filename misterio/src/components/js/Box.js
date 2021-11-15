@@ -29,7 +29,7 @@ export default class Box extends React.Component {
 
     render() {
         return (
-            <button id = {this.props.id} className= {this.props.styling} onClick={this.handleClick}>
+            <button id = {this.props.id} className= {this.props.dis ? this.props.styling + " dis" : this.props.styling} onClick={this.handleClick}>
             </button>
         )
     }
