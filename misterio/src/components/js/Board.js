@@ -55,15 +55,13 @@ export default class Board extends React.Component {
 	      headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
 	    };
 	    fetch(
-		    "http://127.0.0.1:8000/api/v1/board/box/adj/6/" + this.props.diceNum, requestOptions)
+		    "http://127.0.0.1:8000/api/v1/board/box/adj/" + this.props.playerPos + "/" + this.props.diceNum, requestOptions)
 		    .then((res) => res.json())
 		    .then((json) => {
 		        this.setState({
 		            moves: json,
 		        });
 		    })
-		console.log(this.state.moves)
-
   	}
 
 	render() {

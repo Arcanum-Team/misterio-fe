@@ -26,6 +26,7 @@ class GameRoom extends React.Component{
         victima: '',
         recinto: '',
         diceNum: 0,
+        playerPos: 1,
     };
   }
 
@@ -34,7 +35,10 @@ class GameRoom extends React.Component{
   }
 
   handleDCallback = (childData) =>{
-    this.setState({diceNum: childData})
+    this.setState({
+      diceNum: childData,
+      playerPos: this.state.players[0].current_position.id
+    })
   }
 
   toggleSus = () => {
@@ -85,8 +89,9 @@ class GameRoom extends React.Component{
       .then((json) => {
           this.setState({
               players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
-              turn: 1
+              turn: 1,
           });
+          console.log(this.state.players[0].current_position)
       })
     fetch(
       "http://127.0.0.1:8000/api/v1/cards", requestOptions)
@@ -123,7 +128,7 @@ class GameRoom extends React.Component{
               <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
               <FinishTurn parentCallback = {this.handleTCallback} gameId={this.props.match.params.id}/>
             </div>
-            <Board diceNum = {this.state.diceNum}/>
+            <Board diceNum = {this.state.diceNum} playerPos = {this.state.playerPos} />
         </div>
 
         {/*SOSPECHAR*/}
