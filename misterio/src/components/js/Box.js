@@ -9,7 +9,6 @@ export default class Box extends React.Component {
         this.handleClick = this.handleClick.bind(this)
     }
 
-
     handleClick(){
         let lastBox = document.getElementById(this.props.lastMovement)
         if(lastBox !== null){
@@ -22,8 +21,6 @@ export default class Box extends React.Component {
         ReactDOM.render(player, currentBox)
 
         this.props.parentCallback(this.props.id);
-        // currentBox.style.opacity = "0.6"
-        // currentBox.disabled = true
     }
 
     newMoves(){
