@@ -14,6 +14,7 @@ class GameRoom extends React.Component{
     this.state = {
         players: [],
         turn: 0,
+        possiblemoves: [],
         modalSusActive: false,
         modalSorting: true,
         modalShowSusActive: false,
@@ -28,8 +29,12 @@ class GameRoom extends React.Component{
     };
   }
   
-  handleCallback = (childData) =>{
+  handleTCallback = (childData) =>{
     this.setState({turn: childData})
+  }
+
+  handleDCallback = (childData) =>{
+    this.setState({possiblemoves: childData})
   }
   
   toggleSus = () => {
@@ -111,12 +116,12 @@ class GameRoom extends React.Component{
               {/* poner el id del jugador "dueño" del ws */}
               <ShowCards playerId = {localStorage.getItem("host_id")}/>
             </div>
-            <RollDice/>
+            <RollDice parentCallback = {this.handleDCallback} playerId = {localStorage.getItem("host_id")} gameId={this.props.match.params.id}/>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <div className="playerOptions">
               <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
               <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
-              <FinishTurn parentCallback = {this.handleCallback} gameId={this.props.match.params.id}/>
+              <FinishTurn parentCallback = {this.handleTCallback} gameId={this.props.match.params.id}/>
             </div>
             <Board/>
         </div>
