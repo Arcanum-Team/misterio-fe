@@ -11,6 +11,7 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
 .ENTRY {	/*entry*/
@@ -25,6 +26,7 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
 .ENCLOSURE_DOWN {	/*dowm*/
@@ -40,6 +42,7 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
 .ENCLOSURE_UP {	/*up*/
@@ -56,6 +59,7 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
 .l {	/*left*/
@@ -104,6 +108,7 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
 
@@ -121,6 +126,7 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
 .COBRA {	/*cobra*/
@@ -137,6 +143,7 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
 .SCORPION {	/*escorpion*/
@@ -153,6 +160,7 @@
 	padding: 0;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
 .SPIDER {	/*araña*/
@@ -167,7 +175,18 @@
 	margin-right: -1px;
 	margin-top: -1px;
 	padding: 0;
+	opacity: 0.7;
 	text-align: center;
 	width: 30px;
+	opacity: 0.6;
 }
 
+.dis{
+	opacity: 1;
+	box-shadow: 0 0 10px 3px darkred, 0.2rem 0.2rem 100px #13092d;
+	z-index: -1;
+}
+
+.dis:hover{
+	box-shadow: 0 0 2px 2px limegreen, 0.2rem 0.2rem 10px #13092d;
+}

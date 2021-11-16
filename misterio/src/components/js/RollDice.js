@@ -55,7 +55,6 @@ class RollDice extends React.Component{
 
     render () {
         return(
-            <>
             <div className="roll-dice">
                 <div className="rolldice-container">
                     <Dice number={String(this.state.dice)} rolling={this.state.rolling}/>
@@ -64,9 +63,9 @@ class RollDice extends React.Component{
                     {this.state.rolling ? "Tirando..." : "Tirar dado"}
                 </button>
             </div>
-            </>
         );
     }
 };
 
 export default RollDice;
+

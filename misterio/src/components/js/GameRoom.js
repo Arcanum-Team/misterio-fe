@@ -14,7 +14,7 @@ class GameRoom extends React.Component{
     this.state = {
         players: [],
         turn: 0,
-        possiblemoves: [],
+        possibleMoves: [],
         modalSusActive: false,
         modalSorting: true,
         modalShowSusActive: false,
@@ -34,9 +34,11 @@ class GameRoom extends React.Component{
   }
 
   handleDCallback = (childData) =>{
-    this.setState({possiblemoves: childData})
+    this.setState({
+      possibleMoves: childData
+    })
   }
-  
+
   toggleSus = () => {
     this.setState({
       modalSusActive: !this.state.modalSusActive
@@ -85,8 +87,9 @@ class GameRoom extends React.Component{
       .then((json) => {
           this.setState({
               players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
-              turn: 1
+              turn: 1,
           });
+          console.log(this.state.players[0].current_position)
       })
     fetch(
       "http://127.0.0.1:8000/api/v1/cards", requestOptions)
@@ -123,7 +126,7 @@ class GameRoom extends React.Component{
               <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
               <FinishTurn parentCallback = {this.handleTCallback} gameId={this.props.match.params.id}/>
             </div>
-            <Board/>
+            <Board possibleMoves = {this.state.possibleMoves} />
         </div>
 
         {/*SOSPECHAR*/}
