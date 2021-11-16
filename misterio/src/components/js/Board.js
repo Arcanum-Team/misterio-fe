@@ -12,9 +12,7 @@ export default class Board extends React.Component {
             pos_c: [],
             pos_d: [],
             enclosures: [],
-            enc_name: ['COCHERA','ALCOBA','BIBLIOTECA','VESTIBULO','PANTEON','BODEGA','SALON','LABORATORIO'],
-           	dice: 0,
-        	moves: []
+            enc_name: ['COCHERA','ALCOBA','BIBLIOTECA','VESTIBULO','PANTEON','BODEGA','SALON','LABORATORIO']
         }
     }
 
@@ -48,22 +46,6 @@ export default class Board extends React.Component {
 	      	})
   	}
 
-  	componentWillUpdate(nextProps, nextState) {
-	    const requestOptions = {
-	      method: 'GET',
-	      mode: 'cors',
-	      headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-	    };
-	    fetch(
-		    "http://127.0.0.1:8000/api/v1/board/box/adj/" + this.props.playerPos + "/" + this.props.diceNum, requestOptions)
-		    .then((res) => res.json())
-		    .then((json) => {
-		        this.setState({
-		            moves: json,
-		        });
-		    })
-  	}
-
 	render() {
 		const pos_a = this.state.pos_a;
 		const pos_b = this.state.pos_b;
@@ -81,16 +63,24 @@ export default class Board extends React.Component {
 					<Enclosure value =""> </Enclosure>
 				</div>
 				<div className = "board-a">
-					{pos_a.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} dis = {this.state.moves.some(item => item === x.id )}> </Box>)}
+					{pos_a.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
+						lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} 
+						dis = {this.props.possibleMoves.some(item => item === x.id )}> </Box>)}
 				</div>
 				<div className = "board-d">
-					{pos_d.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} dis = {this.state.moves.some(item => item === x.id )}> </Box>)}
+					{pos_d.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
+						lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} 
+						dis = {this.props.possibleMoves.some(item => item === x.id )}> </Box>)}
 				</div>
 				<div className = "board-b">
-					{pos_b.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} dis = {this.state.moves.some(item => item === x.id )}> </Box>)}
+					{pos_b.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
+						lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} 
+						dis = {this.props.possibleMoves.some(item => item === x.id )}> </Box>)}
 				</div>
 				<div className = "board-c">
-					{pos_c.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} dis = {this.state.moves.some(item => item === x.id )} > </Box>)}
+					{pos_c.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
+						lastMovement={this.state.last_movement} parentCallback = {this.handleCallback} 
+						dis = {this.props.possibleMoves.some(item => item === x.id )} > </Box>)}
 				</div>
 			</div>
 		)

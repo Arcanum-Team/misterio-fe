@@ -14,6 +14,7 @@ class GameRoom extends React.Component{
     this.state = {
         players: [],
         turn: 0,
+        possibleMoves: [],
         modalSusActive: false,
         modalSorting: true,
         modalShowSusActive: false,
@@ -25,19 +26,16 @@ class GameRoom extends React.Component{
         monstruo: '',
         victima: '',
         recinto: '',
-        diceNum: 0,
-        playerPos: 1,
     };
   }
-
+  
   handleTCallback = (childData) =>{
     this.setState({turn: childData})
   }
 
   handleDCallback = (childData) =>{
     this.setState({
-      diceNum: childData,
-      playerPos: this.state.players[0].current_position.id
+      possibleMoves: childData
     })
   }
 
@@ -128,7 +126,7 @@ class GameRoom extends React.Component{
               <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
               <FinishTurn parentCallback = {this.handleTCallback} gameId={this.props.match.params.id}/>
             </div>
-            <Board diceNum = {this.state.diceNum} playerPos = {this.state.playerPos} />
+            <Board possibleMoves = {this.state.possibleMoves} />
         </div>
 
         {/*SOSPECHAR*/}

@@ -2,12 +2,6 @@ import React from "react";
 import "../css/ListOfPlayers.css";
 
 class ListOfPlayers extends React.Component {
-   
-    // Constructor 
-    constructor(props) {
-        super(props);
-
-    }
 
     render() {    
         return (
