@@ -12,6 +12,7 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 .ENTRY {	/*entry*/
@@ -27,6 +28,7 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 .ENCLOSURE_DOWN {	/*dowm*/
@@ -43,6 +45,7 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 .ENCLOSURE_UP {	/*up*/
@@ -60,6 +63,7 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 .l {	/*left*/
@@ -109,6 +113,7 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 
@@ -127,6 +132,7 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 .COBRA {	/*cobra*/
@@ -144,6 +150,7 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 .SCORPION {	/*escorpion*/
@@ -161,6 +168,7 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 .SPIDER {	/*araña*/
@@ -179,14 +187,17 @@
 	text-align: center;
 	width: 30px;
 	opacity: 0.6;
+	pointer-events: none;
 }
 
 .dis{
 	opacity: 1;
 	box-shadow: 0 0 10px 3px darkred, 0.2rem 0.2rem 100px #13092d;
 	z-index: -1;
+	pointer-events: auto;
 }
 
 .dis:hover{
 	box-shadow: 0 0 2px 2px limegreen, 0.2rem 0.2rem 10px #13092d;
+	pointer-events: auto;
 }

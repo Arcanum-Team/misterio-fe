@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
@@ -12,11 +11,15 @@ export default class Portal extends Component{
     }
 
     componentDidMount = () =>{
-        portalRoot.appendChild(this.el);
+        if(portalRoot !== null){
+            portalRoot.appendChild(this.el);
+        }
     }
     componentWillMount = () =>{
-        if(portalRoot.contains(this.el)){
-            portalRoot.removeChild(this.el);
+        if(portalRoot !== null){
+            if(portalRoot.contains(this.el)){
+                portalRoot.removeChild(this.el);
+            }
         }
     }
 

@@ -49,7 +49,7 @@ class LobbyRoom extends React.Component {
               <LobbyPlayer playerName = { player.nickname } />
             ))}
           </div>
-          {localStorage.getItem("host_id")!= null && <StartGame className="startGameButton" GameId={this.props.match.params.id}/>}
+          {localStorage.getItem("host_id")!= null && <StartGame className="startGameButton" gameId={this.props.match.params.id}/>}
       </div>
     );
   }
