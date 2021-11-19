@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import "../css/JoinForm.css";
 import "../css/Button.css";
 import Modal from '../js/Modal'
@@ -11,22 +11,29 @@ class JoinForm extends React.Component {
 		this.state = {
 			nickname: "",
 			modalActive: false,
-			exceptionMessage:""
+			exceptionMessage:"",
+			game_id: "",
+			player_id: "",
+
 		}
 	}
-
 
 	toggle = () => {
 		this.setState({
 		  modalActive: !this.state.modalActive
 		})
 	  }
+	
+	startWs() {
+		global.sh.connect(this.state.game_id, this.state.player_id);
+		console.log(this.state.player_id)
+
+	}
 
 	handleSubmit = event => {
 		event.preventDefault();
 		
 		const data = {'game_name': this.props.match.params.id, 'nickname': this.state.nickname}
-		console.log(data);
 
 		const requestOptions = {
 			method: 'PUT',
@@ -41,6 +48,12 @@ class JoinForm extends React.Component {
 				if(response.ok){
 					response.json()
 					.then((json) => {
+						this.setState({
+							game_id: json.game.id,
+							player_id: json.player.id
+						})
+						this.startWs()
+						window.sessionStorage.setItem("player_id", json.player.id);
 						this.props.history.push("../LobbyRoom/" + json.game.id);
 					})
 				}else if(response.status === 422){ 

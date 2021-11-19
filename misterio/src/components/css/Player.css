@@ -1,5 +1,5 @@
 .player-red{
-	background: url(../player_red.png);
+	background: url(../../drawable/player_red.png);
 	padding: 2%;
 	margin-top: -2%;
 	margin-left: 0.45%;
@@ -10,7 +10,7 @@
 }
 
 .player-orange{
-	background-image: url(../player_orange.png);
+	background-image: url(../../drawable/player_orange.png);
 	padding: 2%;
 	margin-top: -2%;
 	margin-left: 0.45%;
@@ -21,7 +21,7 @@
 }
 
 .player-green{
-	background-image: url(../player_green.png);
+	background-image: url(../../drawable/player_green.png);
 	padding: 2%;
 	margin-top: -2%;
 	margin-left: 0.45%;
@@ -32,7 +32,7 @@
 }
 
 .player-blue{
-	background-image: url(../player_blue.png);
+	background-image: url(../../drawable/player_blue.png);
 	padding: 2%;
 	margin-top: -2%;
 	margin-left: 0.45%;
@@ -43,7 +43,7 @@
 }
 
 .player-white{
-	background-image: url(../player_white.png);
+	background-image: url(../../drawable/player_white.png);
 	padding: 2%;
 	margin-top: -2%;
 	margin-left: 0.45%;
@@ -54,7 +54,7 @@
 }
 
 .player-yellow{
-	background-image: url(../player_yellow.png);
+	background-image: url(../../drawable/player_yellow.png);
 	padding: 2%;
 	margin-top: -2%;
 	margin-left: 0.45%;

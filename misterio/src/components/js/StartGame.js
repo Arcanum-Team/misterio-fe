@@ -15,7 +15,6 @@ class StartGame extends React.Component {
 		}
 	}
 
-
 	toggle = () => {
 		this.setState({
 		  modalActive: !this.state.modalActive
@@ -24,7 +23,7 @@ class StartGame extends React.Component {
 
 
 	handleClick(name) {
-    const data = {'game_id': this.props.match.params.id, 'player_id': localStorage.getItem("host_id")}
+    const data = {'game_id': this.props.match.params.id, 'player_id': window.sessionStorage.getItem("host_id")}
 
 		const requestOptions = {
 			method: 'PUT',
