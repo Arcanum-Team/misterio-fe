@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import '../css/StartGame.css';
 import Modal from '../js/Modal';
 import '../css/ValidationModal.css';

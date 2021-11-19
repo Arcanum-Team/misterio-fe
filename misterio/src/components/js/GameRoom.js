@@ -74,7 +74,13 @@ class GameRoom extends React.Component{
       this.setState({recinto: event.target.value});
   }
 
+  onMessage(message){
+    console.log(message);
+  }
+
   componentDidMount() {
+    global.sh.subscribe((event) => this.onMessage(event))
+
     const requestOptions = {
       method: 'GET',
       mode: 'cors',
@@ -117,7 +123,8 @@ class GameRoom extends React.Component{
         <div className="HP-text">
             <div className="scene">
               {/* poner el id del jugador "dueño" del ws */}
-              <ShowCards playerId = {localStorage.getItem("host_id")}/>
+              {console.log(window.sessionStorage.getItem("player_id"))}
+              <ShowCards playerId = {window.sessionStorage.getItem("player_id")}/>
             </div>
             <RollDice parentCallback = {this.handleDCallback} playerId = {localStorage.getItem("host_id")} gameId={this.props.match.params.id}/>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>

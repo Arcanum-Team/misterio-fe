@@ -22,6 +22,11 @@ class CreateForm extends React.Component {
     })
   }
 
+  startWs() {
+		global.sh.connect(this.state.game_id, this.state.player_id);
+    console.log(this.state.player_id)
+	}
+
   handleSubmit = event => {
     event.preventDefault();
     
@@ -39,9 +44,14 @@ class CreateForm extends React.Component {
       if(response.ok){
         response.json()
           .then((json) => {
-            console.log(json);
+            this.setState({
+							game_id: json.game.id,
+							player_id: json.player.id
+						})
+						this.startWs()
             this.props.history.push("../LobbyRoom/" + json.game.id);
-            localStorage.setItem("host_id", json.id);
+            window.sessionStorage.setItem("host_id", json.player.id);
+            window.sessionStorage.setItem("player_id", json.player.id);
         })
       }else if(response.status === 422){ 
         this.setState({
