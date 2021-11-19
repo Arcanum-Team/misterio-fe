@@ -1,29 +1,20 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import '../css/StartGame.css';
-import Modal from '../js/Modal'
+import Modal from '../js/Modal';
 import '../css/ValidationModal.css';
+import { useState, setState } from 'react';
+import { useHistory } from "react-router-dom";
 
-class StartGame extends React.Component {
+function StartGame ({gameId}) {
 	
-	constructor(props) {
-		super(props)
-		this.handleClick = this.handleClick.bind(this)
-		this.state = {
-			modalActive: false,
-			exceptionMessage:""
-		}
-	}
+	const [modalActive, toggle] = useState(false)
+	const [exceptionMessage, setException] = useState("")
 
-	toggle = () => {
-		this.setState({
-		  modalActive: !this.state.modalActive
-		})
-	  }
+	let history = useHistory();
 
 
-	handleClick(name) {
-    const data = {'game_id': this.props.match.params.id, 'player_id': window.sessionStorage.getItem("host_id")}
+	const handleClick = () => {
+    	const data = {'game_id': gameId, 'player_id': localStorage.getItem("host_id")}
 
 		const requestOptions = {
 			method: 'PUT',
@@ -37,49 +28,47 @@ class StartGame extends React.Component {
 			if(response.ok){
 				response.json()
 				.then((json) => {
-					this.props.history.push("../GameRoom/" + name);
+					history.push("../GameRoom/" + gameId);
 				})
 			}else{
 				response.json()
 				.then((json) => {
-					this.setState({
-						modalActive: true,
-						exceptionMessage: json.message
-					})
+					setException(json.message)
+					toggle(!modalActive)
+
 				})
+
 			}
 		})
 	}
 
-	render(){
-		return (
-			<div>
-				<Modal active={this.state.modalActive}>
-					<div>
-						<div className="modal-dialog modal-confirm">
-							<div className="modal-content">
-								<div className="modal-header">
-									<div className="icon-box">
-										<i className="bi bi-x-lg"></i>
-									</div>
-								</div>
-								<div className="modal-body text-center">
-									<h4>Ooops!</h4>	
-									<p>{this.state.exceptionMessage}</p>
-									<button className="btn btn-success" onClick={this.toggle} >Entiendo</button>
+	return (
+		<div>
+			<Modal active={modalActive}>
+				<div>
+					<div className="modal-dialog modal-confirm">
+						<div className="modal-content">
+							<div className="modal-header">
+								<div className="icon-box">
+									<i className="bi bi-x-lg"></i>
 								</div>
 							</div>
+							<div className="modal-body text-center">
+								<h4>Ooops!</h4>	
+								<p>{exceptionMessage}</p>
+								<button className="btn btn-success" onClick={() => toggle(false)} >Entiendo</button>
+							</div>
 						</div>
-					</div>     
-				</Modal>
-				<button className = "sboton" onClick= {() =>this.handleClick(this.props.GameId)}>
-          			Iniciar Partida
-        		</button>
-			</div>
-		);
-	}
+					</div>
+				</div>     
+			</Modal>
+			<button className = "sboton" onClick= {() =>handleClick()}>
+      			Iniciar Partida
+    		</button>
+		</div>
+	);
 	
 }
-export default withRouter(StartGame);
+export default StartGame;
 
 

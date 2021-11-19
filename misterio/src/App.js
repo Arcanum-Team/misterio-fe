@@ -7,10 +7,6 @@ import ListofGames from './components/js/ListOfGames';
 import ListOfPlayers from './components/js/ListOfPlayers';
 import LobbyRoom from './components/js/LobbyRoom';
 import GameRoom from './components/js/GameRoom';
-//import RollDice from './components/js/RollDice';
-/*{
-<RollDice/>
-}*/
 
 function App() {
   return (

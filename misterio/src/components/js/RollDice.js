@@ -2,52 +2,70 @@ import React, {useState} from "react";
 import Dice from "./Dice";
 import "../css/RollDice.css";
 
-const RollDice = ({sides}) =>{
+class RollDice extends React.Component{
     
-    const[state, setState] = useState({
-        dice: "1",
-        rolling: false,
-        totalMoves: 0,
-    });
-
-    const {dice, rolling, totalMoves} = state;
-
-    const roll = () => {
-        const newDice = sides[Math.floor(Math.random() * sides.length)];
-        const moves = Object.values(newDice);
-        setState({
+    constructor(props) {
+        super(props)
+        this.state = {
+          sides: [{one: 1},
+            {two: 2},
+            {three: 3},
+            {four: 4},
+            {five: 5},
+            {six: 6}],
+          dice: "1",
+          rolling: false,
+          totalMoves: 0,
+        }
+      }
+    
+    roll = () => {
+        const newDice = this.state.sides[Math.floor(Math.random() * this.state.sides.length)];
+        this.setState({
             dice: Object.values(newDice),
             rolling: true,
-            totalMoves: moves[0],
         });
         setTimeout(() => {
-            setState((prevState) => ({...prevState, rolling: false}));
-        }, 1000);
+            this.setState((prevState) => ({...prevState, rolling: false}));
+        }, 600);
+        setTimeout(() => {
+            this.doPut();
+        }, 0.00000000001);
     };
+        
+    doPut = () =>{
+        const data = {
+            'game_id': this.props.gameId,
+            'player_id': this.props.playerId,
+            'dice': parseInt(this.state.dice)
+        }
+        const requestOptions = {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+            body: JSON.stringify(data)
+        };
+        fetch(
+            "http://127.0.0.1:8000/api/v1/shifts/roll-dice", requestOptions)
+        .then((res) => res.json())
+        .then((json) => {
+            this.props.parentCallback(json);
+        })       
+    }
 
-    return(
-        <>
-        <div className="roll-dice">
-            <div className="rolldice-container">
-                <Dice number={String(dice)} rolling={rolling}/>
+    render () {
+        return(
+            <div className="roll-dice">
+                <div className="rolldice-container">
+                    <Dice number={String(this.state.dice)} rolling={this.state.rolling}/>
+                </div>
+                <button onClick={() => this.roll()} disabled={this.state.rolling}>
+                    {this.state.rolling ? "Tirando..." : "Tirar dado"}
+                </button>
             </div>
-            <button onClick={roll} disabled={rolling}>
-                {rolling ? "Tirando..." : "Tirar dado"}
-            </button>
-        </div>
-        </>
-    );
+        );
+    }
 };
 
-RollDice.defaultProps = {
-    sides: [
-        {one: 1},
-        {two: 2},
-        {three: 3},
-        {four: 4},
-        {five: 5},
-        {six: 6},
-    ],
-}
-
 export default RollDice;
+
