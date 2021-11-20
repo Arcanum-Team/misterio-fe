@@ -24,7 +24,6 @@ class CreateForm extends React.Component {
 
   startWs() {
 		global.sh.connect(this.state.game_id, this.state.player_id);
-    console.log(this.state.player_id)
 	}
 
   handleSubmit = event => {
@@ -52,6 +51,7 @@ class CreateForm extends React.Component {
             this.props.history.push("../LobbyRoom/" + json.game.id);
             window.sessionStorage.setItem("host_id", json.player.id);
             window.sessionStorage.setItem("player_id", json.player.id);
+            window.sessionStorage.setItem("game_id", json.game.id);
         })
       }else if(response.status === 422){ 
         this.setState({

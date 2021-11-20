@@ -2,7 +2,7 @@ import React from "react";
 import LobbyPlayer from './LobbyPlayer'
 import StartGame from './StartGame';
 import '../css/LobbyRoom.css';
-import ReactDOM from 'react-dom';
+import SocketHandler from './SocketHandler'
 
 class LobbyRoom extends React.Component {
   constructor(props) {
@@ -26,13 +26,17 @@ class LobbyRoom extends React.Component {
     }
   }
   
-  // sendMessage(){
-
-  // }
-
   componentDidMount() {
-    global.sh.subscribe((event) => this.onMessage(event))
 
+    if(global.sh !== undefined){
+      global.sh.subscribe((event) => this.onMessage(event))
+    }else{
+      global.sh = new SocketHandler();
+      console.log(window.sessionStorage.getItem("game_id"));
+      console.log(window.sessionStorage.getItem("player_id"));
+      global.sh.connect(window.sessionStorage.getItem("game_id"), window.sessionStorage.getItem("player_id"));
+      global.sh.subscribe((event) => this.onMessage(event))
+    }
     const requestOptions = {
         method: 'GET',
         mode: 'cors',

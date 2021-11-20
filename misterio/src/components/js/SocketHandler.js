@@ -18,8 +18,8 @@ class SocketHandler {
 
     onMessage(message){
         var data = JSON.parse(message.data);
-        this.handlers.map((x)=>
-            x(data)
+        this.handlers.map((handler)=>
+            handler(data)
         )
     }
 

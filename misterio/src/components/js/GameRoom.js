@@ -7,6 +7,8 @@ import FinishTurn from './FinishTurn.js';
 import Board from './Board.js';
 import Modal from '../js/Modal'
 import '../css/SuspectModal.css';
+import SocketHandler from './SocketHandler'
+
 
 class GameRoom extends React.Component{
   constructor(props) {
@@ -79,7 +81,15 @@ class GameRoom extends React.Component{
   }
 
   componentDidMount() {
-    global.sh.subscribe((event) => this.onMessage(event))
+    if(global.sh !== undefined){
+      global.sh.subscribe((event) => this.onMessage(event))
+    }else{
+      global.sh = new SocketHandler();
+      console.log(window.sessionStorage.getItem("game_id"));
+      console.log(window.sessionStorage.getItem("player_id"));
+      global.sh.connect(window.sessionStorage.getItem("game_id"), window.sessionStorage.getItem("player_id"));
+      global.sh.subscribe((event) => this.onMessage(event))
+    }
 
     const requestOptions = {
       method: 'GET',
@@ -126,7 +136,7 @@ class GameRoom extends React.Component{
               {console.log(window.sessionStorage.getItem("player_id"))}
               <ShowCards playerId = {window.sessionStorage.getItem("player_id")}/>
             </div>
-            <RollDice parentCallback = {this.handleDCallback} playerId = {localStorage.getItem("host_id")} gameId={this.props.match.params.id}/>
+            <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} gameId={this.props.match.params.id}/>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <div className="playerOptions">
               <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
