@@ -35,9 +35,7 @@ function StartGame ({gameId}) {
 				.then((json) => {
 					setException(json.message)
 					toggle(!modalActive)
-
 				})
-
 			}
 		})
 	}

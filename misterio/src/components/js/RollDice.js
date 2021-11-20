@@ -49,7 +49,7 @@ class RollDice extends React.Component{
             "http://127.0.0.1:8000/api/v1/shifts/roll-dice", requestOptions)
         .then((res) => res.json())
         .then((json) => {
-            this.props.parentCallback(json);
+            this.props.parentCallback(json, data.dice);
         })       
     }
 

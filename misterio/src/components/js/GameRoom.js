@@ -16,6 +16,7 @@ class GameRoom extends React.Component{
     this.state = {
         players: [],
         turn: 0,
+        dice: 1,
         possibleMoves: [],
         modalSusActive: false,
         modalSorting: true,
@@ -35,7 +36,14 @@ class GameRoom extends React.Component{
     this.setState({turn: childData})
   }
 
-  handleDCallback = (childData) =>{
+  handleDCallback = (json, dice) =>{
+    this.setState({
+      possibleMoves: json,
+      dice: dice
+    })
+  }
+
+  handlePCallback = (childData) =>{
     this.setState({
       possibleMoves: childData
     })
@@ -77,7 +85,6 @@ class GameRoom extends React.Component{
   }
 
   onMessage(message){
-    console.log(message);
   }
 
   componentDidMount() {
@@ -85,8 +92,6 @@ class GameRoom extends React.Component{
       global.sh.subscribe((event) => this.onMessage(event))
     }else{
       global.sh = new SocketHandler();
-      console.log(window.sessionStorage.getItem("game_id"));
-      console.log(window.sessionStorage.getItem("player_id"));
       global.sh.connect(window.sessionStorage.getItem("game_id"), window.sessionStorage.getItem("player_id"));
       global.sh.subscribe((event) => this.onMessage(event))
     }
@@ -105,7 +110,6 @@ class GameRoom extends React.Component{
               players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
               turn: 1,
           });
-          console.log(this.state.players[0].current_position)
       })
     fetch(
       "http://127.0.0.1:8000/api/v1/cards", requestOptions)
@@ -133,7 +137,6 @@ class GameRoom extends React.Component{
         <div className="HP-text">
             <div className="scene">
               {/* poner el id del jugador "dueño" del ws */}
-              {console.log(window.sessionStorage.getItem("player_id"))}
               <ShowCards playerId = {window.sessionStorage.getItem("player_id")}/>
             </div>
             <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} gameId={this.props.match.params.id}/>
@@ -143,7 +146,8 @@ class GameRoom extends React.Component{
               <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
               <FinishTurn parentCallback = {this.handleTCallback} gameId={this.props.match.params.id}/>
             </div>
-            <Board possibleMoves = {this.state.possibleMoves} />
+            <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handlePCallback}
+                    dice = {this.state.dice}/>
         </div>
 
         {/*SOSPECHAR*/}
