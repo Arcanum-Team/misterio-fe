@@ -7,6 +7,8 @@ import FinishTurn from './FinishTurn.js';
 import Board from './Board.js';
 import Modal from '../js/Modal'
 import '../css/SuspectModal.css';
+import SocketHandler from './SocketHandler'
+
 
 class GameRoom extends React.Component{
   constructor(props) {
@@ -14,6 +16,7 @@ class GameRoom extends React.Component{
     this.state = {
         players: [],
         turn: 0,
+        dice: 1,
         possibleMoves: [],
         modalSusActive: false,
         modalSorting: true,
@@ -33,7 +36,14 @@ class GameRoom extends React.Component{
     this.setState({turn: childData})
   }
 
-  handleDCallback = (childData) =>{
+  handleDCallback = (json, dice) =>{
+    this.setState({
+      possibleMoves: json,
+      dice: dice
+    })
+  }
+
+  handlePCallback = (childData) =>{
     this.setState({
       possibleMoves: childData
     })
@@ -78,7 +88,13 @@ class GameRoom extends React.Component{
   }
 
   componentDidMount() {
-    global.sh.subscribe((event) => this.onMessage(event))
+    if(global.sh !== undefined){
+      global.sh.subscribe((event) => this.onMessage(event))
+    }else{
+      global.sh = new SocketHandler();
+      global.sh.connect(window.sessionStorage.getItem("game_id"), window.sessionStorage.getItem("player_id"));
+      global.sh.subscribe((event) => this.onMessage(event))
+    }
 
     const requestOptions = {
       method: 'GET',
@@ -130,7 +146,8 @@ class GameRoom extends React.Component{
               <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
               <FinishTurn parentCallback = {this.handleTCallback} gameId={this.props.match.params.id}/>
             </div>
-            <Board possibleMoves = {this.state.possibleMoves} />
+            <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handlePCallback}
+                    dice = {this.state.dice}/>
         </div>
 
         {/*SOSPECHAR*/}
