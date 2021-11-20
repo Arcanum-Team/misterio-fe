@@ -16,7 +16,8 @@
 }
 
 .ENTRY {	/*entry*/
-	background-color: black;
+	background: url('https://cdn.discordapp.com/attachments/905257129294856252/911490704847548436/black.png');
+	background-size: cover;
 	border:  1px solid #999;
 	float:  left;
 	font-size: 80%;

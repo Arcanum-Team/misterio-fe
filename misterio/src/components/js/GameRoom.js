@@ -29,6 +29,7 @@ class GameRoom extends React.Component{
         monstruo: '',
         victima: '',
         recinto: '',
+        localPlayer: {}
     };
   }
   
@@ -109,6 +110,7 @@ class GameRoom extends React.Component{
           this.setState({
               players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
               turn: 1,
+              localPlayer: json.players.filter((player)=> player.id === window.sessionStorage.getItem("player_id"))
           });
       })
     fetch(
@@ -147,7 +149,7 @@ class GameRoom extends React.Component{
               <FinishTurn parentCallback = {this.handleTCallback} gameId={this.props.match.params.id}/>
             </div>
             <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handlePCallback}
-                    dice = {this.state.dice}/>
+                    dice = {this.state.dice} localPlayer = {this.state.localPlayer}/>
         </div>
 
         {/*SOSPECHAR*/}

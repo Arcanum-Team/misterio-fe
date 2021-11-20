@@ -41,6 +41,51 @@ export default class Board extends React.Component {
 		})
 	}
 
+	EnclosureCallbackIn = (new_box) =>{
+		this.props.parentCallback([])
+		this.setState({
+			playerPosition: new_box,
+		})
+		const data = {'game_id': window.sessionStorage.getItem("game_id"),
+					'player_id': window.sessionStorage.getItem("player_id")}
+
+		const requestOptions = {
+			method: 'PUT',
+			mode: 'cors',
+			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+			body: JSON.stringify(data)
+		};
+
+		fetch("http://127.0.0.1:8000/api/v1/enclosure/enter", requestOptions)
+		.then((response) => {
+			if(response.ok){
+			}
+		})
+		this.handleCallback(new_box)
+	}
+
+	EnclosureCallbackOut = (new_box) =>{
+		this.props.parentCallback([])
+		this.setState({
+			playerPosition: new_box,
+		})
+		const data = {'game_id': window.sessionStorage.getItem("game_id"),
+					'player_id': window.sessionStorage.getItem("player_id")}
+
+		const requestOptions = {
+			method: 'PUT',
+			mode: 'cors',
+			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+			body: JSON.stringify(data)
+		};
+
+		fetch("http://127.0.0.1:8000/api/v1/enclosure/exit", requestOptions)
+		.then((response) => {
+			if(response.ok){
+			}
+		})
+	}
+
 	componentDidMount() {
 	    const requestOptions = {
 	      method: 'GET',
@@ -61,7 +106,10 @@ export default class Board extends React.Component {
 	                			json[1].boxes.filter((x)=> x.enclosure !== null)).concat(
 	                			json[2].boxes.filter((x)=> x.enclosure !== null)).concat(
 	                			json[3].boxes.filter((x)=> x.enclosure !== null)),
+	               playerPosition: this.props.localPlayer[0].current_position.id
 	        	});
+	        	console.log(this.state.playerPosition)
+	        	console.log(this.props.localPlayer)
 	      	})
   	}
 
@@ -75,8 +123,11 @@ export default class Board extends React.Component {
 			<div className= "game-board">
 				{enclosures.map((x) =>
 					<Enclosure value = {x.enclosure.name} 
-						style = {'e' + x.enclosure.name}
-						edis = {this.props.possibleMoves.some(item => item === x.id )}> 
+						style = {'e' + x.enclosure.name} id = {`${x.id}`}
+						parentCallback = {this.EnclosureCallbackIn} 
+						parentCallback = {this.EnclosureCallbackOut} 
+						edis = {this.props.possibleMoves.some(item => item === x.id )}
+						playerPos = {this.state.playerPosition == x.id}> 
 					</Enclosure>
 				)}
 				{console.log(this.props.possibleMoves)}

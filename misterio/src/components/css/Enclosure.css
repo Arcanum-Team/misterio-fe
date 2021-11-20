@@ -175,5 +175,10 @@
 	pointer-events: auto;
 }
 
-
-
+.eplayer{
+	background-image: url(../../drawable/player_green.png);
+	background-size: contain;
+	position: absolute;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
