@@ -14,7 +14,7 @@ function StartGame ({gameId}) {
 
 
 	const handleClick = () => {
-    	const data = {'game_id': gameId, 'player_id': localStorage.getItem("host_id")}
+    	const data = {'game_id': gameId, 'player_id': window.sessionStorage.getItem("host_id")}
 
 		const requestOptions = {
 			method: 'PUT',

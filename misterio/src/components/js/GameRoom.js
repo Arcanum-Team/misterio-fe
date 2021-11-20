@@ -75,7 +75,6 @@ class GameRoom extends React.Component{
   }
 
   onMessage(message){
-    console.log(message);
   }
 
   componentDidMount() {
@@ -95,7 +94,6 @@ class GameRoom extends React.Component{
               players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
               turn: 1,
           });
-          console.log(this.state.players[0].current_position)
       })
     fetch(
       "http://127.0.0.1:8000/api/v1/cards", requestOptions)
@@ -123,10 +121,9 @@ class GameRoom extends React.Component{
         <div className="HP-text">
             <div className="scene">
               {/* poner el id del jugador "dueño" del ws */}
-              {console.log(window.sessionStorage.getItem("player_id"))}
               <ShowCards playerId = {window.sessionStorage.getItem("player_id")}/>
             </div>
-            <RollDice parentCallback = {this.handleDCallback} playerId = {localStorage.getItem("host_id")} gameId={this.props.match.params.id}/>
+            <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} gameId={this.props.match.params.id}/>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <div className="playerOptions">
               <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
@@ -227,5 +224,4 @@ class GameRoom extends React.Component{
     );
   }
 }
-// onClick = {this.handleSubmit.bind(this)}
 export default GameRoom;

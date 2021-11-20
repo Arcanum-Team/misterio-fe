@@ -55,10 +55,12 @@ export default class Board extends React.Component {
 		return (
 			<div className= "game-board">
 				{enclosures.map((x) =>
-					<div className = {'e' + x.enclosure.name}>
-						<Enclosure value = {this.state.enc_name[x.enclosure.id-1]}> </Enclosure>
-					</div>
+					<Enclosure value = {x.enclosure.name} 
+						style = {'e' + x.enclosure.name} id = {`${x.id}`}
+						edis = {this.props.possibleMoves.some(item => item === x.id )}> 
+					</Enclosure>
 				)}
+				{console.log(this.props.possibleMoves)}
 				<div className = "centro">
 					<Enclosure value =""> </Enclosure>
 				</div>

@@ -1,13 +1,168 @@
-.enclosure {
-	float:  left;
-	font-weight: bold;
-	line-height: 60px;
+@import url('http://fonts.cdnfonts.com/css/bloody');
+.eCOCHERA {
 	height: 175px;
 	width: 175px;
 	background-color: transparent;
+	position: absolute;
+	margin-left: -50.75%;
+	margin-top: -76.55%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905154616797331536/unknown.png');
+	background-size: cover;
+	font-family: 'Bloody', sans-serif;
+	pointer-events: none;
+	font-weight: bold;
 	color: darkred;
-	text-align: bottom;
 	text-shadow: white;
 	border: 1px solid #999;
 	text-shadow: navajowhite -2px 2px;
+}
+
+.eALCOBA {
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	position: absolute;
+	margin-left: 0.1%;
+	margin-top: -76.55%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905154996348289074/unknown.png');
+	background-size: cover;
+	font-family: 'Bloody', sans-serif;
+	pointer-events: none;
+	font-weight: bold;
+	color: darkred;
+	text-shadow: white;
+	border: 1px solid #999;
+	text-shadow: navajowhite -2px 2px;
+}
+
+.eBIBLIOTECA {
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	position: absolute;
+	margin-left: 50.75%;
+	margin-top: -76.55%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905157683232014366/unknown.png');
+	background-size: cover;
+	font-family: 'Bloody', sans-serif;
+	pointer-events: none;
+	font-weight: bold;
+	color: darkred;
+	text-shadow: white;
+	border: 1px solid #999;
+	text-shadow: navajowhite -2px 2px;
+}
+
+.eVESTIBULO {
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	position: absolute;
+	margin-left: -50.75%;
+	margin-top: -25.85%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905155991291703306/unknown.png');
+	background-size: cover;
+	font-family: 'Bloody', sans-serif;
+	pointer-events: none;
+	font-weight: bold;
+	color: darkred;
+	text-shadow: white;
+	border: 1px solid #999;
+	text-shadow: navajowhite -2px 2px;
+}
+
+.centro {
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	position: absolute;
+	margin-left: 0.1%;
+	margin-top: -25.85%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905157363529576488/unknown.png');
+	background-size: contain;
+	font-family: 'Bloody', sans-serif;
+}
+
+.ePANTEON {
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	position: absolute;
+	margin-left: 50.75%;
+	margin-top: -25.85%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905156068018122862/unknown.png');
+	background-size: cover;
+	font-family: 'Bloody', sans-serif;
+	pointer-events: none;
+	font-weight: bold;
+	color: darkred;
+	text-shadow: white;
+	border: 1px solid #999;
+	text-shadow: navajowhite -2px 2px;
+}
+
+.eBODEGA {
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	position: absolute;
+	margin-left: -50.75%;
+	margin-top: 25.25%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905156132924969030/unknown.png');
+	background-size: cover;
+	font-family: 'Bloody', sans-serif;
+	pointer-events: none;
+	font-weight: bold;
+	color: darkred;
+	text-shadow: white;
+	border: 1px solid #999;
+	text-shadow: navajowhite -2px 2px;
+}
+
+.eSALON {
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	position: absolute;
+	margin-left: 0.1%;
+	margin-top: 25.25%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905156181776007208/unknown.png');
+	background-size: cover;
+	font-family: 'Bloody', sans-serif;
+	pointer-events: none;
+	font-weight: bold;
+	color: darkred;
+	text-shadow: white;
+	border: 1px solid #999;
+	text-shadow: navajowhite -2px 2px;
+}
+
+.eLABORATORIO {
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	position: absolute;
+	margin-left: 50.75%;
+	margin-top: 25.25%;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905156253226008576/unknown.png');
+	background-size: cover;
+	font-family: 'Bloody', sans-serif;
+	pointer-events: none;
+	font-weight: bold;
+	color: darkred;
+	text-shadow: white;
+	border: 1px solid #999;
+	text-shadow: navajowhite -2px 2px;
+}
+
+.edis{
+	opacity: 1;
+	box-shadow: 0 0 10px 3px darkred, 0.2rem 0.2rem 100px #13092d;
+	z-index: -1;
+	pointer-events: auto;
+}
+
+.edis:hover{
+	box-shadow: 0 0 2px 2px limegreen, 0.2rem 0.2rem 10px #13092d;
+	pointer-events: auto;
 }

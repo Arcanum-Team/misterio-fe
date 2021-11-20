@@ -8,9 +8,8 @@ export default class Enclosure extends React.Component {
 
 	render() {
 		return (
-			/*<button className= "enclosure" onClick={this.props.onClick}>
-				{this.props.value}*/
-			<button className= "enclosure">
+			<button className= {this.props.edis ? this.props.style + " edis" : this.props.style}
+				id = {this.props.id} >
 				{this.props.value}
 			</button>
 		)
