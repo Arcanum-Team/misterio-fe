@@ -56,7 +56,7 @@ export default class Board extends React.Component {
 			<div className= "game-board">
 				{enclosures.map((x) =>
 					<Enclosure value = {x.enclosure.name} 
-						style = {'e' + x.enclosure.name} id = {`${x.id}`}
+						style = {'e' + x.enclosure.name}
 						edis = {this.props.possibleMoves.some(item => item === x.id )}> 
 					</Enclosure>
 				)}
