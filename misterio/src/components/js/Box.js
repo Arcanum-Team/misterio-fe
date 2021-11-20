@@ -10,16 +10,6 @@ export default class Box extends React.Component {
     }
 
     handleClick(){
-        let lastBox = document.getElementById(this.props.lastMovement)
-        if(lastBox !== null){
-            if(lastBox.firstChild != null){
-                ReactDOM.unmountComponentAtNode(lastBox)
-            }
-        }
-        let currentBox = document.getElementById(this.props.id)
-        const player = <Player color = "red"/>
-        ReactDOM.render(player, currentBox)
-
         this.props.parentCallback(this.props.id);
     }
 
@@ -29,7 +19,10 @@ export default class Box extends React.Component {
 
     render() {
         return (
-            <button id = {this.props.id} className= {this.props.dis ? this.props.styling + " dis" : this.props.styling} onClick={this.handleClick}>
+            <button id = {this.props.id} className= { this.props.playerPos ?
+                (this.props.dis ? this.props.styling + " dis" + " bplayer" : this.props.styling + " bplayer") :
+                (this.props.dis ? this.props.styling + " dis" : this.props.styling)} 
+                    onClick={this.handleClick}>
             </button>
         )
     }
