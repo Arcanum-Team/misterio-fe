@@ -128,6 +128,30 @@ class GameRoom extends React.Component{
     }, 1300)
   }
 
+  makeSuspicion = event =>{
+    event.preventDefault();
+    
+		const data = {
+      "game_id": window.sessionStorage.getItem("game_id"),
+      "player_id": window.sessionStorage.getItem("player_id"),
+      "monster_id": this.state.monstruos.filter((monstruo)=> monstruo.name === this.state.monstruo)[0].id,
+      "victim_id": this.state.victimas.filter((victima)=> victima.name === this.state.victima)[0].id
+    }
+    console.log(data);
+		const requestOptions = {
+			method: 'PUT',
+			mode: 'cors',
+			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+			body: JSON.stringify(data)
+		};
+
+
+		fetch("http://127.0.0.1:8000/api/v1/shifts/suspect", requestOptions)
+			.then((response) => {
+				console.log(response);
+			})
+  } 
+
   render(){
     const { monstruos } = this.state;
     const { victimas } = this.state;
@@ -169,7 +193,7 @@ class GameRoom extends React.Component{
                     <option>{victim.name}</option>)}
                   </select>
               </div>
-              <button className = "aceptar" type = "submit" onClick={this.toggleShowSus}> Aceptar </button>
+              <button className = "aceptar" type = "submit" onClick={this.makeSuspicion.bind(this)}> Aceptar </button>
               <button className = "cancelar" type = "submit" onClick={this.toggleSus}> Cancelar </button>
           </div>
         </Modal>
