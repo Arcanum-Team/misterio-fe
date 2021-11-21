@@ -1,13 +1,14 @@
 import React from "react";
-import '../css/HomePage.css';
-import ListOfPlayers from './ListOfPlayers.js';
-import ShowCards from './ShowCards.js';
-import RollDice from './RollDice.js';
-import FinishTurn from './FinishTurn.js';
 import Board from './Board.js';
 import Modal from '../js/Modal'
-import '../css/SuspectModal.css';
+import RollDice from './RollDice.js';
+import ShowCards from './ShowCards.js';
+import FinishTurn from './FinishTurn.js';
 import SocketHandler from './SocketHandler'
+import ListOfPlayers from './ListOfPlayers.js';
+import '../css/HomePage.css';
+import '../css/GameRoom.css';
+import '../css/SuspectModal.css';
 import update from 'immutability-helper';
 
 class GameRoom extends React.Component{
@@ -23,6 +24,7 @@ class GameRoom extends React.Component{
         modalSorting: true,
         modalShowSusActive: false,
         modalAccActive: false,
+        modalInfActive: false,
         exceptionMessage:"",
         monstruos: [],
         victimas: [],
@@ -31,7 +33,7 @@ class GameRoom extends React.Component{
         victima: '',
         recinto: '',
         allPlayersPos: [],
-        all:
+        reportItems: []
     };
   }
   
@@ -69,6 +71,12 @@ class GameRoom extends React.Component{
   toggleAcc = () => {
     this.setState({
       modalAccActive: !this.state.modalAccActive
+    })
+  }
+
+  toggleInf = () => {
+    this.setState({
+      modalInfActive: !this.state.modalInfActive
     })
   }
 
@@ -147,6 +155,7 @@ class GameRoom extends React.Component{
             monstruos: json.filter(x => x.type === "MONSTER"),
             victimas: json.filter(x => x.type === "VICTIM"),
             recintos: json.filter(x => x.type === "ENCLOSURE"),
+            reportItems: [].concat(json.map((x)=> {return {name: x.name, yes: false, no: false, maybe: false}}))
           });
       })
     setTimeout(() => {
@@ -156,10 +165,27 @@ class GameRoom extends React.Component{
     }, 1300)
   }
 
+  saveCheckYes(name, yes, no, maybe) {
+    // var index = this.state.reportItems.findIndex(function(c) { 
+    //     return c.name == name; 
+    // });
+    // this.setState(update(this.state, {
+    //   reportItems: {
+    //     [index]: {
+    //       $set: {
+    //         yes: !yes,
+    //       }
+    //     }
+    //   }
+    // }))
+  }
+
+
   render(){
     const { monstruos } = this.state;
     const { victimas } = this.state;
     const { recintos } = this.state;
+    const { reportItems } = this.state;
     return (
       <div className= "HP">
         <div className="HP-text">
@@ -172,11 +198,12 @@ class GameRoom extends React.Component{
               <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} gameId={this.props.match.params.id}/>
               <div className="playerOptions">
                 <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
-                <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
                 <FinishTurn gameId={this.props.match.params.id}/>
+                <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
               </div>
             </>
             }
+            <button className = "informeBoton" onClick={this.toggleInf}> Informe </button>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handlePCallback}
                     dice = {this.state.dice} playersPosition = {this.state.allPlayersPos}/>
@@ -267,6 +294,32 @@ class GameRoom extends React.Component{
               </div>
             </div>
           </div>
+        </Modal>
+      {/*INFORME*/}
+        <Modal active={this.state.modalInfActive}>
+          <th className= "first-row" scope="col">Si</th>
+          <th className= "topping" scope="col">No</th>
+          <th className= "topping" scope="col">Capaz</th>
+          <div className="informeScroll">
+            {reportItems.map(item => (
+              <tr className= "topping">
+                <td className="first-column" > 
+                  {item.name}
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.yes} 
+                    onClick={this.saveCheckYes(item.name, item.yes, item.no, item.maybe)}/>
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.no}/>
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.maybe}/>
+                </td>
+              </tr>
+            ))}
+          </div>
+          <button className = "aceptarInforme" onClick={this.toggleInf}> Aceptar </button>
         </Modal>
       </div>
     );

@@ -84,14 +84,12 @@ export default class Board extends React.Component {
 	}
 
 	componentWillReceiveProps(){
-		console.log(this.props.playersPosition);
 		this.setState({
 			allPlayersPos : this.props.playersPosition
 		})
 	}
 
 	componentDidMount() {
-
 	    const requestOptions = {
 	      method: 'GET',
 	      mode: 'cors',

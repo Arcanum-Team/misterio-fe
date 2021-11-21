@@ -1,12 +1,12 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import HomePage from './components/js/HomePage';
+import GameRoom from './components/js/GameRoom';
 import JoinForm from './components/js/JoinForm';
+import LobbyRoom from './components/js/LobbyRoom';
 import CreateForm from './components/js/CreateForm';
 import ListofGames from './components/js/ListOfGames';
 import ListOfPlayers from './components/js/ListOfPlayers';
-import LobbyRoom from './components/js/LobbyRoom';
-import GameRoom from './components/js/GameRoom';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 function App() {
   return (
