@@ -7,7 +7,7 @@ class FinishTurn extends React.Component {
 	handleSubmit = event => {
 		event.preventDefault();
 		
-		const data = {'game_id': this.props.gameId}
+		const data = {'game_id': this.props.gameId, 'player_id': window.sessionStorage.getItem("player_id")}
 		const requestOptions = {
 			method: 'PUT',
 			mode: 'cors',
@@ -16,12 +16,7 @@ class FinishTurn extends React.Component {
 		};
 	
 		fetch(
-			"http://127.0.0.1:8000/api/v1/games/pass_turn", requestOptions)
-			.then((res) => res.json())
-			.then((json) => {
-				this.props.parentCallback(json.turn);
-			})
-	
+			"http://127.0.0.1:8000/api/v1/shifts/pass", requestOptions)
 	  };
 
   render () {
