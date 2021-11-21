@@ -32,8 +32,6 @@ class LobbyRoom extends React.Component {
       global.sh.subscribe((event) => this.onMessage(event))
     }else{
       global.sh = new SocketHandler();
-      console.log(window.sessionStorage.getItem("game_id"));
-      console.log(window.sessionStorage.getItem("player_id"));
       global.sh.connect(window.sessionStorage.getItem("game_id"), window.sessionStorage.getItem("player_id"));
       global.sh.subscribe((event) => this.onMessage(event))
     }
