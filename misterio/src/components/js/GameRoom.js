@@ -345,9 +345,6 @@ class GameRoom extends React.Component{
                 <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} 
                 gameId={this.props.match.params.id} showDice = {this.state.showDice}/>
               }
-              {this.state.entryButton &&
-                <button className = "turnContinue" onClick={this.enterEnclosure}> Entrar a Recinto </button>
-              }
               <div className="playerOptions">
                 {this.state.currentPlayer.current_position === null &&
                   <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
@@ -357,7 +354,13 @@ class GameRoom extends React.Component{
               </div>
             </>
             }
-            <button className = "informeBoton" onClick={this.toggleInf}> Informe </button>
+            <div className="otherPlayerOptions">
+              {this.state.entryButton && this.state.currentPlayer.order === this.state.turn &&
+                <button className = "entrarRecinto" onClick={this.enterEnclosure}> Entrar a Recinto </button>
+              }
+              <button className = "informeBoton" onClick={this.toggleInf}> Informe </button>
+              <button className = "chatBoton" > Chat </button>
+            </div>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handleBCallback}
                     dice = {this.state.dice} playersPosition = {this.state.allPlayersPos}
