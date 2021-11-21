@@ -21,6 +21,7 @@ class GameRoom extends React.Component{
         turn: 0,
         dice: 1,
         possibleMoves: [],
+        showDice: false,
         modalSusActive: false,
         modalSorting: true,
         modalShowSusActive: false,
@@ -44,19 +45,10 @@ class GameRoom extends React.Component{
     })
   }
 
-  handleBCallback = (emptyMoves, playerIndex) =>{
+  handleBCallback = (emptyMoves, player) =>{
     this.setState({
       possibleMoves: emptyMoves,
     })
-    if(playerIndex != 0){
-      this.setState(update(this.state, {
-        playersInEnc: {
-            [playerIndex - 1]: {
-                $set: 0
-            }
-        }
-      }));
-    }
   }
 
   toggleSus = () => {
@@ -106,7 +98,7 @@ class GameRoom extends React.Component{
 
   enterEnclosure = () => {
     this.setState({
-      entryButton: !this.state.entryButton
+      entryButton: false
     })
     this.EnclosureIn()
   }
@@ -135,36 +127,57 @@ class GameRoom extends React.Component{
             }
         }
       }));
-      if(message.data.player.id == this.state.currentPlayer.id)
+      if(message.data.player.id == window.sessionStorage.getItem("player_id"))
         this.setState({
-          currentPlayer: message.data.player
+          currentPlayer: message.data.player,
+          entryButton: false
         });
-        if(this.state.entries.some(entry => entry === message.data.player.current_position.id 
+        if(this.state.entries.some(entry => entry == message.data.player.current_position.id 
           && message.type === "PLAYER_NEW_POSITION")){
           this.setState({
-            entryButton: !this.state.entryButton
+            entryButton: true
+          });
+        }
+        if(message.type === "ENCLOSURE_EXIT"){
+          if(message.data.player.order != 0){
+            this.setState(update(this.state, {
+              playersInEnc: {
+                  [message.data.player.order - 1]: {
+                      $set: 0
+                  }
+              }
+            }));
+          }
+        }else{
+          this.setState({
+            showDice: false
           });
         }
     }else if(message.type === "ASSIGN_SHIFT"){
-      if(message.data.player.id == this.state.currentPlayer.id){
+      if(message.data.player.id == window.sessionStorage.getItem("player_id")){
         this.setState({
           currentPlayer: message.data.player,
+          entryButton: false,
+          showDice: true
         });
         if(message.data.player.current_position ===null){
           this.setState({
             possibleMoves: [].concat(message.data.player.enclosure.doors.map((door) => {return door.id})),
-            entryButton: false
           });
+        } else if(this.state.entries.some(entry => entry == message.data.player.current_position.id)){
+          this.setState({
+            entryButton: true
+          })
         }
-      this.setState({
-        turn: message.data.game.turn
-      })
       }else{
         this.setState({
           possibleMoves: [],
           entryButton: false
         });
       }
+      this.setState({
+        turn: message.data.game.turn
+      })
     }else if(message.type === "ENCLOSURE_ENTER"){
       this.setState(update(this.state, {
         allPlayersPos: {
@@ -247,7 +260,8 @@ class GameRoom extends React.Component{
       })
     }, 1300)
     setTimeout(() => {
-      if(this.state.currentPlayer.current_position === null){
+      if(this.state.currentPlayer.current_position === null &&
+        this.state.currentPlayer.order === this.state.turn){
         this.setState({
           possibleMoves: [].concat(this.state.currentPlayer.enclosure.doors.map((door) => {return door.id}))
         })
@@ -266,10 +280,11 @@ class GameRoom extends React.Component{
               {/* poner el id del jugador "dueño" del ws */}
               <ShowCards playerId = {window.sessionStorage.getItem("player_id")}/>
             </div>
-            {this.state.currentPlayer.order == this.state.turn &&
+            {this.state.currentPlayer.order === this.state.turn &&
             <>
-              {this.state.currentPlayer.current_position !== null &&
-                <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} gameId={this.props.match.params.id}/>
+              {this.state.currentPlayer.current_position !== null && 
+                <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} 
+                gameId={this.props.match.params.id} showDice = {this.state.showDice}/>
               }
               {this.state.entryButton &&
                 <button className = "turnContinue" onClick={this.enterEnclosure}> Entrar a Recinto </button>
@@ -281,8 +296,7 @@ class GameRoom extends React.Component{
                 <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
                 <FinishTurn gameId={this.props.match.params.id}/>
               </div>
-            </>
-            }
+            </>}
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handleBCallback}
                     dice = {this.state.dice} playersPosition = {this.state.allPlayersPos}

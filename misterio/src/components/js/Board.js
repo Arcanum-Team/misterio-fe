@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from './Box.js';
 import Enclosure from './Enclosure.js';
+import update from 'immutability-helper';
 import '../css/Board.css';
 
 export default class Board extends React.Component {
@@ -13,14 +14,13 @@ export default class Board extends React.Component {
             pos_d: [],
 			playersInEnc: [0,0,0,0,0,0],
 			allPlayersPos:  this.props.playersPosition,
-			possibleMoves: [],
             enclosures: [],
             enc_name: ['COCHERA','ALCOBA','BIBLIOTECA','VESTIBULO','PANTEON','BODEGA','SALON','LABORATORIO']
         }
     }
 	
 	handleCallback = (new_box) =>{
-		if(this.state.playerEnclosure !== 0){
+		if(this.state.playersInEnc[this.props.myPlayer.order-1] !== 0){
 			const data = {'game_id': window.sessionStorage.getItem("game_id"),
 			'player_id': window.sessionStorage.getItem("player_id"),
 			'box_id': new_box}
@@ -35,21 +35,28 @@ export default class Board extends React.Component {
 			fetch("http://127.0.0.1:8000/api/v1/shifts/enclosure/exit", requestOptions)
 			.then((res) => res.json())
 			.then((json) => {
-				this.props.parentCallback([],json.player.order)
+				this.setState(update(this.state, {
+					playersInEnc: {
+						[json.player.order - 1]: {
+							$set: 0
+						}
+					}
+				}));
+				this.props.parentCallback([],json.player)
 			})
 		}else{
 			const data = {'game_id': window.sessionStorage.getItem("game_id"),
-						'player_id': window.sessionStorage.getItem("player_id"),
-						"next_box_id": new_box,
-						"dice_value": this.props.dice}
-	
+			'player_id': window.sessionStorage.getItem("player_id"),
+			"next_box_id": new_box,
+			"dice_value": this.props.dice}
+			
 			const requestOptions = {
 				method: 'PUT',
 				mode: 'cors',
 				headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
 				body: JSON.stringify(data)
 			};
-	
+			
 			fetch("http://127.0.0.1:8000/api/v1/shifts/move", requestOptions)
 			.then((response) => {
 				if(response.ok){
@@ -57,7 +64,6 @@ export default class Board extends React.Component {
 				}
 			})
 		}
-
 	}
 
 	componentWillReceiveProps(){
@@ -127,7 +133,7 @@ export default class Board extends React.Component {
 				<div className = "board-b">
 					{pos_b.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
 						parentCallback = {this.handleCallback} 
-						dis = {this.state.possibleMoves.some(item => item === x.id )}
+						dis = {this.props.possibleMoves.some(item => item === x.id )}
 						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
 				</div>
 				<div className = "board-c">
