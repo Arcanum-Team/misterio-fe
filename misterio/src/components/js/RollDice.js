@@ -15,6 +15,7 @@ class RollDice extends React.Component{
             {six: 6}],
           dice: "1",
           rolling: false,
+          alreadyRolled: false,
           totalMoves: 0,
         }
       }
@@ -26,7 +27,7 @@ class RollDice extends React.Component{
             rolling: true,
         });
         setTimeout(() => {
-            this.setState((prevState) => ({...prevState, rolling: false}));
+            this.setState((prevState) => ({...prevState, rolling: false, alreadyRolled: true}));
         }, 600);
         setTimeout(() => {
             this.doPut();
@@ -53,15 +54,23 @@ class RollDice extends React.Component{
         })       
     }
 
+    componentWillReceiveProps(){
+		this.setState({
+			alreadyRolled : !this.props.showDice
+		})
+	}
+
     render () {
         return(
             <div className="roll-dice">
                 <div className="rolldice-container">
                     <Dice number={String(this.state.dice)} rolling={this.state.rolling}/>
                 </div>
-                <button onClick={() => this.roll()} disabled={this.state.rolling}>
-                    {this.state.rolling ? "Tirando..." : "Tirar dado"}
-                </button>
+                {!this.state.alreadyRolled &&
+                    <button onClick={() => this.roll()} disabled={this.state.rolling}>
+                        {this.state.rolling ? "Tirando..." : "Tirar dado"}
+                    </button>
+                }
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from './Box.js';
 import Enclosure from './Enclosure.js';
+import update from 'immutability-helper';
 import '../css/Board.css';
 
 export default class Board extends React.Component {
@@ -11,81 +12,64 @@ export default class Board extends React.Component {
             pos_b: [],
             pos_c: [],
             pos_d: [],
+			playersInEnc: [0,0,0,0,0,0],
 			allPlayersPos:  this.props.playersPosition,
             enclosures: [],
             enc_name: ['COCHERA','ALCOBA','BIBLIOTECA','VESTIBULO','PANTEON','BODEGA','SALON','LABORATORIO']
         }
     }
-
+	
 	handleCallback = (new_box) =>{
-		const data = {'game_id': window.sessionStorage.getItem("game_id"),
-					'player_id': window.sessionStorage.getItem("player_id"),
-					"next_box_id": new_box,
-					"dice_value": this.props.dice}
-
-		const requestOptions = {
-			method: 'PUT',
-			mode: 'cors',
-			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-			body: JSON.stringify(data)
-		};
-
-		fetch("http://127.0.0.1:8000/api/v1/shifts/move", requestOptions)
-		.then((response) => {
-			if(response.ok){
-				this.props.parentCallback([])
-			}
-		})
-	}
-
-	EnclosureCallbackIn = (new_box) =>{
-		this.props.parentCallback([])
-		this.setState({
-			playerPosition: new_box,
-		})
-		const data = {'game_id': window.sessionStorage.getItem("game_id"),
-					'player_id': window.sessionStorage.getItem("player_id")}
-
-		const requestOptions = {
-			method: 'PUT',
-			mode: 'cors',
-			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-			body: JSON.stringify(data)
-		};
-
-		fetch("http://127.0.0.1:8000/api/v1/enclosure/enter", requestOptions)
-		.then((response) => {
-			if(response.ok){
-			}
-		})
-		this.handleCallback(new_box)
-	}
-
-	EnclosureCallbackOut = (new_box) =>{
-		this.props.parentCallback([])
-		this.setState({
-			playerPosition: new_box,
-		})
-		const data = {'game_id': window.sessionStorage.getItem("game_id"),
-					'player_id': window.sessionStorage.getItem("player_id")}
-
-		const requestOptions = {
-			method: 'PUT',
-			mode: 'cors',
-			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-			body: JSON.stringify(data)
-		};
-
-		fetch("http://127.0.0.1:8000/api/v1/enclosure/exit", requestOptions)
-		.then((response) => {
-			if(response.ok){
-			}
-		})
+		if(this.state.playersInEnc[this.props.myPlayer.order-1] !== 0){
+			const data = {'game_id': window.sessionStorage.getItem("game_id"),
+			'player_id': window.sessionStorage.getItem("player_id"),
+			'box_id': new_box}
+			
+			const requestOptions = {
+				method: 'PUT',
+				mode: 'cors',
+				headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+				body: JSON.stringify(data)
+			};
+			
+			fetch("http://127.0.0.1:8000/api/v1/shifts/enclosure/exit", requestOptions)
+			.then((res) => res.json())
+			.then((json) => {
+				this.setState(update(this.state, {
+					playersInEnc: {
+						[json.player.order - 1]: {
+							$set: 0
+						}
+					}
+				}));
+				this.props.parentCallback([],json.player)
+			})
+		}else{
+			const data = {'game_id': window.sessionStorage.getItem("game_id"),
+			'player_id': window.sessionStorage.getItem("player_id"),
+			"next_box_id": new_box,
+			"dice_value": this.props.dice}
+			
+			const requestOptions = {
+				method: 'PUT',
+				mode: 'cors',
+				headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+				body: JSON.stringify(data)
+			};
+			
+			fetch("http://127.0.0.1:8000/api/v1/shifts/move", requestOptions)
+			.then((response) => {
+				if(response.ok){
+					this.props.parentCallback([],0)
+				}
+			})
+		}
 	}
 
 	componentWillReceiveProps(){
 		this.setState({
-			allPlayersPos : this.props.playersPosition
+			allPlayersPos : this.props.playersPosition,
+			playersInEnc: this.props.playersInEnc,
 		})
 	}
 
@@ -109,7 +93,8 @@ export default class Board extends React.Component {
 	                			json[1].boxes.filter((x)=> x.enclosure !== null)).concat(
 	                			json[2].boxes.filter((x)=> x.enclosure !== null)).concat(
 	                			json[3].boxes.filter((x)=> x.enclosure !== null)),
-					allPlayersPos : this.props.playersPosition
+					allPlayersPos : this.props.playersPosition,
+					playersInEnc: this.props.playersInEnc
 	        	});
 	      	})
   	}
@@ -125,10 +110,9 @@ export default class Board extends React.Component {
 				{enclosures.map((x) =>
 					<Enclosure value = {x.enclosure.name} 
 						style = {'e' + x.enclosure.name} id = {`${x.id}`}
-						parentCallback = {this.EnclosureCallbackIn} 
-						parentCallback = {this.EnclosureCallbackOut} 
-						edis = {this.props.possibleMoves.some(item => item === x.id )}
-						playerPos = {this.state.playerPosition == x.id}> 
+						edis = {this.props.possibleMoves.some(item => item === x.id )
+						&& this.props.myPlayer.current_position !== null}
+						playerPos = {this.state.playersInEnc.some(item => item === x.enclosure.id )}> 
 					</Enclosure>
 				)}
 				<div className = "centro">

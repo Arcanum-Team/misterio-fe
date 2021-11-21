@@ -16,7 +16,7 @@ export default class Enclosure extends React.Component {
 			<button className= { this.props.playerPos ?
                 (this.props.edis ? this.props.style + " edis" + " eplayer" : this.props.style + " eplayer") :
                 (this.props.edis ? this.props.style + " edis" : this.props.style)}
-                onClick={this.handleClick}>
+                    onClick={this.handleClick}>
 				{this.props.value}
 			</button>
 		)
