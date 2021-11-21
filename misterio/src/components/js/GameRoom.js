@@ -1,13 +1,14 @@
 import React from "react";
-import '../css/HomePage.css';
-import ListOfPlayers from './ListOfPlayers.js';
-import ShowCards from './ShowCards.js';
-import RollDice from './RollDice.js';
-import FinishTurn from './FinishTurn.js';
 import Board from './Board.js';
 import Modal from '../js/Modal'
-import '../css/SuspectModal.css';
+import RollDice from './RollDice.js';
+import ShowCards from './ShowCards.js';
+import FinishTurn from './FinishTurn.js';
 import SocketHandler from './SocketHandler'
+import ListOfPlayers from './ListOfPlayers.js';
+import '../css/HomePage.css';
+import '../css/GameRoom.css';
+import '../css/SuspectModal.css';
 import update from 'immutability-helper';
 
 class GameRoom extends React.Component{
@@ -21,11 +22,12 @@ class GameRoom extends React.Component{
         turn: 0,
         dice: 1,
         possibleMoves: [],
-        showDice: false,
+        showDice: true,
         modalSusActive: false,
         modalSorting: true,
         modalShowSusActive: false,
         modalAccActive: false,
+        modalInfActive: false,
         exceptionMessage:"",
         entryButton: false,
         monstruos: [],
@@ -35,7 +37,11 @@ class GameRoom extends React.Component{
         victima: '',
         recinto: '',
         allPlayersPos: [],
+        reportItems: [],
     };
+    this.saveCheckNo = this.saveCheckNo.bind(this);
+    this.saveCheckYes = this.saveCheckYes.bind(this);
+    this.saveCheckMaybe = this.saveCheckMaybe.bind(this);
   }
   
   handleDCallback = (json, dice) =>{
@@ -101,6 +107,12 @@ class GameRoom extends React.Component{
       entryButton: false
     })
     this.EnclosureIn()
+  }
+  
+  toggleInf = () => {
+    this.setState({
+      modalInfActive: !this.state.modalInfActive
+    })
   }
 
   saveMonster = event => { 
@@ -252,6 +264,7 @@ class GameRoom extends React.Component{
             monstruos: json.filter(x => x.type === "MONSTER"),
             victimas: json.filter(x => x.type === "VICTIM"),
             recintos: json.filter(x => x.type === "ENCLOSURE"),
+            reportItems: [].concat(json.map((x)=> {return {name: x.name, yes: false, no: false, maybe: false}}))
           });
       })
     setTimeout(() => {
@@ -268,11 +281,57 @@ class GameRoom extends React.Component{
       }
     }, 1000)
   }
+  saveCheckNo(name, yes, no, maybe) {
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: yes, no: !no, maybe: maybe,
+          }
+        }
+      }
+    }))
+
+  }
+  saveCheckMaybe(name, yes, no, maybe) {
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: yes, no: no, maybe: !maybe,
+          }
+        }
+      }
+    }))
+  }
+
+  saveCheckYes(name, yes, no, maybe) {
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: !yes, no: no, maybe: maybe,
+          }
+        }
+      }
+    }))
+  }
+
 
   render(){
     const { monstruos } = this.state;
     const { victimas } = this.state;
     const { recintos } = this.state;
+    const { reportItems } = this.state;
     return (
       <div className= "HP">
         <div className="HP-text">
@@ -296,7 +355,9 @@ class GameRoom extends React.Component{
                 <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
                 <FinishTurn gameId={this.props.match.params.id}/>
               </div>
-            </>}
+            </>
+            }
+            <button className = "informeBoton" onClick={this.toggleInf}> Informe </button>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handleBCallback}
                     dice = {this.state.dice} playersPosition = {this.state.allPlayersPos}
@@ -389,6 +450,34 @@ class GameRoom extends React.Component{
               </div>
             </div>
           </div>
+        </Modal>
+      {/*INFORME*/}
+        <Modal active={this.state.modalInfActive}>
+          <th className= "first-row" scope="col">Si</th>
+          <th className= "topping" scope="col">No</th>
+          <th className= "topping" scope="col">Capaz</th>
+          <div className="informeScroll">
+            {reportItems.map(item => (
+              <tr className= "topping">
+                <td className="first-column" > 
+                  {item.name}
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.yes}
+                    onChange={() => this.saveCheckYes(item.name, item.yes, item.no, item.maybe)}/>
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.no}
+                    onChange={() => this.saveCheckNo(item.name, item.yes, item.no, item.maybe)}/>
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.maybe}
+                    onChange={() => this.saveCheckMaybe(item.name, item.yes, item.no, item.maybe)}/>
+                </td>
+              </tr>
+            ))}
+          </div>
+          <button className = "aceptarInforme" onClick={this.toggleInf}> Aceptar </button>
         </Modal>
       </div>
     );

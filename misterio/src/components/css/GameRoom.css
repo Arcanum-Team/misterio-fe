@@ -1,0 +1,72 @@
+.informeBoton{
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  padding-top:15px;
+  padding-bottom:15px;
+  padding-left:40px;
+  padding-right:40px;
+  border-radius: 30px; 
+  background-color: rgba(230, 107, 144, 0.445);
+  margin-bottom: 20px;
+  right: 0px;
+  margin-left: -5%;
+  margin-top: 39%;
+}
+
+.informeBoton:hover{
+  background-color: #5e222c;
+  transition: 1s background ease;
+  color: #ffffff;
+  transition: 1s color ease;
+}
+
+@import url('http://fonts.cdnfonts.com/css/bloody');
+.topping {
+  font-family: 'Bloody', sans-serif;
+  padding-left:60px;
+  background-color: white;
+}
+
+.first-row {
+  font-family: 'Bloody', sans-serif;
+  padding-left:230px;
+  background-color: white;
+}
+
+.aceptarInforme{
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  padding-top:8px;
+  padding-bottom:8px;
+  padding-left:40px;
+  padding-right:40px;
+  border-radius: 30px; 
+  background-color: rgba(230, 107, 144, 0.445);
+  margin-top: 1%;
+}
+
+.informeScroll {
+  max-height: 300px;
+  width: 500px;
+  overflow-y: scroll;
+}
+
+.rowtype {
+  padding-left:20px;
+  padding-right:49px;
+  background-color: white;
+}
+
+.Checkbox{
+  zoom:2;
+}
+
+.first-column {
+  background-color: white;
+  font-size: 20px;
+  color: darkred;
+  padding-left:10px;
+  padding-right:10px;
+}
