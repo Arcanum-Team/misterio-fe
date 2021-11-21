@@ -8,13 +8,14 @@ import Board from './Board.js';
 import Modal from '../js/Modal'
 import '../css/SuspectModal.css';
 import SocketHandler from './SocketHandler'
-
+import update from 'immutability-helper';
 
 class GameRoom extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
         players: [],
+        current_player: {},
         turn: 0,
         dice: 1,
         possibleMoves: [],
@@ -29,13 +30,10 @@ class GameRoom extends React.Component{
         monstruo: '',
         victima: '',
         recinto: '',
+        all_players_pos: []
     };
   }
   
-  handleTCallback = (childData) =>{
-    this.setState({turn: childData})
-  }
-
   handleDCallback = (json, dice) =>{
     this.setState({
       possibleMoves: json,
@@ -85,6 +83,25 @@ class GameRoom extends React.Component{
   }
 
   onMessage(message){
+    console.log(message)
+    if(message.type === "PLAYER_NEW_POSITION"){
+      this.setState(update(this.state, {
+        all_players_pos: {
+            [message.data.player.order - 1]: {
+                $set: {
+                  order: message.data.player.order,
+                  color: "green",
+                  position: message.data.player.current_position.id
+                }
+            }
+        }
+      }));
+      console.log(this.state.all_players_pos);
+    }else if(message.type === "ASSIGN_SHIFT"){
+      this.setState({
+        turn: message.data.game.turn
+      })
+    }
   }
 
   componentDidMount() {
@@ -109,7 +126,17 @@ class GameRoom extends React.Component{
           this.setState({
               players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
               turn: 1,
+              current_player: json.players.filter((player) => player.id === window.sessionStorage.getItem("player_id"))[0],
           });
+          json.players.map((player) => {
+            this.setState({
+              all_players_pos: this.state.all_players_pos.concat({
+                order: player.order,
+                color: "green",
+                position: player.current_position.id 
+              }).sort((a, b) => a.order > b.order ? 1 : -1)
+            })
+          })
       })
     fetch(
       "http://127.0.0.1:8000/api/v1/cards", requestOptions)
@@ -139,17 +166,20 @@ class GameRoom extends React.Component{
               {/* poner el id del jugador "dueño" del ws */}
               <ShowCards playerId = {window.sessionStorage.getItem("player_id")}/>
             </div>
-            <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} gameId={this.props.match.params.id}/>
+            {this.state.current_player.order == this.state.turn &&
+            <>
+              <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} gameId={this.props.match.params.id}/>
+              <div className="playerOptions">
+                <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
+                <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
+                <FinishTurn gameId={this.props.match.params.id}/>
+              </div>
+            </>
+            }
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
-            <div className="playerOptions">
-              <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
-              <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
-              <FinishTurn parentCallback = {this.handleTCallback} gameId={this.props.match.params.id}/>
-            </div>
             <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handlePCallback}
-                    dice = {this.state.dice}/>
+                    dice = {this.state.dice} playersPosition = {this.state.all_players_pos}/>
         </div>
-
         {/*SOSPECHAR*/}
         <Modal active={this.state.modalSusActive}>
           <div className="dropdown">
