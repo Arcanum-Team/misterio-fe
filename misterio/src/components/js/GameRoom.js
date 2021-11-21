@@ -33,8 +33,11 @@ class GameRoom extends React.Component{
         victima: '',
         recinto: '',
         allPlayersPos: [],
-        reportItems: []
+        reportItems: [],
     };
+    this.saveCheckNo = this.saveCheckNo.bind(this);
+    this.saveCheckYes = this.saveCheckYes.bind(this);
+    this.saveCheckMaybe = this.saveCheckMaybe.bind(this);
   }
   
   handleDCallback = (json, dice) =>{
@@ -92,7 +95,6 @@ class GameRoom extends React.Component{
   }
 
   onMessage(message){
-    console.log(message)
     if(message.type === "PLAYER_NEW_POSITION"){
       this.setState(update(this.state, {
         allPlayersPos: {
@@ -164,20 +166,49 @@ class GameRoom extends React.Component{
       })
     }, 1300)
   }
+  saveCheckNo(name, yes, no, maybe) {
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: yes, no: !no, maybe: maybe,
+          }
+        }
+      }
+    }))
+
+  }
+  saveCheckMaybe(name, yes, no, maybe) {
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: yes, no: no, maybe: !maybe,
+          }
+        }
+      }
+    }))
+  }
 
   saveCheckYes(name, yes, no, maybe) {
-    // var index = this.state.reportItems.findIndex(function(c) { 
-    //     return c.name == name; 
-    // });
-    // this.setState(update(this.state, {
-    //   reportItems: {
-    //     [index]: {
-    //       $set: {
-    //         yes: !yes,
-    //       }
-    //     }
-    //   }
-    // }))
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: !yes, no: no, maybe: maybe,
+          }
+        }
+      }
+    }))
   }
 
 
@@ -307,14 +338,16 @@ class GameRoom extends React.Component{
                   {item.name}
                 </td>
                 <td className="rowtype">
-                  <input type="checkbox" class="Checkbox" checked={item.yes} 
-                    onClick={this.saveCheckYes(item.name, item.yes, item.no, item.maybe)}/>
+                  <input type="checkbox" class="Checkbox" checked={item.yes}
+                    onChange={() => this.saveCheckYes(item.name, item.yes, item.no, item.maybe)}/>
                 </td>
                 <td className="rowtype">
-                  <input type="checkbox" class="Checkbox" checked={item.no}/>
+                  <input type="checkbox" class="Checkbox" checked={item.no}
+                    onChange={() => this.saveCheckNo(item.name, item.yes, item.no, item.maybe)}/>
                 </td>
                 <td className="rowtype">
-                  <input type="checkbox" class="Checkbox" checked={item.maybe}/>
+                  <input type="checkbox" class="Checkbox" checked={item.maybe}
+                    onChange={() => this.saveCheckMaybe(item.name, item.yes, item.no, item.maybe)}/>
                 </td>
               </tr>
             ))}
