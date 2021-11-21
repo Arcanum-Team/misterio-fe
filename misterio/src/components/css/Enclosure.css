@@ -167,18 +167,14 @@
 .edis{
 	opacity: 1;
 	box-shadow: 0 0 10px 3px darkred, 0.2rem 0.2rem 100px #13092d;
-	pointer-events: auto;
 }
 
 .edis:hover{
 	box-shadow: 0 0 2px 2px limegreen, 0.2rem 0.2rem 10px #13092d;
-	pointer-events: auto;
 }
 
 .eplayer{
 	background-image: url(../../drawable/player_green.png);
-	background-size: contain;
 	position: absolute;
 	background-repeat: no-repeat;
-	z-index: 1;
 }

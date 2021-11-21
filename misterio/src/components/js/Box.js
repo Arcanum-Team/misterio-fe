@@ -1,7 +1,5 @@
 import React from 'react';
 import '../css/Box.css';
-import Player from './Player.js';
-import ReactDOM from 'react-dom';
 
 export default class Box extends React.Component {
     constructor(props) {
@@ -11,10 +9,6 @@ export default class Box extends React.Component {
 
     handleClick(){
         this.props.parentCallback(this.props.id);
-    }
-
-    newMoves(){
-        let currentBox = document.getElementById(this.props.id)
     }
 
     render() {
