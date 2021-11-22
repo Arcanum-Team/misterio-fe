@@ -96,7 +96,6 @@ class GameRoom extends React.Component{
         modalCardResponseSuspect: !this.state.modalCardResponseSuspect
       })
       const dataPass = {'game_id': window.sessionStorage.getItem("game_id"), 'player_id': window.sessionStorage.getItem("player_id")}
-      console.log(dataPass)
       const requestOptionsTurn = {
         method: 'PUT',
         mode: 'cors',
@@ -218,7 +217,6 @@ class GameRoom extends React.Component{
   }
 
   onMessage(message){
-    console.log(message)
     if(message.type === "PLAYER_NEW_POSITION" || message.type === "ENCLOSURE_EXIT"){
       this.setState(update(this.state, {
         allPlayersPos: {
@@ -256,6 +254,18 @@ class GameRoom extends React.Component{
             }));
           }
         }else{
+          if(message.data.player.current_position.attribute === "TRAP"){
+            const dataPass = {'game_id': window.sessionStorage.getItem("game_id"), 'player_id': window.sessionStorage.getItem("player_id")}
+            const requestOptionsTurn = {
+              method: 'PUT',
+              mode: 'cors',
+              headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+              body: JSON.stringify(dataPass)
+            };
+          
+            fetch("http://127.0.0.1:8000/api/v1/shifts/pass", requestOptionsTurn)
+            
+          }
           this.setState({
             showDice: false
           });
@@ -649,7 +659,7 @@ class GameRoom extends React.Component{
                   <select className="form-select" onChange = {this.saveMonster}>
                     <option disabled hidden selected >Monstruo...</option>
                     {monstruos.map((monster) => 
-                    <option>{monster.name}</option>)}
+                    <option key={monster.name}>{monster.name}</option>)}
                   </select>
               </div>
           </div>
@@ -658,7 +668,7 @@ class GameRoom extends React.Component{
                   <select className="form-select" onChange = {this.saveVictim}>
                     <option disabled hidden selected >Victima...</option>
                     {victimas.map((victim) => 
-                    <option>{victim.name}</option>)}
+                    <option key={victim.name}>{victim.name}</option>)}
                   </select>
               </div>
               <button className = "aceptar" type = "submit" onClick={this.makeSuspicion.bind(this)}> Aceptar </button>
@@ -694,7 +704,7 @@ class GameRoom extends React.Component{
                 <select className="form-select" onChange = {this.saveEnclosure}>
                   <option disabled hidden selected >Recinto...</option>
                   {recintos.map((recinto) => 
-                  <option>{recinto.name}</option>)}
+                  <option key={recinto.name}>{recinto.name}</option>)}
                 </select>
             </div>
           </div>
@@ -703,7 +713,7 @@ class GameRoom extends React.Component{
                   <select className="form-select" onChange = {this.saveMonster}>
                     <option disabled hidden selected >Monstruo...</option>
                     {monstruos.map((monster) => 
-                    <option>{monster.name}</option>)}
+                    <option key={monster.name}>{monster.name}</option>)}
                   </select>
               </div>
           </div>
@@ -712,7 +722,7 @@ class GameRoom extends React.Component{
                   <select className="form-select" onChange = {this.saveVictim}>
                     <option disabled hidden selected  >Victima...</option>
                     {victimas.map((victim) => 
-                    <option>{victim.name}</option>)}
+                    <option key={victim.name}>{victim.name}</option>)}
                   </select>
               </div>
               <button className = "aceptar" type = "submit" onClick={this.makeAccusation.bind(this)}> Aceptar </button>
@@ -768,7 +778,7 @@ class GameRoom extends React.Component{
           <th className= "topping" scope="col">Capaz</th>
           <div className="informeScroll">
             {reportItems.map(item => (
-              <tr className= "topping">
+              <tr key={item.name} className= "topping">
                 <td className="first-column" > 
                   {item.name}
                 </td>
@@ -795,7 +805,7 @@ class GameRoom extends React.Component{
             <div className="dropdown">
               <div className="mod-confirm"> Elige que carta de la sospecha mostrar:</div>
               {this.state.suspectMatchCards.map((card) => ( 
-                  <button className="scard" onClick={() => this.answerSuspicion(card)}>
+                  <button key={card.name} className="scard" onClick={() => this.answerSuspicion(card)}>
                    <div className="scard__type">{card.type}</div>
                    <div className={"scard__name " + card.name}>{card.name}</div>
                  </button>

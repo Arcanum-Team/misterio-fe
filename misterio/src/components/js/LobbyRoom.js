@@ -45,7 +45,6 @@ class LobbyRoom extends React.Component {
         "http://127.0.0.1:8000/api/v1/games/" + this.props.match.params.id , requestOptions)
         .then((res) => res.json())
         .then((json) => {
-          console.log(json)
           this.setState({
             gameName: json.game.name,  
             players: json.players,
