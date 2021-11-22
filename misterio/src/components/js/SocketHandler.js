@@ -10,6 +10,9 @@ class SocketHandler {
     connect(game_id, player_id){
         this.ws = new WebSocket(`ws://localhost:8000/api/v1/ws/${game_id}/${player_id}`);
         this.ws.onmessage = (event) => (this.onMessage(event));
+        setInterval( _ =>{
+            this.ws.send( Math.random() )
+        }, 2000 )
     }
 
     async disconnect(){
