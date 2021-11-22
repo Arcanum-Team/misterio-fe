@@ -21,7 +21,7 @@ class ShowCards extends React.Component {
           "http://127.0.0.1:8000/api/v1/cards/" + this.props.playerId , requestOptions)
           .then((res) => res.json())
           .then((json) => {
-  
+            this.props.parentCallback(json)
             this.setState({
               cards: [].concat(json)
             })

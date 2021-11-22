@@ -108,7 +108,7 @@ export default class Board extends React.Component {
 		return (
 			<div className= "game-board">
 				{enclosures.map((x) =>
-					<Enclosure value = {x.enclosure.name} 
+					<Enclosure value = {x.enclosure.name} key={x.enclosure.name}
 						style = {'e' + x.enclosure.name} id = {`${x.id}`}
 						edis = {this.props.possibleMoves.some(item => item === x.id )
 						&& this.props.myPlayer.current_position !== null}
@@ -120,25 +120,25 @@ export default class Board extends React.Component {
 				</div>
 				<div className = "board-a">
 					{pos_a.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
-						parentCallback = {this.handleCallback} 
+						parentCallback = {this.handleCallback} key={x.id}
 						dis = {this.props.possibleMoves.some(item => item === x.id )}
 						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
 				</div>
 				<div className = "board-d">
 					{pos_d.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
-						parentCallback = {this.handleCallback} 
+						parentCallback = {this.handleCallback} key={x.id}
 						dis = {this.props.possibleMoves.some(item => item === x.id )}
 						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
 				</div>
 				<div className = "board-b">
 					{pos_b.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
-						parentCallback = {this.handleCallback} 
+						parentCallback = {this.handleCallback} key={x.id}
 						dis = {this.props.possibleMoves.some(item => item === x.id )}
 						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
 				</div>
 				<div className = "board-c">
 					{pos_c.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
-						parentCallback = {this.handleCallback} 
+						parentCallback = {this.handleCallback} key={x.id}
 						dis = {this.props.possibleMoves.some(item => item === x.id )} 
 						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
 				</div>
