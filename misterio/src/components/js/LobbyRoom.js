@@ -68,7 +68,7 @@ class LobbyRoom extends React.Component {
               <LobbyPlayer playerName = { player.nickname } />
             ))}
           </div>
-          {window.sessionStorage.getItem("host_id")!= null && <StartGame className="startGameButton" gameId={this.props.match.params.id}/>}
+          {window.sessionStorage.getItem("host_id") === window.sessionStorage.getItem("player_id") && <StartGame className="startGameButton" gameId={this.props.match.params.id}/>}
       </div>
     );
   }

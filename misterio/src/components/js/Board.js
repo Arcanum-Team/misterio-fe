@@ -39,7 +39,6 @@ export default class Board extends React.Component {
 	}
 
 	componentWillReceiveProps(){
-		console.log(this.props.playersPosition);
 		this.setState({
 			all_players_pos : this.props.playersPosition
 		})
