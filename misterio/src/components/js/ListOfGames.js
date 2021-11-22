@@ -71,7 +71,7 @@ class ListOfGames extends React.Component {
             );
         }else{
             return(
-                <div className="">
+                <div>
                     <h3 className = "hdr"> No hay partidas</h3>
                     <CreateGame/>
                     <button className = "boton" type = "submit" onClick = {() => this.cancelClick()}> Cancelar </button>

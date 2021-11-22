@@ -1,13 +1,14 @@
 import React from "react";
-import '../css/HomePage.css';
-import ListOfPlayers from './ListOfPlayers.js';
-import ShowCards from './ShowCards.js';
-import RollDice from './RollDice.js';
-import FinishTurn from './FinishTurn.js';
 import Board from './Board.js';
 import Modal from '../js/Modal'
-import '../css/SuspectModal.css';
+import RollDice from './RollDice.js';
+import ShowCards from './ShowCards.js';
+import FinishTurn from './FinishTurn.js';
 import SocketHandler from './SocketHandler'
+import ListOfPlayers from './ListOfPlayers.js';
+import '../css/HomePage.css';
+import '../css/GameRoom.css';
+import '../css/SuspectModal.css';
 import update from 'immutability-helper';
 
 class GameRoom extends React.Component{
@@ -15,26 +16,35 @@ class GameRoom extends React.Component{
     super(props);
     this.state = {
         players: [],
-        current_player: {},
+        playersInEnc: [0,0,0,0,0,0],
+        currentPlayer: {},
+        entries: [5,11,16,23,31,36,45,51,57,64,71,77],
         turn: 0,
         dice: 1,
         possibleMoves: [],
+        showDice: true,
         modalSusActive: false,
         modalShowAccResActive : false,
         modalSorting: true,
         modalShowSusActive: false,
         modalAccActive: false,
+        modalInfActive: false,
         exceptionMessage:"",
+        entryButton: false,
         monstruos: [],
         victimas: [],
         recintos: [],
         monstruo: '',
         victima: '',
         recinto: '',
-        all_players_pos: [],
         accusationResult: {isWinner: null, playerName: ""}, //isWinner null if it's not either winner or loser, true for winner, false for loser
-        ableToPlay: true // Everyone is able to play unless they do an incorrect accusation
+        ableToPlay: true, // Everyone is able to play unless they do an incorrect accusation
+        allPlayersPos: [],
+        reportItems: [],
     };
+    this.saveCheckNo = this.saveCheckNo.bind(this);
+    this.saveCheckYes = this.saveCheckYes.bind(this);
+    this.saveCheckMaybe = this.saveCheckMaybe.bind(this);
   }
   
   handleDCallback = (json, dice) =>{
@@ -44,9 +54,9 @@ class GameRoom extends React.Component{
     })
   }
 
-  handlePCallback = (childData) =>{
+  handleBCallback = (emptyMoves, player) =>{
     this.setState({
-      possibleMoves: childData
+      possibleMoves: emptyMoves,
     })
   }
 
@@ -84,6 +94,40 @@ class GameRoom extends React.Component{
     })
   }
 
+  EnclosureIn = () =>{
+    const data = {'game_id': window.sessionStorage.getItem("game_id"),
+          'player_id': window.sessionStorage.getItem("player_id")}
+
+    const requestOptions = {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify(data)
+    };
+
+    fetch("http://127.0.0.1:8000/api/v1/shifts/enclosure/enter", requestOptions)
+    .then((res) => res.json())
+    .then((json) => {
+        this.setState({
+            currentPlayer: json.player,
+            possibleMoves: []
+      });
+    })
+  }
+
+  enterEnclosure = () => {
+    this.setState({
+      entryButton: false
+    })
+    this.EnclosureIn()
+  }
+  
+  toggleInf = () => {
+    this.setState({
+      modalInfActive: !this.state.modalInfActive
+    })
+  }
+
   saveMonster = event => { 
       this.setState({monstruo: event.target.value});
   }
@@ -96,10 +140,9 @@ class GameRoom extends React.Component{
   }
 
   onMessage(message){
-    console.log(message)
-    if(message.type === "PLAYER_NEW_POSITION"){
+    if(message.type === "PLAYER_NEW_POSITION" || message.type === "ENCLOSURE_EXIT"){
       this.setState(update(this.state, {
-        all_players_pos: {
+        allPlayersPos: {
             [message.data.player.order - 1]: {
                 $set: {
                   order: message.data.player.order,
@@ -109,7 +152,54 @@ class GameRoom extends React.Component{
             }
         }
       }));
+      if(message.data.player.id == window.sessionStorage.getItem("player_id"))
+        this.setState({
+          currentPlayer: message.data.player,
+          entryButton: false
+        });
+        if(this.state.entries.some(entry => entry == message.data.player.current_position.id 
+          && message.type === "PLAYER_NEW_POSITION")){
+          this.setState({
+            entryButton: true
+          });
+        }
+        if(message.type === "ENCLOSURE_EXIT"){
+          if(message.data.player.order != 0){
+            this.setState(update(this.state, {
+              playersInEnc: {
+                  [message.data.player.order - 1]: {
+                      $set: 0
+                  }
+              }
+            }));
+          }
+        }else{
+          this.setState({
+            showDice: false
+          });
+        }
     }else if(message.type === "ASSIGN_SHIFT"){
+      if(message.data.player.id == window.sessionStorage.getItem("player_id")){
+        this.setState({
+          currentPlayer: message.data.player,
+          entryButton: false,
+          showDice: true
+        });
+        if(message.data.player.current_position ===null){
+          this.setState({
+            possibleMoves: [].concat(message.data.player.enclosure.doors.map((door) => {return door.id})),
+          });
+        } else if(this.state.entries.some(entry => entry == message.data.player.current_position.id)){
+          this.setState({
+            entryButton: true
+          })
+        }
+      }else{
+        this.setState({
+          possibleMoves: [],
+          entryButton: false
+        });
+      }
       this.setState({
         turn: message.data.game.turn
       })
@@ -131,7 +221,7 @@ class GameRoom extends React.Component{
         this.modalShowAccResActive();
         if(!message.data.result){
           this.setState(update(this.state, {
-            all_players_pos: {
+            allPlayersPos: {
                 [this.state.turn - 1]: {
                     $set: {
                       order: 0,
@@ -166,6 +256,25 @@ class GameRoom extends React.Component{
             modalAccActive: !this.state.modalAccActive
           })
         }
+    }else if(message.type === "ENCLOSURE_ENTER"){
+      this.setState(update(this.state, {
+        allPlayersPos: {
+            [message.data.player.order - 1]: {
+                $set: {
+                  order: message.data.player.order,
+                  color: "green",
+                  position: null
+                }
+            }
+        }
+      }));
+      this.setState(update(this.state, {
+        playersInEnc: {
+            [message.data.player.order - 1]: {
+                $set: message.data.player.enclosure.id
+            }
+        }
+      }));
     }
   }
 
@@ -188,20 +297,30 @@ class GameRoom extends React.Component{
       "http://127.0.0.1:8000/api/v1/games/" + this.props.match.params.id, requestOptions)
       .then((res) => res.json())
       .then((json) => {
-          this.setState({
-              players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
-              turn: 1,
-              current_player: json.players.filter((player) => player.id === window.sessionStorage.getItem("player_id"))[0],
-          });
-          json.players.map((player) => {
+        this.setState({
+            players: [].concat(json.players).sort((a, b) => a.order > b.order ? 1 : -1),
+            turn: json.game.turn,
+            currentPlayer: json.players.filter((player) => player.id === window.sessionStorage.getItem("player_id"))[0],
+        });
+        json.players.map((player) => {
+          if(player.current_position !== null){
             this.setState({
-              all_players_pos: this.state.all_players_pos.concat({
+              allPlayersPos: this.state.allPlayersPos.concat({
                 order: player.order,
                 color: "green",
                 position: player.current_position.id 
               }).sort((a, b) => a.order > b.order ? 1 : -1)
             })
-          })
+          }else{
+            this.setState(update(this.state, {
+              playersInEnc: {
+                  [player.order - 1]: {
+                      $set: player.enclosure.id
+                  }
+              }
+            }));
+          }
+        })
       })
     fetch(
       "http://127.0.0.1:8000/api/v1/cards", requestOptions)
@@ -211,6 +330,7 @@ class GameRoom extends React.Component{
             monstruos: json.filter(x => x.type === "MONSTER"),
             victimas: json.filter(x => x.type === "VICTIM"),
             recintos: json.filter(x => x.type === "ENCLOSURE"),
+            reportItems: [].concat(json.map((x)=> {return {name: x.name, yes: false, no: false, maybe: false}}))
           });
       })
     setTimeout(() => {
@@ -218,6 +338,43 @@ class GameRoom extends React.Component{
         modalSorting: false
       })
     }, 1300)
+    setTimeout(() => {
+      if(this.state.currentPlayer.current_position === null &&
+        this.state.currentPlayer.order === this.state.turn){
+        this.setState({
+          possibleMoves: [].concat(this.state.currentPlayer.enclosure.doors.map((door) => {return door.id}))
+        })
+      }
+    }, 1000)
+  }
+  saveCheckNo(name, yes, no, maybe) {
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: yes, no: !no, maybe: maybe,
+          }
+        }
+      }
+    }))
+
+  }
+  saveCheckMaybe(name, yes, no, maybe) {
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: yes, no: no, maybe: !maybe,
+          }
+        }
+      }
+    }))
   }
 
   makeAccusation = event =>{
@@ -255,18 +412,34 @@ class GameRoom extends React.Component{
 			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
 			body: JSON.stringify(data)
 		};
-
-
+    console.log(data)
 		fetch("http://127.0.0.1:8000/api/v1/shifts/suspect", requestOptions)
 			.then((response) => {
 				this.toggleSus();
 			})
   } 
+  
+  saveCheckYes(name, yes, no, maybe) {
+    var index = this.state.reportItems.findIndex(function(c) { 
+        return c.name == name; 
+    });
+    this.setState(update(this.state, {
+      reportItems: {
+        [index]: {
+          $set: {
+            name: name, yes: !yes, no: no, maybe: maybe,
+          }
+        }
+      }
+    }))
+  }
+
 
   render(){
     const { monstruos } = this.state;
     const { victimas } = this.state;
     const { recintos } = this.state;
+    const { reportItems } = this.state;
     return (
       <div className= "HP">
         <div className="HP-text">
@@ -274,19 +447,33 @@ class GameRoom extends React.Component{
               {/* poner el id del jugador "dueño" del ws */}
               <ShowCards playerId = {window.sessionStorage.getItem("player_id")}/>
             </div>
-            {this.state.current_player.order == this.state.turn && this.state.ableToPlay &&
+            {this.state.currentPlayer.order == this.state.turn && this.state.ableToPlay &&
             <>
-              <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} gameId={this.props.match.params.id}/>
+              {this.state.currentPlayer.current_position !== null && 
+                <RollDice parentCallback = {this.handleDCallback} playerId = {window.sessionStorage.getItem("player_id")} 
+                gameId={this.props.match.params.id} showDice = {this.state.showDice}/>
+              }
               <div className="playerOptions">
-                <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
+                {this.state.currentPlayer.current_position === null &&
+                  <button className = "turnContinue" onClick={this.toggleSus}> Sospechar </button> 
+                }
                 <button className = "turnContinue" onClick={this.toggleAcc}> Acusar </button>
                 <FinishTurn gameId={this.props.match.params.id}/>
               </div>
             </>
             }
+            <div className="otherPlayerOptions">
+              {this.state.entryButton && this.state.currentPlayer.order === this.state.turn &&
+                <button className = "entrarRecinto" onClick={this.enterEnclosure}> Entrar a Recinto </button>
+              }
+              <button className = "informeBoton" onClick={this.toggleInf}> Informe </button>
+              <button className = "chatBoton" > Chat </button>
+            </div>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
-            <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handlePCallback}
-                    dice = {this.state.dice} playersPosition = {this.state.all_players_pos}/>
+            <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handleBCallback}
+                    dice = {this.state.dice} playersPosition = {this.state.allPlayersPos}
+                    entryEnable = {this.state.entryButton} myPlayer = {this.state.currentPlayer}
+                    playersInEnc = {this.state.playersInEnc}/>
         </div>
         {/*SOSPECHAR*/}
         <Modal active={this.state.modalSusActive}>
@@ -393,9 +580,36 @@ class GameRoom extends React.Component{
           </Modal>:
             null
         }
+      {/*INFORME*/}
+        <Modal active={this.state.modalInfActive}>
+          <th className= "first-row" scope="col">Si</th>
+          <th className= "topping" scope="col">No</th>
+          <th className= "topping" scope="col">Capaz</th>
+          <div className="informeScroll">
+            {reportItems.map(item => (
+              <tr className= "topping">
+                <td className="first-column" > 
+                  {item.name}
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.yes}
+                    onChange={() => this.saveCheckYes(item.name, item.yes, item.no, item.maybe)}/>
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.no}
+                    onChange={() => this.saveCheckNo(item.name, item.yes, item.no, item.maybe)}/>
+                </td>
+                <td className="rowtype">
+                  <input type="checkbox" class="Checkbox" checked={item.maybe}
+                    onChange={() => this.saveCheckMaybe(item.name, item.yes, item.no, item.maybe)}/>
+                </td>
+              </tr>
+            ))}
+          </div>
+          <button className = "aceptarInforme" onClick={this.toggleInf}> Aceptar </button>
+        </Modal>
       </div>
     );
   }
 }
-// onClick = {this.handleSubmit.bind(this)}
 export default GameRoom;
