@@ -173,8 +173,38 @@
 	box-shadow: 0 0 2px 2px limegreen, 0.2rem 0.2rem 10px #13092d;
 }
 
-.eplayer{
+.eblue{
+	background-image: url(../../drawable/player_blue.png);
+	position: absolute;
+	background-repeat: no-repeat;
+}
+
+.egreen{
 	background-image: url(../../drawable/player_green.png);
+	position: absolute;
+	background-repeat: no-repeat;
+}
+
+.eorange{
+	background-image: url(../../drawable/player_orange.png);
+	position: absolute;
+	background-repeat: no-repeat;
+}
+
+.ered{
+	background-image: url(../../drawable/player_red.png);
+	position: absolute;
+	background-repeat: no-repeat;
+}
+
+.ewhite{
+	background-image: url(../../drawable/player_white.png);
+	position: absolute;
+	background-repeat: no-repeat;
+}
+
+.eyellow{
+	background-image: url(../../drawable/player_yellow.png);
 	position: absolute;
 	background-repeat: no-repeat;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import '../css/StartGame.css';
 import Modal from '../js/Modal';
 import '../css/ValidationModal.css';
-import { useState, setState } from 'react';
+import { useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 function StartGame ({gameId}) {

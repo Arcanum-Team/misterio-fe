@@ -203,8 +203,43 @@
 	pointer-events: auto;
 }
 
-.bplayer{
+.blue{
+	background-image: url(../../drawable/player_blue.png);
+	position: relative;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.red{
+	background-image: url(../../drawable/player_red.png);
+	position: relative;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.green{
 	background-image: url(../../drawable/player_green.png);
+	position: relative;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.yellow{
+	background-image: url(../../drawable/player_yellow.png);
+	position: relative;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.orange{
+	background-image: url(../../drawable/player_orange.png);
+	position: relative;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.white{
+	background-image: url(../../drawable/player_white.png);
 	position: relative;
 	background-repeat: no-repeat;
 	z-index: 1;

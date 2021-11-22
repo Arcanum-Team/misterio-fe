@@ -17,7 +17,8 @@ class GameRoom extends React.Component{
     super(props);
     this.state = {
         players: [],
-        playersInEnc: [0,0,0,0,0,0],
+        playersInEnc: [{enc:0,color:''},{enc:0,color:''},{enc:0,color:''},
+                      {enc:0,color:''},{enc:0,color:''},{enc:0,color:''}],
         currentPlayer: {},
         entries: [5,11,16,23,31,36,45,51,57,64,71,77],
         turn: 0,
@@ -217,13 +218,14 @@ class GameRoom extends React.Component{
   }
 
   onMessage(message){
+    console.log(message)
     if(message.type === "PLAYER_NEW_POSITION" || message.type === "ENCLOSURE_EXIT"){
       this.setState(update(this.state, {
         allPlayersPos: {
             [message.data.player.order - 1]: {
                 $set: {
                   order: message.data.player.order,
-                  color: "green",
+                  color: message.data.player.color,
                   position: message.data.player.current_position.id
                 }
             }
@@ -245,7 +247,10 @@ class GameRoom extends React.Component{
             this.setState(update(this.state, {
               playersInEnc: {
                   [message.data.player.order - 1]: {
-                      $set: 0
+                      $set: {
+                        enc: 0,
+                        color: ''
+                      }
                   }
               }
             }));
@@ -310,7 +315,7 @@ class GameRoom extends React.Component{
                 [this.state.turn - 1]: {
                     $set: {
                       order: 0,
-                      color: "green",
+                      color: "",
                       position: 0
                     }
                 }
@@ -357,7 +362,7 @@ class GameRoom extends React.Component{
             [message.data.player.order - 1]: {
                 $set: {
                   order: message.data.player.order,
-                  color: "green",
+                  color: message.data.player.color,
                   position: null
                 }
             }
@@ -366,7 +371,10 @@ class GameRoom extends React.Component{
       this.setState(update(this.state, {
         playersInEnc: {
             [message.data.player.order - 1]: {
-                $set: message.data.player.enclosure.id
+                $set: {
+                  enc: message.data.player.enclosure.id,
+                  color: message.data.player.color
+                }
             }
         }
       }));
@@ -452,12 +460,12 @@ class GameRoom extends React.Component{
             })
           }, 6000)
         }
-        json.players.map((player) => {
+        json.players.forEach((player) => {
           if(player.current_position !== null){
             this.setState({
               allPlayersPos: this.state.allPlayersPos.concat({
                 order: player.order,
-                color: "green",
+                color: player.color,
                 position: player.current_position.id 
               }).sort((a, b) => a.order > b.order ? 1 : -1)
             })
@@ -465,7 +473,10 @@ class GameRoom extends React.Component{
             this.setState(update(this.state, {
               playersInEnc: {
                   [player.order - 1]: {
-                      $set: player.enclosure.id
+                    $set: {
+                      enc: player.enclosure.id,
+                      color: player.color
+                    }
                   }
               }
             }));
@@ -725,7 +736,7 @@ class GameRoom extends React.Component{
               <h4> ¡La Bruja de Salem! </h4>
               <h2> Esta carta está en el sobre: </h2>
               <button className="scard">
-                <div className={"scard__type " + "SALEM"}> Bruja de Salem </div>
+                <div className={"scard__type SALEM"}> Bruja de Salem </div>
                 <div className={"scard__name " + this.state.showSalem}>{this.state.showSalem}</div>
               </button>
             </div>
