@@ -16,7 +16,7 @@ class SocketHandler {
     }
 
     async disconnect(){
-        if(this.ws !== null){
+        if(this.ws !== null && this.ws !== undefined){
             await this.ws.close(1000, "shut down");
         }
     }

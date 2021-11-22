@@ -18,7 +18,7 @@ class ListOfPlayers extends React.Component {
                     {this.props.players.map((player) => (                         
                         <tr>
                             <td className="td-image">
-                                {player.order == this.props.turn && <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pinclipart.com%2Fpicdir%2Fbig%2F1-16415_download-red-arrow-right-png-clipart-arrow-clip.png&f=1&nofb=1"/>}
+                                {player.order === this.props.turn && <img alt="detective" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pinclipart.com%2Fpicdir%2Fbig%2F1-16415_download-red-arrow-right-png-clipart-arrow-clip.png&f=1&nofb=1"/>}
                             </td>
                             <td className="td">{ player.nickname }</td>                  
                             <td className="td-image">

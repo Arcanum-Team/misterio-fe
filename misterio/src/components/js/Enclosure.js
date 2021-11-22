@@ -14,11 +14,11 @@ export default class Enclosure extends React.Component {
 	render() {
 		return (
 			<button className= { this.props.playerPos ?
-                (this.props.edis ? this.props.style + " edis" + " eplayer" : this.props.style + " eplayer") :
-                (this.props.edis ? this.props.style + " edis" : this.props.style)}
+                (this.props.edis ? `${this.props.style} edis e${this.props.playerInside[0].color}` : `${this.props.style} e${this.props.playerInside[0].color}`) :
+                (this.props.edis ? `${this.props.style} edis` : this.props.style)}
                     onClick={this.handleClick}>
-				{this.props.value}
-			</button>
+                {this.props.value}
+            </button>
 		)
 	}
 }
