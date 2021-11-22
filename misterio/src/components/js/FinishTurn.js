@@ -8,6 +8,7 @@ class FinishTurn extends React.Component {
 		event.preventDefault();
 		
 		const data = {'game_id': this.props.gameId, 'player_id': window.sessionStorage.getItem("player_id")}
+		console.log(data)
 		const requestOptions = {
 			method: 'PUT',
 			mode: 'cors',

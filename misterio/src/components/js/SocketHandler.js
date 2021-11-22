@@ -13,7 +13,9 @@ class SocketHandler {
     }
 
     async disconnect(){
-        await this.ws.close(1000, "shut down");
+        if(this.ws !== null){
+            await this.ws.close(1000, "shut down");
+        }
     }
 
     onMessage(message){

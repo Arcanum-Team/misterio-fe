@@ -6,6 +6,7 @@ import ShowCards from './ShowCards.js';
 import FinishTurn from './FinishTurn.js';
 import SocketHandler from './SocketHandler'
 import ListOfPlayers from './ListOfPlayers.js';
+import Player from './Player.js';
 import '../css/HomePage.css';
 import '../css/GameRoom.css';
 import '../css/SuspectModal.css';
@@ -25,10 +26,13 @@ class GameRoom extends React.Component{
         showDice: true,
         modalSusActive: false,
         modalShowAccResActive : false,
+        modalShowWinner : false,
         modalSorting: true,
         modalShowSusActive: false,
         modalAccActive: false,
         modalInfActive: false,
+        modalResponseSuspect: false,
+        modalCardResponseSuspect: false,
         exceptionMessage:"",
         entryButton: false,
         monstruos: [],
@@ -41,6 +45,8 @@ class GameRoom extends React.Component{
         ableToPlay: true, // Everyone is able to play unless they do an incorrect accusation
         allPlayersPos: [],
         reportItems: [],
+        playerCards: [],
+        suspectMatchCards: [],
     };
     this.saveCheckNo = this.saveCheckNo.bind(this);
     this.saveCheckYes = this.saveCheckYes.bind(this);
@@ -54,6 +60,12 @@ class GameRoom extends React.Component{
     })
   }
 
+  getPlayerCardsCallback = (cards) => {
+    this.setState({
+      playerCards: cards
+    })
+  }
+
   handleBCallback = (emptyMoves, player) =>{
     this.setState({
       possibleMoves: emptyMoves,
@@ -64,6 +76,33 @@ class GameRoom extends React.Component{
     this.setState({
       modalSusActive: !this.state.modalSusActive
     })
+  }  
+  
+  toggleResponseSuspect = () => {
+    this.setState({
+      modalResponseSuspect: !this.state.modalResponseSuspect
+    })
+  }
+
+  toggleCardResponseSuspect = () => {
+    this.setState({
+      modalCardResponseSuspect: !this.state.modalCardResponseSuspect
+    })
+    setTimeout(() => {
+      this.setState({
+        modalCardResponseSuspect: !this.state.modalCardResponseSuspect
+      })
+      const dataPass = {'game_id': window.sessionStorage.getItem("game_id"), 'player_id': window.sessionStorage.getItem("player_id")}
+      console.log(dataPass)
+      const requestOptionsTurn = {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify(dataPass)
+      };
+    
+      fetch("http://127.0.0.1:8000/api/v1/shifts/pass", requestOptionsTurn)
+    }, 6000)
   }
 
   toggleShowSus = () => {
@@ -77,6 +116,28 @@ class GameRoom extends React.Component{
     }, 6000)
   }
 
+  answerSuspicion = (selectedCard) => {
+    const data = {
+      'game_id': window.sessionStorage.getItem("game_id"), 
+      'from_player': this.state.suspectPlayersId.reachedPlayerId, 
+      'to_player': this.state.suspectPlayersId.playerMadeSuspect,
+      'card': selectedCard.id
+    }
+
+    const requestOptions = {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify(data)
+    };
+
+    fetch("http://127.0.0.1:8000/api/v1/shifts/send_suspect_card", requestOptions)
+      .then((res) => res.json())
+      .then((json) => {
+        this.toggleResponseSuspect();
+    })
+  }
+
   modalShowAccResActive = () => {
     this.setState({
       modalShowAccResActive: !this.state.modalShowAccResActive
@@ -86,6 +147,19 @@ class GameRoom extends React.Component{
         modalShowAccResActive: !this.state.modalShowAccResActive,
       })
     }, 6000)
+  }
+
+  modalShowWinner = () => {
+    setTimeout(() => {
+      this.setState({
+        modalShowWinner: !this.state.modalShowWinner
+      })
+    }, 6000)
+    setTimeout(() => {
+      this.setState({
+        modalShowWinner: !this.state.modalShowWinner,
+      })
+    }, 10000)
   }
 
   toggleAcc = () => {
@@ -209,13 +283,21 @@ class GameRoom extends React.Component{
           victima:  this.state.victimas.filter((victima)=> victima.id === message.data.victim_id)[0].name,
           recinto:  this.state.recintos.filter((recinto)=> recinto.id === message.data.enclosure_id)[0].name,
         })
+        if(message.data.reached_player_id === window.sessionStorage.getItem("player_id")){
+          this.setState({
+            suspectMatchCards: this.state.playerCards.filter((card)=> card.id === message.data.monster_id || card.id === message.data.victim_id || card.id === message.data.enclosure_id),
+            suspectPlayersId: {reachedPlayerId: message.data.reached_player_id, playerMadeSuspect: message.data.player_id } 
+          })
+          setTimeout(() => {
+            this.toggleResponseSuspect();
+          }, 6000)
+        }
         this.toggleShowSus()
     }else if(message.type === "ACCUSE"){
-      console.log(this.state.players)
         this.setState({
           accusationResult: {
             isWinner: message.data.result,
-            playerName: this.state.players.filter((player) => player.id === message.data.player_id)[0].nickname
+            playerName: ""
           }
         })
         this.modalShowAccResActive();
@@ -231,6 +313,27 @@ class GameRoom extends React.Component{
                 }
             }
           }));
+          if(message.data.player_win !== null){
+            this.setState({
+              winnerResult: {
+                name: message.data.player_win.nickname,
+                color: message.data.player_win.color,
+              }
+            })
+            this.modalShowWinner();
+            setTimeout(() => {
+              this.setState({
+                modalShowWinner: !this.state.modalShowWinner
+              })
+              window.sessionStorage.clear()
+              global.sh.disconnect();
+              this.props.history.push("../");
+            }, 10000)
+          }else{
+            this.setState({
+              turn: message.data.next_player_turn.order
+            })
+          }
         }else{
           setTimeout(() => {
             window.sessionStorage.clear()
@@ -243,19 +346,8 @@ class GameRoom extends React.Component{
           this.setState({
             ableToPlay: message.data.result
           })
-          const data = {'game_id': window.sessionStorage.getItem("game_id"), 'player_id': window.sessionStorage.getItem("player_id")}
-          const requestOptions = {
-            method: 'PUT',
-            mode: 'cors',
-            headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-            body: JSON.stringify(data)
-          };
-
-          fetch("http://127.0.0.1:8000/api/v1/shifts/pass", requestOptions)
-          this.setState({
-            modalAccActive: !this.state.modalAccActive
-          })
-        }
+        
+      }
     }else if(message.type === "ENCLOSURE_ENTER"){
       this.setState(update(this.state, {
         allPlayersPos: {
@@ -275,6 +367,14 @@ class GameRoom extends React.Component{
             }
         }
       }));
+    }else if(message.type === "SUSPECT_RESPONSE"){
+      this.setState({
+        responseCard: {
+          cardName: this.state.allGameCards.filter((card)=> card.id === message.data.card)[0].name,
+          cardType: this.state.allGameCards.filter((card)=> card.id === message.data.card)[0].cardType
+        }
+      })
+      this.toggleCardResponseSuspect();
     }
   }
 
@@ -330,6 +430,7 @@ class GameRoom extends React.Component{
             monstruos: json.filter(x => x.type === "MONSTER"),
             victimas: json.filter(x => x.type === "VICTIM"),
             recintos: json.filter(x => x.type === "ENCLOSURE"),
+            allGameCards: json,
             reportItems: [].concat(json.map((x)=> {return {name: x.name, yes: false, no: false, maybe: false}}))
           });
       })
@@ -379,7 +480,7 @@ class GameRoom extends React.Component{
 
   makeAccusation = event =>{
     event.preventDefault();
-    
+    this.toggleAcc();
 		const data = {
       "game_id": window.sessionStorage.getItem("game_id"),
       "player_id": window.sessionStorage.getItem("player_id"),
@@ -399,25 +500,26 @@ class GameRoom extends React.Component{
   makeSuspicion = event =>{
     event.preventDefault();
     
-		const data = {
+		const dataSus = {
       "game_id": window.sessionStorage.getItem("game_id"),
       "player_id": window.sessionStorage.getItem("player_id"),
       "monster_id": this.state.monstruos.filter((monstruo)=> monstruo.name === this.state.monstruo)[0].id,
       "victim_id": this.state.victimas.filter((victima)=> victima.name === this.state.victima)[0].id
     }
 
-		const requestOptions = {
+		const requestOptionsSus = {
 			method: 'PUT',
 			mode: 'cors',
 			headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-			body: JSON.stringify(data)
+			body: JSON.stringify(dataSus)
 		};
-    console.log(data)
-		fetch("http://127.0.0.1:8000/api/v1/shifts/suspect", requestOptions)
-			.then((response) => {
-				this.toggleSus();
-			})
-  } 
+		fetch("http://127.0.0.1:8000/api/v1/shifts/suspect", requestOptionsSus)
+      this.toggleSus();
+      this.setState({
+        possibleMoves: [],
+        turn: 0
+      })
+	  } 
   
   saveCheckYes(name, yes, no, maybe) {
     var index = this.state.reportItems.findIndex(function(c) { 
@@ -445,7 +547,7 @@ class GameRoom extends React.Component{
         <div className="HP-text">
             <div className="scene">
               {/* poner el id del jugador "dueño" del ws */}
-              <ShowCards playerId = {window.sessionStorage.getItem("player_id")}/>
+              <ShowCards parentCallback = {this.getPlayerCardsCallback} playerId = {window.sessionStorage.getItem("player_id")}/>
             </div>
             {this.state.currentPlayer.order == this.state.turn && this.state.ableToPlay &&
             <>
@@ -608,6 +710,50 @@ class GameRoom extends React.Component{
           </div>
           <button className = "aceptarInforme" onClick={this.toggleInf}> Aceptar </button>
         </Modal>
+      {/*SUSPECT SELECT CARD*/}
+      {this.state.modalResponseSuspect ?
+          <Modal active={this.state.modalResponseSuspect}>
+            <div class="dropdown">
+              <div className="mod-confirm"> Elige que carta de la sospecha mostrar:</div>
+              {this.state.suspectMatchCards.map((card) => ( 
+                  <button className="scard" onClick={() => this.answerSuspicion(card)}>
+                   <div className="scard__type">{card.type}</div>
+                   <div className={"scard__name " + card.name}>{card.name}</div>
+                 </button>
+              ))}
+              </div>
+          </Modal>:
+            null
+        }
+        {/*SUSPECT CARD RESPONSE*/}
+        {this.state.modalCardResponseSuspect ?
+            <Modal active={this.state.modalCardResponseSuspect}>
+              <div class="dropdown">
+                <div className="mod-confirm"> Resultado de tu sospecha: </div>
+                <p>Asegurate de anotarla en tu informe</p>
+                  <button className="scard">
+                    <div className="scard__type">{this.state.responseCard.cardType}</div>
+                    <div className={"scard__name " + this.state.responseCard.cardName}>{this.state.responseCard.cardName}</div>
+                  </button>
+                </div>
+            </Modal>:
+              null
+          } 
+          {/*SHOW WINNER*/}
+          {this.state.modalShowWinner ?
+              <Modal active={this.state.modalShowWinner}>
+              <div className="modal-dialog modal-confirm">
+              <div className="modal-content">
+                <div className="text-center">
+                  <h4> {"El ganador de la partida es..."}</h4>
+                  <h2> {this.state.winnerResult.name } </h2>
+                  <Player color={ this.state.winnerResult.color} ></Player>
+                </div>
+              </div>
+            </div>
+            </Modal>:
+                null
+            }
       </div>
     );
   }
