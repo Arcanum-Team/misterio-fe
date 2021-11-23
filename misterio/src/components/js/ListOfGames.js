@@ -59,9 +59,10 @@ class ListOfGames extends React.Component {
                             {items.map((item) => ( 
                                 <tr key={item.name}>
                                     <td>{ item.name }</td>
-                                    <td>{ item.player_count }</td>   
+                                    <td>{ item.player_count }</td>
+                                    <td>{ item.password }</td> 
                                     <td>
-                                       <JoinGame gameName= {item.name}/>
+                                       <JoinGame gameName={item.name} password={item.password}/>
                                     </td>
                                 </tr>
                             ))}
