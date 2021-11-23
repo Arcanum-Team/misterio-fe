@@ -6,7 +6,6 @@ import ShowCards from './ShowCards.js';
 import FinishTurn from './FinishTurn.js';
 import SocketHandler from './SocketHandler'
 import ListOfPlayers from './ListOfPlayers.js';
-import Player from './Player.js';
 import '../css/HomePage.css';
 import '../css/GameRoom.css';
 import '../css/SuspectModal.css';
