@@ -26,7 +26,9 @@ class ListOfGames extends React.Component {
             mode: 'cors',
             headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         };
-
+        if(window.sessionStorage.getItem("hasPassword") !== null){
+            window.sessionStorage.removeItem("hasPassword")
+        }
         fetch(
             "http://127.0.0.1:8000/api/v1/games", requestOptions)
             .then((res) => res.json())
@@ -53,15 +55,20 @@ class ListOfGames extends React.Component {
                                 <th>Nombre de la partida</th>
                                 <th>Cantidad de jugadores</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {items.map((item) => ( 
-                                <tr>
+                                <tr key={item.name}>
                                     <td>{ item.name }</td>
-                                    <td>{ item.player_count }</td>   
+                                    <td>{ item.player_count }</td>
+                                    {item.has_password ?
+                                        <td className={"lock"}></td> 
+                                        : <td></td>
+                                    }
                                     <td>
-                                       <JoinGame gameName= {item.name}/>
+                                       <JoinGame gameName={item.name} password={item.has_password}/>
                                     </td>
                                 </tr>
                             ))}
@@ -71,7 +78,7 @@ class ListOfGames extends React.Component {
             );
         }else{
             return(
-                <div className="">
+                <div>
                     <h3 className = "hdr"> No hay partidas</h3>
                     <CreateGame/>
                     <button className = "boton" type = "submit" onClick = {() => this.cancelClick()}> Cancelar </button>

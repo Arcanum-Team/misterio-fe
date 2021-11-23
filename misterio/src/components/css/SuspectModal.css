@@ -92,7 +92,6 @@
 
 .scard__name, .scard__type{
   position:relative;
-  background-position: 100% 75%;
 	width: 100%;
 	height: 90%;
 	background-size: cover;
@@ -101,10 +100,10 @@
 	padding-bottom: 150px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  background-position: 50% 50%;
 }
 
 .scard__type {
-  background-position: 50% 50%;
   position:absolute;
   transform: rotateY(180deg);
   background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/907125710387306496/unknown.png);
@@ -125,6 +124,10 @@
   }
 }
 
+/*Salem*/
+.scard__type.SALEM {
+  background-image: url(https://cdn.discordapp.com/attachments/905257129294856252/912213448354590820/unknown.png);
+}
 
 /*Monsters*/
 .scard__name.MOMIA{

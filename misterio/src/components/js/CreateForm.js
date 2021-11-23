@@ -11,6 +11,7 @@ class CreateForm extends React.Component {
     this.state = {
       gameName: '',
       hostName: '',
+      password: '',
       modalActive: false,
       exceptionMessage:""
     }
@@ -28,8 +29,10 @@ class CreateForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    
-    const data = {'game_name': this.state.gameName, 'nickname': this.state.hostName}
+    const data = {'game_name': this.state.gameName,
+              'nickname': this.state.hostName,
+              'optional_password': this.state.password}
+
     const requestOptions = {
         method: 'POST',
         mode: 'cors',
@@ -82,6 +85,10 @@ class CreateForm extends React.Component {
     this.setState({hostName: event.target.value});
   }
 
+  savePW = event => { 
+    this.setState({password: event.target.value});
+  }
+
   render () {
     return (
       <div className = "form-box">
@@ -113,6 +120,10 @@ class CreateForm extends React.Component {
             <label> Inserte su nombre de jugador </label>
             <input className = "input" placeholder="Nickname"
             value = {this.state.hostName} onChange = {this.saveHN}/>
+
+            <label> Inserte una contraseña para su partida </label>
+            <input className = "input" placeholder="Contraseña (opcional)"
+            value = {this.state.password} onChange = {this.savePW}/>
           </div> 
         </form>
   
