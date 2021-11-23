@@ -899,7 +899,6 @@ class GameRoom extends React.Component{
                 <div className="text-center">
                   <h4> {"El ganador de la partida es..."}</h4>
                   <h2> {this.state.winnerResult.name } </h2>
-                  <Player color={ this.state.winnerResult.color} ></Player>
                 </div>
               </div>
             </div>
@@ -911,7 +910,11 @@ class GameRoom extends React.Component{
               <Modal active={this.state.modalChatActive}>
                  <div className="bubbleWrapper">
                 <div className="inlineContainer">
-                    <h2>Chat general</h2>
+                <div className="modal-dialog modal-confirm">
+                    <div className="text-center">
+                      <h4> Chat General</h4>
+                    </div>
+                </div>
                     <div className="otherBubble other">
                     {this.state.noMessages  ? 
                      <>
@@ -934,8 +937,8 @@ class GameRoom extends React.Component{
                     }
                     </div>
                     <input placeholder="Escriba su mensaje.." ref={this.inputMessageRef} onChange = {this.saveMessageToBeSent}/>
-                   <button onClick={this.sendMessageChat.bind(this)} type="submit">Enviar</button>
-                   <button onClick={this.toggleChat} type="submit">Cerrar</button>
+                   <button onClick={this.sendMessageChat.bind(this)} type="submit" className="chat">Enviar</button>
+                   <button onClick={this.toggleChat} type="submit" className="chat">Cerrar</button>
                 </div>
             </div>
              </Modal>:
