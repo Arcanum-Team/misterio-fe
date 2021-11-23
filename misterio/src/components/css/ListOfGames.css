@@ -25,6 +25,16 @@ td{
     color: white;
 }
 
+.lock{
+    background-image: url(https://imagenpng.com/wp-content/uploads/2015/03/Imagenes-Candado-PNG-1.png);
+    padding: 2%;
+    background-position: 50% 50%;
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
 .tableGames {
     overflow-y: auto;
     height: 500px;

@@ -2,12 +2,13 @@ import React from 'react'
 import "../css/Button.css";
 import { useHistory } from "react-router-dom";
 
-function JoinGame({gameName}) {
+function JoinGame({gameName, password}) {
 
 	let history = useHistory();
 	
 	const handleClick = () => {
 		history.push("../JoinForm/" + gameName);
+		window.sessionStorage.setItem("hasPassword", password);
 	}
 
 	return (
