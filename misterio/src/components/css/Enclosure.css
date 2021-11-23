@@ -1,0 +1,13 @@
+.enclosure {
+	float:  left;
+	font-weight: bold;
+	line-height: 60px;
+	height: 175px;
+	width: 175px;
+	background-color: transparent;
+	color: darkred;
+	text-align: bottom;
+	text-shadow: white;
+	border: 1px solid #999;
+	text-shadow: navajowhite -2px 2px;
+}

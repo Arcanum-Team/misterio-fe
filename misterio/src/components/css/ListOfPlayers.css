@@ -1,6 +1,9 @@
+@import url('http://fonts.cdnfonts.com/css/bloody');
+
 thead tr{
     background-color: #5e222c;
     color: white;
+    font-family: 'Bloody', sans-serif;
 }
 
 tbody tr{
@@ -17,9 +20,10 @@ td{
 .tablePlayers {
     height: 90%;
     width: 10%;
-    top: 10px;
-    right: 20px;
+    padding: 10rem 1rem;
     position: absolute;
+    margin-right: -80%;
+    margin-top: -20%;
 }
 
 .tablePlayers thead {
@@ -31,14 +35,16 @@ table {
 }
 
 th, td {
-    border: 1px solid white;
     padding: 8px 40px;
 }
 
 img{
-    width: 260%;
+    padding: 0px 0px;
+    position: relative;
+    width: 1rem;
+    height: 1rem;
 }
 
 .td-image{
-    width: 150%;
+    position: relative;
 }

@@ -12,6 +12,7 @@
       color: #5e222c;
       margin: 0;
       font-family: 'Bloody', sans-serif;
+      text-shadow: -2px 2px 2px navajowhite;
   }
   
   .lobby{
@@ -19,6 +20,7 @@
       font-family: 'Bloody', sans-serif;
       color: #5e222c;
       margin: 0 0 5vh 0;
+      text-shadow: -2px 2px 2px navajowhite;
   }
 
   .playersContainer{

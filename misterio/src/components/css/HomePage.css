@@ -48,3 +48,29 @@
     color: #ffffff;
     transition: 1s color ease;
   }
+
+  .playerOptions{
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+    display: flex;
+    bottom: 1%;
+    right: 1%;
+    font-size: 10px;
+    justify-content:center;
+    position: absolute;
+    transition: background 0.25s;
+  }
+
+  .scene {
+    align-items: left;
+    flex-direction: column;
+    align-content: left;
+    display: flex;
+    top: 1%;
+    left: 1%;
+    font-size: 10px;
+    justify-content:left;
+    position: absolute;
+    transition: background 0.25s;
+  }

@@ -1,18 +1,16 @@
 import React from 'react';
-import detective from '../detective.png';
 import '../css/Card.css';
 
-class Card extends React.Component {
+class GCard extends React.Component {
     render(){
         return (
-            <div class="image-area">
-        <div class="img-wrapper">
-            <img src={detective} alt="detective" />
-            <h2> {this.props.playerName} </h2>
-        </div>
-    </div>
-    );
-  }
+            <div class="cscene">
+                <button class="card">
+                    <div class={"card__content " + this.props.cardName}>{this.props.cardName}</div>
+                </button>
+            </div>
+        )
+    }
 }
 
-export default Card;
+export default GCard;

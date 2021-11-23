@@ -1,0 +1,66 @@
+.player-red{
+	background: url(../../drawable/player_red.png);
+	padding: 2%;
+	margin-top: -2%;
+	margin-left: 0.45%;
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 3;
+}
+
+.player-orange{
+	background-image: url(../../drawable/player_orange.png);
+	padding: 2%;
+	margin-top: -2%;
+	margin-left: 0.45%;
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.player-green{
+	background-image: url(../../drawable/player_green.png);
+	padding: 2%;
+	margin-top: -2%;
+	margin-left: 0.45%;
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.player-blue{
+	background-image: url(../../drawable/player_blue.png);
+	padding: 2%;
+	margin-top: -2%;
+	margin-left: 0.45%;
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.player-white{
+	background-image: url(../../drawable/player_white.png);
+	padding: 2%;
+	margin-top: -2%;
+	margin-left: 0.45%;
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.player-yellow{
+	background-image: url(../../drawable/player_yellow.png);
+	padding: 2%;
+	margin-top: -2%;
+	margin-left: 0.45%;
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+

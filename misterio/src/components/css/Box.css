@@ -1,0 +1,211 @@
+.NONE {		/*normal*/
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/907388673522274384/unknown.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.ENTRY {	/*entry*/
+	background: url('https://cdn.discordapp.com/attachments/905257129294856252/911490704847548436/black.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.ENCLOSURE_DOWN {	/*dowm*/
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/905179406094463016/unknown.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.ENCLOSURE_UP {	/*up*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/906013996157644830/arrow.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.l {	/*left*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/906320711105257512/unknown_1.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+}
+
+.r {	/*right*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/906320676498055278/unknown_1.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+}
+
+.TRAP {	/*trap*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/906016609322299402/unknown.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+
+.BAT {	/*bat*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/905257129294856252/909563395987111996/unknown.png');
+	background-size: contain;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.COBRA {	/*cobra*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/909562176031817748/unknown.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.SCORPION {	/*escorpion*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/909565443424014416/unknown.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.SPIDER {	/*araña*/
+	background-color: transparent;
+	background: url('https://cdn.discordapp.com/attachments/897995023860252682/909565583056597032/unknown.png');
+	background-size: cover;
+	border:  1px solid #999;
+	float:  left;
+	font-size: 80%;
+	line-height: 10%;
+	height: 30px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	opacity: 0.7;
+	text-align: center;
+	width: 30px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.dis{
+	opacity: 1;
+	box-shadow: 0 0 10px 3px darkred, 0.2rem 0.2rem 100px #13092d;
+	z-index: -1;
+	pointer-events: auto;
+}
+
+.dis:hover{
+	box-shadow: 0 0 2px 2px limegreen, 0.2rem 0.2rem 10px #13092d;
+	pointer-events: auto;
+}
+
+.bplayer{
+	background-image: url(../../drawable/player_green.png);
+	position: relative;
+	background-repeat: no-repeat;
+	z-index: 1;
+}

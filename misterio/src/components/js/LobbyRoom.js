@@ -1,7 +1,8 @@
 import React from "react";
-import Card from './Card'
+import LobbyPlayer from './LobbyPlayer'
 import StartGame from './StartGame';
 import '../css/LobbyRoom.css';
+import SocketHandler from './SocketHandler'
 
 class LobbyRoom extends React.Component {
   constructor(props) {
@@ -15,7 +16,25 @@ class LobbyRoom extends React.Component {
       };
   }
 
+  onMessage(message){
+    if(message.type === "JOIN_PLAYER"){
+      this.setState({
+        players: message.data.players
+      })
+    }else if(message.type === "START_GAME"){
+      this.props.history.push("../GameRoom/" + message.data.game.id);
+    }
+  }
+  
   componentDidMount() {
+
+    if(global.sh !== undefined){
+      global.sh.subscribe((event) => this.onMessage(event))
+    }else{
+      global.sh = new SocketHandler();
+      global.sh.connect(window.sessionStorage.getItem("game_id"), window.sessionStorage.getItem("player_id"));
+      global.sh.subscribe((event) => this.onMessage(event))
+    }
     const requestOptions = {
         method: 'GET',
         mode: 'cors',
@@ -26,9 +45,9 @@ class LobbyRoom extends React.Component {
         "http://127.0.0.1:8000/api/v1/games/" + this.props.match.params.id , requestOptions)
         .then((res) => res.json())
         .then((json) => {
-
+          console.log(json)
           this.setState({
-            gameName: json.name,  
+            gameName: json.game.name,  
             players: json.players,
             playerNum: json.player_count
           })
@@ -44,12 +63,12 @@ class LobbyRoom extends React.Component {
           <p className = "lobby">
             Lobby
           </p>
-          <div className="playersContainer">
+          <div id="playersContainer" className="playersContainer">
             {this.state.players.map((player) => ( 
-              <Card playerName = { player.nickname } />
+              <LobbyPlayer playerName = { player.nickname } />
             ))}
           </div>
-          {localStorage.getItem("host_id")!= null && <StartGame className="startGameButton" GameId={this.props.match.params.id}/>}
+          {window.sessionStorage.getItem("host_id")!= null && <StartGame className="startGameButton" gameId={this.props.match.params.id}/>}
       </div>
     );
   }
