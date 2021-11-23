@@ -312,10 +312,11 @@ class GameRoom extends React.Component{
         }
         this.toggleShowSus()
     }else if(message.type === "ACCUSE"){
+      console.log(message)
         this.setState({
           accusationResult: {
             isWinner: message.data.result,
-            playerName: ""
+            playerName: message.data.player.nickname
           }
         })
         this.modalShowAccResActive();
@@ -453,9 +454,15 @@ class GameRoom extends React.Component{
             })
             setTimeout(() => {
               this.setState({
-                modalSorting: false
+                modalSorting: false,
+                modalSalem: true
               })
             }, 1000)
+            setTimeout(() => {
+              this.setState({
+                modalSalem: false
+              })
+            }, 5000)
           }
         }else{
           setTimeout(() => {
@@ -521,7 +528,7 @@ class GameRoom extends React.Component{
           possibleMoves: [].concat(this.state.currentPlayer.enclosure.doors.map((door) => {return door.id}))
         })
       }
-    }, 1000)
+    }, 2000)
   }
 
   saveCheckNo(name, yes, no, maybe) {
@@ -740,18 +747,28 @@ class GameRoom extends React.Component{
           </div>
         </Modal>
         {/*SALEM*/}
-        {this.state.modalSalem ?
-          <Modal active={this.state.modalSalem}>
+        {this.state.modalSalem ? 
+          (this.state.currentPlayer.witch ?
+            <Modal active={this.state.modalSalem}>
+              <div className="modal-dialog modal-confirm">
+                <h4> ¡La Bruja de Salem! </h4>
+                <h2> Esta carta está en el sobre: </h2>
+                <button className="scard">
+                  <div className={"scard__type SALEM"}> Bruja de Salem </div>
+                  <div className={"scard__name " + this.state.showSalem}>{this.state.showSalem}</div>
+                </button>
+              </div>
+            </Modal>
+          : <Modal active={this.state.modalSalem}>
             <div className="modal-dialog modal-confirm">
-              <h4> ¡La Bruja de Salem! </h4>
-              <h2> Esta carta está en el sobre: </h2>
-              <button className="scard">
-                <div className={"scard__type SALEM"}> Bruja de Salem </div>
-                <div className={"scard__name " + this.state.showSalem}>{this.state.showSalem}</div>
-              </button>
+              <div className="modal-content">
+                <div className="modal-body text-center">
+                  <h4> La carta de Salem esta siendo mostrada</h4>
+                </div>
+              </div>
             </div>
-          </Modal>
-            :null
+          </Modal>)
+          :null 
         }
         {/*Show winner/loser player*/}
         {this.state.modalShowAccResActive ?
