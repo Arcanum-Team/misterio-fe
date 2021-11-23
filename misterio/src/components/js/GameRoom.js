@@ -11,6 +11,7 @@ import '../css/HomePage.css';
 import '../css/GameRoom.css';
 import '../css/SuspectModal.css';
 import update from 'immutability-helper';
+import '../css/Chat.css';
 
 class GameRoom extends React.Component{
   constructor(props) {
@@ -32,6 +33,7 @@ class GameRoom extends React.Component{
         modalSorting: false,
         modalShowSusActive: false,
         modalAccActive: false,
+        modalChatActive: false,
         modalInfActive: false,
         showSalem: '',
         modalResponseSuspect: false,
@@ -50,7 +52,11 @@ class GameRoom extends React.Component{
         reportItems: [],
         playerCards: [],
         suspectMatchCards: [],
+        messages: [],
+        messageToBeSent:"",
+        noMessages: true
     };
+    this.inputMessageRef= React.createRef();
     this.saveCheckNo = this.saveCheckNo.bind(this);
     this.saveCheckYes = this.saveCheckYes.bind(this);
     this.saveCheckMaybe = this.saveCheckMaybe.bind(this);
@@ -207,6 +213,10 @@ class GameRoom extends React.Component{
 
   saveMonster = event => { 
       this.setState({monstruo: event.target.value});
+  }
+  
+  toggleChat = () => { 
+      this.setState({modalChatActive: !this.state.modalChatActive});
   }
 
   saveVictim = event => { 
@@ -396,6 +406,17 @@ class GameRoom extends React.Component{
         }
       })
       this.toggleCardResponseSuspect();
+    }else if(message.type === "CHAT"){
+      this.setState({
+          messages: this.state.messages.concat({
+              player: message.data.nickname,
+              text: message.data.message
+          }),
+          noMessages: false
+      })
+      setTimeout(() => {
+        window.sessionStorage.setItem("messages", JSON.stringify(this.state.messages))
+      }, 1000)
     }
   }
 
@@ -509,7 +530,14 @@ class GameRoom extends React.Component{
           reportItems: JSON.parse(window.sessionStorage.getItem("report_items"))
         })
       }
+      if(window.sessionStorage.getItem("messages") !== null){
+        this.setState({
+          messages: JSON.parse(window.sessionStorage.getItem("messages")),
+          noMessages: false
+        })
+      }
     setTimeout(() => {
+      console.log(JSON.parse(window.sessionStorage.getItem("messages")))
       if(window.sessionStorage.getItem("report_items") === null){
         this.setState({
           reportItems: [].concat(this.state.allGameCards.map((x)=> {return {name: x.name, yes: false, no: false, maybe: false}}))
@@ -612,6 +640,41 @@ class GameRoom extends React.Component{
     }))
   }
 
+  saveMessageToBeSent = event => { 
+    this.setState({messageToBeSent: event.target.value});
+  }
+
+  sendMessageChat = event => {
+    event.preventDefault();
+
+    this.setState({
+        messages: this.state.messages.concat({
+            player: this.state.players.filter((player)=> player.id ===  window.sessionStorage.getItem("player_id"))[0].nickname,
+            text: this.state.messageToBeSent
+        }),
+        noMessages: false
+    })
+
+    const data = {
+        'game_id': window.sessionStorage.getItem("game_id"), 
+        'player_id': window.sessionStorage.getItem("player_id"),
+        'message': this.state.messageToBeSent
+    }
+
+    const requestOptions = {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify(data)
+    };
+
+    fetch("http://127.0.0.1:8000/api/v1/games/chat", requestOptions)
+    this.inputMessageRef.current.value = "";
+    setTimeout(() => {
+      window.sessionStorage.setItem("messages", JSON.stringify(this.state.messages))
+    }, 1000)
+  }
+  
   render(){
     const { monstruos } = this.state;
     const { victimas } = this.state;
@@ -644,7 +707,7 @@ class GameRoom extends React.Component{
                 <button className = "entrarRecinto" onClick={this.enterEnclosure}> Entrar a Recinto </button>
               }
               <button className = "informeBoton" onClick={this.toggleInf}> Informe </button>
-              <button className = "chatBoton" > Chat </button>
+              <button className = "chatBoton" onClick={this.toggleChat}> Chat </button>
             </div>
             <ListOfPlayers players={this.state.players} turn={this.state.turn}/>
             <Board possibleMoves = {this.state.possibleMoves} parentCallback = {this.handleBCallback}
@@ -842,6 +905,41 @@ class GameRoom extends React.Component{
             </div>
             </Modal>:
                 null
+            }
+            {/*CHAT*/}
+            {this.state.modalChatActive ?
+              <Modal active={this.state.modalChatActive}>
+                 <div className="bubbleWrapper">
+                <div className="inlineContainer">
+                    <h2>Chat general</h2>
+                    <div className="otherBubble other">
+                    {this.state.noMessages  ? 
+                     <>
+                       <div className="messageContainer">
+                           <span className="other">Todavia no hay mensajes, sé el primero :)</span><br/>
+                           <hr/>
+                       </div>
+                    </>
+                    : 
+                    <>
+                      {this.state.messages.map(message => (
+                        <div className="messageContainer">
+                            <img className="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"/><br/>
+                            <span className="other">{message.player}</span><br/>
+                            <span className="other">{message.text}</span><br/>
+                            <hr/>
+                        </div>
+                      ))}
+                    </>
+                    }
+                    </div>
+                    <input placeholder="Escriba su mensaje.." ref={this.inputMessageRef} onChange = {this.saveMessageToBeSent}/>
+                   <button onClick={this.sendMessageChat.bind(this)} type="submit">Enviar</button>
+                   <button onClick={this.toggleChat} type="submit">Cerrar</button>
+                </div>
+            </div>
+             </Modal>:
+                 null
             }
       </div>
     );
