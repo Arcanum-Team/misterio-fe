@@ -10,7 +10,8 @@ class JoinForm extends React.Component {
 		super(props)
 		this.state = {
 			nickname: "",
-			password: "",
+			password:"",
+			has_password: false,
 			modalActive: false,
 			exceptionMessage:"",
 			game_id: "",
@@ -61,9 +62,9 @@ class JoinForm extends React.Component {
 				}else if(response.status === 422){ 
 					this.setState({
 						modalActive: true,
-						exceptionMessage: 'Los campos no pueden ser vacios'
+						exceptionMessage: 'Los campos son incorrectos'
 					})
-				}else if(response.status === 410){
+				}else if(response.status === 400){
 					this.setState({
 						modalActive: true,
 						exceptionMessage: 'La contraseña es incorrecta'
@@ -79,6 +80,12 @@ class JoinForm extends React.Component {
 				}
 			})
 	  };
+
+	  componentDidMount(){
+		  this.setState({
+			has_password: window.sessionStorage.getItem("hasPassword")
+		  })
+	  }
 
 	saveName = event => { 
 		this.setState({nickname: event.target.value});
@@ -115,12 +122,12 @@ class JoinForm extends React.Component {
 						<label> Inserte su nombre de jugador </label>
 						<input type="text" placeholder="Nickname"
 						value = {this.state.name} onChange = {this.saveName}/>
-						{this.props.password &&
-							<>
+						{this.state.has_password ?
+							<div>
 							<label> Inserte la contraseña </label>
 							<input type="text" placeholder="Contraseña"
 							value = {this.state.password} onChange = {this.savePW}/>
-							</>
+							</div> :null
 						}
 					</div>
 				</form>

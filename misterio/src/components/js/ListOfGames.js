@@ -26,7 +26,9 @@ class ListOfGames extends React.Component {
             mode: 'cors',
             headers: {'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         };
-
+        if(window.sessionStorage.getItem("hasPassword") !== null){
+            window.sessionStorage.removeItem("hasPassword")
+        }
         fetch(
             "http://127.0.0.1:8000/api/v1/games", requestOptions)
             .then((res) => res.json())
@@ -53,6 +55,7 @@ class ListOfGames extends React.Component {
                                 <th>Nombre de la partida</th>
                                 <th>Cantidad de jugadores</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,9 +63,12 @@ class ListOfGames extends React.Component {
                                 <tr key={item.name}>
                                     <td>{ item.name }</td>
                                     <td>{ item.player_count }</td>
-                                    <td>{ item.password }</td> 
+                                    {item.has_password ?
+                                        <td className={"lock"}></td> 
+                                        : <td></td>
+                                    }
                                     <td>
-                                       <JoinGame gameName={item.name} password={item.password}/>
+                                       <JoinGame gameName={item.name} password={item.has_password}/>
                                     </td>
                                 </tr>
                             ))}
