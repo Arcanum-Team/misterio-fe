@@ -14,8 +14,8 @@ export default class Box extends React.Component {
     render() {
         return (
             <button id = {this.props.id} className= { this.props.playerPos ?
-                (this.props.dis ? this.props.styling + " dis" + " bplayer" : this.props.styling + " bplayer") :
-                (this.props.dis ? this.props.styling + " dis" : this.props.styling)} 
+                (this.props.dis ? `${this.props.styling} dis ${this.props.playerInside[0].color}` : `${this.props.styling} ${this.props.playerInside[0].color}`) :
+                (this.props.dis ? `${this.props.styling} dis` : this.props.styling)}
                     onClick={this.handleClick}>
             </button>
         )

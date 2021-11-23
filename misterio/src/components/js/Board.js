@@ -12,7 +12,8 @@ export default class Board extends React.Component {
             pos_b: [],
             pos_c: [],
             pos_d: [],
-			playersInEnc: [0,0,0,0,0,0],
+			playersInEnc: [{enc:0,color:''},{enc:0,color:''},{enc:0,color:''},
+                        {enc:0,color:''},{enc:0,color:''},{enc:0,color:''}],
 			allPlayersPos:  this.props.playersPosition,
             enclosures: [],
             enc_name: ['COCHERA','ALCOBA','BIBLIOTECA','VESTIBULO','PANTEON','BODEGA','SALON','LABORATORIO']
@@ -20,7 +21,7 @@ export default class Board extends React.Component {
     }
 	
 	handleCallback = (new_box) =>{
-		if(this.state.playersInEnc[this.props.myPlayer.order-1] !== 0){
+		if(this.state.playersInEnc[this.props.myPlayer.order-1].enc !== 0){
 			const data = {'game_id': window.sessionStorage.getItem("game_id"),
 			'player_id': window.sessionStorage.getItem("player_id"),
 			'box_id': new_box}
@@ -38,7 +39,10 @@ export default class Board extends React.Component {
 				this.setState(update(this.state, {
 					playersInEnc: {
 						[json.player.order - 1]: {
-							$set: 0
+							$set: {
+								enc: 0,
+								color: ''
+							}
 						}
 					}
 				}));
@@ -108,11 +112,12 @@ export default class Board extends React.Component {
 		return (
 			<div className= "game-board">
 				{enclosures.map((x) =>
-					<Enclosure value = {x.enclosure.name} 
+					<Enclosure value = {x.enclosure.name} key={x.id}
 						style = {'e' + x.enclosure.name} id = {`${x.id}`}
 						edis = {this.props.possibleMoves.some(item => item === x.id )
 						&& this.props.myPlayer.current_position !== null}
-						playerPos = {this.state.playersInEnc.some(item => item === x.enclosure.id )}> 
+						playerPos = {this.state.playersInEnc.some(item => item.enc === x.enclosure.id )}
+						playerInside = {this.state.playersInEnc.filter(item => item.enc === x.enclosure.id)}> 
 					</Enclosure>
 				)}
 				<div className = "centro">
@@ -120,27 +125,31 @@ export default class Board extends React.Component {
 				</div>
 				<div className = "board-a">
 					{pos_a.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
-						parentCallback = {this.handleCallback} 
+						parentCallback = {this.handleCallback} key={x.id}
 						dis = {this.props.possibleMoves.some(item => item === x.id )}
-						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
+						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}
+						playerInside = {this.state.allPlayersPos.filter(item => item.position === x.id )}> </Box>)}
 				</div>
 				<div className = "board-d">
 					{pos_d.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
-						parentCallback = {this.handleCallback} 
+						parentCallback = {this.handleCallback} key={x.id}
 						dis = {this.props.possibleMoves.some(item => item === x.id )}
-						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
+						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}
+						playerInside = {this.state.allPlayersPos.filter(item => item.position === x.id )}> </Box>)}
 				</div>
 				<div className = "board-b">
 					{pos_b.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
-						parentCallback = {this.handleCallback} 
+						parentCallback = {this.handleCallback} key={x.id}
 						dis = {this.props.possibleMoves.some(item => item === x.id )}
-						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
+						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}
+						playerInside = {this.state.allPlayersPos.filter(item => item.position === x.id )}> </Box>)}
 				</div>
 				<div className = "board-c">
 					{pos_c.map((x) => <Box styling = {x.attribute} id = {`${x.id}`} 
-						parentCallback = {this.handleCallback} 
+						parentCallback = {this.handleCallback} key={x.id}
 						dis = {this.props.possibleMoves.some(item => item === x.id )} 
-						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}> </Box>)}
+						playerPos = {this.state.allPlayersPos.some(item => item.position === x.id )}
+						playerInside = {this.state.allPlayersPos.filter(item => item.position === x.id )}> </Box>)}
 				</div>
 			</div>
 		)
