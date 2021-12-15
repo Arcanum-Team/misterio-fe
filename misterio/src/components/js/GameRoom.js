@@ -146,9 +146,11 @@ class GameRoom extends React.Component{
   }
 
   modalShowAccResActive = () => {
-    this.setState({
-      modalShowAccResActive: !this.state.modalShowAccResActive
-    })
+    setTimeout(() => {
+      this.setState({
+        modalShowAccResActive: !this.state.modalShowAccResActive
+      })
+    }, 1000)
     setTimeout(() => {
       this.setState({
         modalShowAccResActive: !this.state.modalShowAccResActive,
@@ -321,10 +323,9 @@ class GameRoom extends React.Component{
         }
         this.toggleShowSus()
     }else if(message.type === "ACCUSE"){
-      console.log(message)
         this.setState({
           accusationResult: {
-            isWinner: message.data.result,
+            isWinner: !message.data.player.loser,
             playerName: message.data.player.nickname
           }
         })
@@ -543,7 +544,6 @@ class GameRoom extends React.Component{
         })
       }
     setTimeout(() => {
-      console.log(JSON.parse(window.sessionStorage.getItem("messages")))
       if(window.sessionStorage.getItem("report_items") === null){
         this.setState({
           reportItems: [].concat(this.state.allGameCards.map((x)=> {return {name: x.name, yes: false, no: false, maybe: false}}))
@@ -682,10 +682,10 @@ class GameRoom extends React.Component{
   }
   
   render(){
-    const { monstruos } = this.state;
-    const { victimas } = this.state;
-    const { recintos } = this.state;
-    const { reportItems } = this.state;
+    const { monstruos, victimas, recintos, reportItems } = this.state;
+    // const { victimas } = this.state;
+    // const { recintos } = this.state;
+    // const { reportItems } = this.state;
     return (
       <div className= "HP">
         <div className="HP-text">
@@ -825,9 +825,10 @@ class GameRoom extends React.Component{
             <div className="modal-dialog modal-confirm">
               <div className="modal-content">
                 <div className="modal-body text-center">
-                  <h4> La carta de Salem esta siendo mostrada</h4>
+                  <h4> La carta de Salem esta siendo mostrada a {this.state.players.filter((p) => p.witch === true)}</h4>
                 </div>
               </div>
+              {console.log(this.state.players.filter((p) => p.witch === true))}
             </div>
           </Modal>)
           :null 
@@ -924,7 +925,7 @@ class GameRoom extends React.Component{
             {/*CHAT*/}
             {this.state.modalChatActive ?
               <Modal active={this.state.modalChatActive}>
-                 <div className="bubbleWrapper">
+                <div className="bubbleWrapper">
                 <div className="inlineContainer">
                 <div className="modal-dialog modal-confirm">
                     <div className="text-center">

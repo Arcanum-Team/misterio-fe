@@ -125,7 +125,7 @@ class JoinForm extends React.Component {
 						{this.state.has_password ?
 							<div>
 							<label> Inserte la contraseña </label>
-							<input type="text" placeholder="Contraseña"
+							<input type="text" placeholder="Contraseña" type="password"
 							value = {this.state.password} onChange = {this.savePW}/>
 							</div> :null
 						}

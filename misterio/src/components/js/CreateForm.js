@@ -92,24 +92,24 @@ class CreateForm extends React.Component {
   render () {
     return (
       <div className = "form-box">
-   				<Modal active={this.state.modalActive}>
-            <div>
-              <div className="modal-dialog modal-confirm">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <div className="icon-box">
-                      <i className="bi bi-x-lg"></i>
-                    </div>
-                  </div>
-                  <div className="modal-body text-center">
-                    <h4>Ooops!</h4>	
-                    <p>{this.state.exceptionMessage}</p>
-                    <button className="btn btn-success" onClick={this.toggle} >Entiendo</button>
+ 				<Modal active={this.state.modalActive}>
+          <div>
+            <div className="modal-dialog modal-confirm">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <div className="icon-box">
+                    <i className="bi bi-x-lg"></i>
                   </div>
                 </div>
+                <div className="modal-body text-center">
+                  <h4>Ooops!</h4>	
+                  <p>{this.state.exceptionMessage}</p>
+                  <button className="btn btn-success" onClick={this.toggle} >Entiendo</button>
+                </div>
               </div>
-            </div>     
-				</Modal>
+            </div>
+          </div>     
+			  </Modal>
         <h3 className = "form-step"> Creando Partida </h3>
         <form>
           <div className = "field1">
@@ -122,7 +122,7 @@ class CreateForm extends React.Component {
             value = {this.state.hostName} onChange = {this.saveHN}/>
 
             <label> Inserte una contraseña para su partida </label>
-            <input className = "input" placeholder="Contraseña (opcional)"
+            <input className = "input" type="password" placeholder="Contraseña (opcional)"
             value = {this.state.password} onChange = {this.savePW}/>
           </div> 
         </form>
